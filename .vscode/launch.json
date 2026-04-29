@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CampusEmprendeApplication<Campus-Emprende>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.zosh.CampusEmprendeApplication",
+            "projectName": "Campus-Emprende",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

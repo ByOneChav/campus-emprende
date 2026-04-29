@@ -1,0 +1,67 @@
+spring:
+  application:
+    name: Campus-Emprende
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:campus_emprende}
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:Redimi2one2025*}
+
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: your email
+    password: "your app password"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+  devtools:
+    livereload:
+      enabled: true
+
+  task:
+    scheduling:
+      pool:
+        size: 5
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID:}
+            client-secret: ${GOOGLE_CLIENT_SECRET:}
+            scope: profile,email
+            redirect-uri: http://localhost:5000/login/oauth2/code/google
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+            user-name-attribute: sub
+
+server:
+  port: 5000
+
+
+app:
+  frontend:
+    reset-url: http://localhost:5173/auth/reset-password?token=
+    verify-url: http://localhost:5173/auth/verify-email?token=
+
+
+

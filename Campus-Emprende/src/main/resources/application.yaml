@@ -57,11 +57,7 @@ spring:
 server:
   port: 5000
 
-
 app:
   frontend:
     reset-url: http://localhost:5173/auth/reset-password?token=
     verify-url: http://localhost:5173/auth/verify-email?token=
-
-
-

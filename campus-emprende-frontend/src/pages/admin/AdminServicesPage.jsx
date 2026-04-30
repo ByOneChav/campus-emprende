@@ -12,9 +12,9 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { CheckCircle, XCircle, Loader2, ArrowLeft } from 'lucide-react';
 
 const CATEGORY_LABELS = {
-  WEB_DEV: 'Web Dev', GRAPHIC_DESIGN: 'Design',
-  TECH_SUPPORT: 'Tech Support', TUTORING: 'Tutoring',
-  PHOTOGRAPHY: 'Photography', OTHER: 'Other',
+  WEB_DEV: 'Desarrollo web', GRAPHIC_DESIGN: 'Diseño Gráfico',
+  TECH_SUPPORT: 'Soporte técnico', TUTORING: 'Tutoría',
+  PHOTOGRAPHY: 'Fotografía', OTHER: 'Otro',
 };
 
 export default function AdminServicesPage() {
@@ -46,9 +46,9 @@ export default function AdminServicesPage() {
     <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
       <div className="flex items-center gap-3">
         <Button variant="ghost" size="sm" asChild className="-ml-2">
-          <Link to="/admin"><ArrowLeft className="mr-2 h-4 w-4" />Admin</Link>
+          <Link to="/admin"><ArrowLeft className="mr-2 h-4 w-4" />Administrador</Link>
         </Button>
-        <h1 className="text-2xl font-bold">Pending Services</h1>
+        <h1 className="text-2xl font-bold">Servicios pendientes</h1>
         <Badge variant="secondary">{pendingServices.length}</Badge>
       </div>
 
@@ -57,7 +57,7 @@ export default function AdminServicesPage() {
       ) : pendingServices.length === 0 ? (
         <div className="py-16 text-center text-muted-foreground">
           <CheckCircle className="h-10 w-10 mx-auto mb-3 text-green-500" />
-          <p>No pending services — you're all caught up!</p>
+          <p>No hay servicios pendientes: ¡estás al día!</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -68,17 +68,17 @@ export default function AdminServicesPage() {
                   <div>
                     <Link to={`/services/${s.id}`} className="font-semibold hover:underline">{s.title}</Link>
                     <p className="text-xs text-muted-foreground mt-0.5">
-                      {CATEGORY_LABELS[s.category]} · by{' '}
+                      {CATEGORY_LABELS[s.category]} · Por{' '}
                       <Link to={`/profiles/${s.providerId}`} className="hover:underline">{s.providerName}</Link>
                     </p>
                   </div>
                   <div className="flex gap-2">
                     <Button size="sm" disabled={actionLoading} onClick={() => handleApprove(s.id)}>
                       {actionLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle className="mr-1 h-4 w-4" />}
-                      Approve
+                      Aprobar
                     </Button>
                     <Button size="sm" variant="destructive" disabled={actionLoading} onClick={() => { setRejectDialog(s); setReason(''); setError(''); }}>
-                      <XCircle className="mr-1 h-4 w-4" />Reject
+                      <XCircle className="mr-1 h-4 w-4" />Rechazar
                     </Button>
                   </div>
                 </div>
@@ -91,21 +91,21 @@ export default function AdminServicesPage() {
 
       <Dialog open={!!rejectDialog} onOpenChange={() => setRejectDialog(null)}>
         <DialogContent>
-          <DialogHeader><DialogTitle>Reject Service</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle>Rechazar servicio</DialogTitle></DialogHeader>
           <div className="space-y-3">
-            <p className="text-sm text-muted-foreground">Rejecting: <strong>{rejectDialog?.title}</strong></p>
+            <p className="text-sm text-muted-foreground">Rechazando: <strong>{rejectDialog?.title}</strong></p>
             {error && <Alert variant="destructive"><AlertDescription>{error}</AlertDescription></Alert>}
             <Textarea
-              placeholder="Explain why this service is being rejected…"
+              placeholder="Explique por qué se rechaza este servicio…"
               rows={3}
               value={reason}
               onChange={(e) => setReason(e.target.value)}
             />
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setRejectDialog(null)}>Cancel</Button>
+            <Button variant="outline" onClick={() => setRejectDialog(null)}>Cancelar</Button>
             <Button variant="destructive" onClick={handleReject} disabled={actionLoading}>
-              {actionLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Reject
+              {actionLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Rechazar
             </Button>
           </DialogFooter>
         </DialogContent>

@@ -69,26 +69,26 @@ function RequestCard({ request, asProvider, onAction }) {
             {request.status === 'PENDING' && (
               <>
                 <Button size="sm" disabled={loading} onClick={() => action(acceptRequest)}>
-                  {loading && <Loader2 className="mr-1 h-3 w-3 animate-spin" />}Accept
+                  {loading && <Loader2 className="mr-1 h-3 w-3 animate-spin" />}Aceptar
                 </Button>
                 <Button size="sm" variant="destructive" disabled={loading} onClick={() => action(declineRequest)}>
-                  Decline
+                  Rechazar
                 </Button>
               </>
             )}
             {request.status === 'ACCEPTED' && (
               <Button size="sm" disabled={loading} onClick={() => action(startRequest)}>
-                {loading && <Loader2 className="mr-1 h-3 w-3 animate-spin" />}Mark In Progress
+                {loading && <Loader2 className="mr-1 h-3 w-3 animate-spin" />}Marcar en progreso
               </Button>
             )}
             {request.status === 'IN_PROGRESS' && (
               <Button size="sm" disabled={loading} onClick={() => action(completeRequest)}>
-                {loading && <Loader2 className="mr-1 h-3 w-3 animate-spin" />}Mark Completed
+                {loading && <Loader2 className="mr-1 h-3 w-3 animate-spin" />}Marcar completado
               </Button>
             )}
             {['PENDING', 'ACCEPTED', 'IN_PROGRESS'].includes(request.status) && (
               <Button size="sm" variant="ghost" disabled={loading} onClick={() => action(cancelRequest)}>
-                Cancel
+                Cancelar
               </Button>
             )}
           </div>
@@ -99,17 +99,17 @@ function RequestCard({ request, asProvider, onAction }) {
           <div className="flex flex-wrap gap-2">
             {request.status === 'COMPLETED' && !request.completedAt && (
               <Button size="sm" disabled={loading} onClick={() => action(confirmRequest)}>
-                {loading && <Loader2 className="mr-1 h-3 w-3 animate-spin" />}Confirm Completion
+                {loading && <Loader2 className="mr-1 h-3 w-3 animate-spin" />}Confirmar finalización
               </Button>
             )}
             {request.status === 'COMPLETED' && request.completedAt && (
               <Button size="sm" variant="secondary" onClick={() => onAction('review', request)}>
-                <Star className="mr-1 h-3 w-3" />Leave Review
+                <Star className="mr-1 h-3 w-3" />Dejar reseña
               </Button>
             )}
             {['PENDING', 'ACCEPTED', 'IN_PROGRESS'].includes(request.status) && (
               <Button size="sm" variant="ghost" disabled={loading} onClick={() => action(cancelRequest)}>
-                Cancel
+                Cancelar
               </Button>
             )}
           </div>
@@ -155,14 +155,14 @@ export default function RequestsPage() {
   };
 
   const handleReviewSubmit = async () => {
-    if (rating === 0) { setReviewError('Please select a rating.'); return; }
+    if (rating === 0) { setReviewError('Por favor, seleccione una calificación.'); return; }
     setReviewLoading(true);
     try {
       await submitReview(reviewDialog.id, rating, comment);
       setReviewDialog(null);
       load();
     } catch (err) {
-      setReviewError(err.response?.data?.message || 'Failed to submit review.');
+      setReviewError(err.response?.data?.message || 'No se pudo enviar la reseña.');
     } finally {
       setReviewLoading(false);
     }
@@ -180,17 +180,17 @@ export default function RequestsPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8 space-y-6">
-      <h1 className="text-2xl font-bold">My Requests</h1>
+      <h1 className="text-2xl font-bold">Mis solicitudes</h1>
 
       <Tabs defaultValue="sent">
         <TabsList>
-          <TabsTrigger value="sent">Sent ({sent.length})</TabsTrigger>
-          <TabsTrigger value="received">Received ({received.length})</TabsTrigger>
+          <TabsTrigger value="sent">Enviado ({sent.length})</TabsTrigger>
+          <TabsTrigger value="received">Recibido ({received.length})</TabsTrigger>
         </TabsList>
 
         <TabsContent value="sent" className="mt-4 space-y-3">
           {loading ? <LoadingList /> : sent.length === 0 ? (
-            <EmptyState label="You haven't sent any service requests yet." />
+            <EmptyState label="Aún no has enviado ninguna solicitud de servicio." />
           ) : (
             sent.map((r) => (
               <RequestCard key={r.id} request={r} asProvider={false} onAction={(t) => handleAction(t, r)} />
@@ -200,7 +200,7 @@ export default function RequestsPage() {
 
         <TabsContent value="received" className="mt-4 space-y-3">
           {loading ? <LoadingList /> : received.length === 0 ? (
-            <EmptyState label="You haven't received any requests yet." />
+            <EmptyState label="Aún no has recibido ninguna solicitud." />
           ) : (
             received.map((r) => (
               <RequestCard key={r.id} request={r} asProvider onAction={load} />
@@ -212,25 +212,25 @@ export default function RequestsPage() {
       {/* Review Dialog */}
       <Dialog open={!!reviewDialog} onOpenChange={() => setReviewDialog(null)}>
         <DialogContent>
-          <DialogHeader><DialogTitle>Leave a Review</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle>Deja una reseña</DialogTitle></DialogHeader>
           <div className="space-y-4">
-            <p className="text-sm text-muted-foreground">For: <strong>{reviewDialog?.serviceTitle}</strong></p>
+            <p className="text-sm text-muted-foreground">Por: <strong>{reviewDialog?.serviceTitle}</strong></p>
             {reviewError && <Alert variant="destructive"><AlertDescription>{reviewError}</AlertDescription></Alert>}
             <div className="space-y-1.5">
-              <p className="text-sm font-medium">Rating</p>
+              <p className="text-sm font-medium">Clasificación</p>
               <StarPicker value={rating} onChange={setRating} />
             </div>
             <Textarea
-              placeholder="Share your experience (optional)…"
+              placeholder="Comparte tu experiencia (opcional)..."
               rows={3}
               value={comment}
               onChange={(e) => setComment(e.target.value)}
             />
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setReviewDialog(null)}>Cancel</Button>
+            <Button variant="outline" onClick={() => setReviewDialog(null)}>Cancelar</Button>
             <Button onClick={handleReviewSubmit} disabled={reviewLoading}>
-              {reviewLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Submit Review
+              {reviewLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Enviar reseña
             </Button>
           </DialogFooter>
         </DialogContent>

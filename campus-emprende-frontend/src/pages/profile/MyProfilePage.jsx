@@ -44,7 +44,7 @@ export default function MyProfilePage() {
       const url = await uploadToCloudinary(file);
       setForm((prev) => ({ ...prev, avatarUrl: url }));
     } catch (err) {
-      setAvatarError(err.message || 'Image upload failed.');
+      setAvatarError(err.message || 'Error al subir la imagen.');
     } finally {
       setAvatarUploading(false);
     }
@@ -56,9 +56,9 @@ export default function MyProfilePage() {
     setMessage(null);
     try {
       await upsertProfile(form);
-      setMessage({ type: 'success', text: 'Profile saved successfully.' });
+      setMessage({ type: 'success', text: 'Perfil guardado exitosamente.' });
     } catch {
-      setMessage({ type: 'error', text: 'Failed to save profile.' });
+      setMessage({ type: 'error', text: 'No se pudo guardar el perfil.' });
     } finally {
       setSaving(false);
     }
@@ -71,11 +71,11 @@ export default function MyProfilePage() {
       const url = URL.createObjectURL(new Blob([data], { type: 'application/pdf' }));
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'portfolio.pdf';
+      a.download = 'portafolio.pdf';
       a.click();
       URL.revokeObjectURL(url);
     } catch {
-      setMessage({ type: 'error', text: 'Failed to export PDF.' });
+      setMessage({ type: 'error', text: 'No se pudo exportar el PDF.' });
     } finally {
       setExporting(false);
     }
@@ -92,10 +92,10 @@ export default function MyProfilePage() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-8 space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">My Profile</h1>
+        <h1 className="text-2xl font-bold">Mi perfil</h1>
         <Button variant="outline" onClick={handleExport} disabled={exporting}>
           {exporting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}
-          Export PDF
+          Exportar PDF
         </Button>
       </div>
 
@@ -149,16 +149,16 @@ export default function MyProfilePage() {
               </Alert>
             )}
             <div className="space-y-1.5">
-              <Label>Bio</Label>
+              <Label>Biografía</Label>
               <Textarea
-                placeholder="Tell others about yourself, your skills and experience…"
+                placeholder="Cuéntales a los demás sobre ti, tus habilidades y tu experiencia…"
                 rows={4}
                 value={form.bio}
                 onChange={(e) => setForm({ ...form, bio: e.target.value })}
               />
             </div>
             <div className="space-y-1.5">
-              <Label>Career / Major</Label>
+              <Label>Carrera / Especialidad</Label>
               <Input
                 placeholder="e.g. Computer Science"
                 value={form.career}
@@ -166,7 +166,7 @@ export default function MyProfilePage() {
               />
             </div>
             <div className="space-y-1.5">
-              <Label>LinkedIn URL (optional)</Label>
+              <Label>LinkedIn URL (opcional)</Label>
               <Input
                 placeholder="https://linkedin.com/in/..."
                 value={form.linkedinUrl}
@@ -175,7 +175,7 @@ export default function MyProfilePage() {
             </div>
             <Button type="submit" disabled={saving || avatarUploading}>
               {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-              Save Profile
+              Guardar perfil
             </Button>
           </form>
         </CardContent>

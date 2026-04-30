@@ -14,17 +14,17 @@ export default function VerifyEmailPage() {
   useEffect(() => {
     if (!token) {
       setStatus('error');
-      setMessage('No verification token found in the URL.');
+      setMessage('No se encontró ningún token de verificación en la URL.');
       return;
     }
     verifyEmail(token)
       .then(() => {
         setStatus('success');
-        setMessage('Your email has been verified! You can now use all features.');
+        setMessage('¡Tu correo electrónico ha sido verificado! Ya puedes usar todas las funciones.');
       })
       .catch((err) => {
         setStatus('error');
-        setMessage(err.response?.data?.message || 'Verification failed. The token may be expired or invalid.');
+        setMessage(err.response?.data?.message || 'La verificación falló. El token puede haber caducado o no ser válido.');
       });
   }, [token]);
 
@@ -32,13 +32,13 @@ export default function VerifyEmailPage() {
     <div className="min-h-screen flex items-center justify-center bg-muted/30 px-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle>Email Verification</CardTitle>
+          <CardTitle>Verificación de correo electrónico</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col items-center gap-4 text-center">
           {status === 'loading' && (
             <>
               <Loader2 className="h-12 w-12 animate-spin text-primary" />
-              <p className="text-muted-foreground">Verifying your email…</p>
+              <p className="text-muted-foreground">Verificando tu correo electrónico…</p>
             </>
           )}
           {status === 'success' && (
@@ -46,7 +46,7 @@ export default function VerifyEmailPage() {
               <CheckCircle className="h-12 w-12 text-green-500" />
               <p className="text-green-700 font-medium">{message}</p>
               <Button asChild>
-                <Link to="/dashboard">Go to Dashboard</Link>
+                <Link to="/dashboard">Ir al Dashboard</Link>
               </Button>
             </>
           )}
@@ -55,7 +55,7 @@ export default function VerifyEmailPage() {
               <XCircle className="h-12 w-12 text-destructive" />
               <p className="text-destructive">{message}</p>
               <Button variant="outline" asChild>
-                <Link to="/auth/login">Back to Login</Link>
+                <Link to="/auth/login">Volver a iniciar sesión</Link>
               </Button>
             </>
           )}

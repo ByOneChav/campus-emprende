@@ -32,7 +32,7 @@ export default function PublicProfilePage() {
         setProfile(p);
         setReviews(r);
       })
-      .catch(() => setError('Profile not found.'))
+      .catch(() => setError('Perfil no encontrado.'))
       .finally(() => setLoading(false));
   }, [userId]);
 
@@ -100,7 +100,7 @@ export default function PublicProfilePage() {
             <>
               <Separator className="my-5" />
               <div>
-                <h2 className="font-semibold mb-2">About</h2>
+                <h2 className="font-semibold mb-2">Acerca de</h2>
                 <p className="text-muted-foreground text-sm leading-relaxed">{profile.bio}</p>
               </div>
             </>
@@ -110,7 +110,7 @@ export default function PublicProfilePage() {
 
       {reviews.length > 0 && (
         <div>
-          <h2 className="text-lg font-semibold mb-3">Reviews received</h2>
+          <h2 className="text-lg font-semibold mb-3">Reseñas recibidas</h2>
           <div className="space-y-3">
             {reviews.map((r) => (
               <Card key={r.id}>
@@ -120,7 +120,7 @@ export default function PublicProfilePage() {
                     <StarRating rating={r.rating} />
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    For: <Link to={`/services/${r.serviceId}`} className="hover:underline">{r.serviceTitle}</Link>
+                    Para: <Link to={`/services/${r.serviceId}`} className="hover:underline">{r.serviceTitle}</Link>
                   </p>
                   {r.comment && <p className="text-sm text-muted-foreground">{r.comment}</p>}
                 </CardContent>

@@ -9,8 +9,8 @@ import { CheckCircle } from 'lucide-react';
 
 const CATEGORY_LABELS = {
   WEB_DEV: 'Web Dev', GRAPHIC_DESIGN: 'Design',
-  TECH_SUPPORT: 'Tech Support', TUTORING: 'Tutoring',
-  PHOTOGRAPHY: 'Photography', OTHER: 'Other',
+  TECH_SUPPORT: 'Soporte técnico', TUTORING: 'Tutoría',
+  PHOTOGRAPHY: 'Fotografía', OTHER: 'Otro',
 };
 
 export default function AdminActiveServicesPage() {
@@ -22,7 +22,7 @@ export default function AdminActiveServicesPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <h1 className="text-2xl font-bold">Active Services</h1>
+        <h1 className="text-2xl font-bold">Servicios activos</h1>
         {!loading && <Badge variant="secondary">{activeServices.length}</Badge>}
       </div>
 
@@ -31,7 +31,7 @@ export default function AdminActiveServicesPage() {
       ) : activeServices.length === 0 ? (
         <div className="py-16 text-center text-muted-foreground">
           <CheckCircle className="h-10 w-10 mx-auto mb-3" />
-          <p>No active services found.</p>
+          <p>No se encontraron servicios activos.</p>
         </div>
       ) : (
         <div className="space-y-2">
@@ -47,7 +47,7 @@ export default function AdminActiveServicesPage() {
                     <Link to={`/profiles/${s.providerId}`} className="hover:underline">{s.providerName}</Link>
                   </p>
                 </div>
-                <Badge className="bg-green-100 text-green-700">ACTIVE</Badge>
+                <Badge className="bg-green-100 text-green-700">ACTIVO</Badge>
               </CardContent>
             </Card>
           ))}

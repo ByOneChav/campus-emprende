@@ -20,7 +20,7 @@ export const acceptRequestThunk = createAsyncThunk(
       const { data } = await requestsApi.acceptRequest(id);
       return data;
     } catch (err) {
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to accept request' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudo aceptar la solicitud' });
     }
   }
 );
@@ -32,7 +32,7 @@ export const declineRequestThunk = createAsyncThunk(
       const { data } = await requestsApi.declineRequest(id);
       return data;
     } catch (err) {
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to decline request' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudo rechazar la solicitud' });
     }
   }
 );
@@ -44,7 +44,7 @@ export const startRequestThunk = createAsyncThunk(
       const { data } = await requestsApi.startRequest(id);
       return data;
     } catch (err) {
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to start request' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudo iniciar la solicitud' });
     }
   }
 );
@@ -56,7 +56,7 @@ export const completeRequestThunk = createAsyncThunk(
       const { data } = await requestsApi.completeRequest(id);
       return data;
     } catch (err) {
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to complete request' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudo completar la solicitud' });
     }
   }
 );
@@ -68,7 +68,7 @@ export const confirmRequestThunk = createAsyncThunk(
       const { data } = await requestsApi.confirmRequest(id);
       return data;
     } catch (err) {
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to confirm request' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudo confirmar la solicitud.' });
     }
   }
 );
@@ -80,7 +80,7 @@ export const cancelRequestThunk = createAsyncThunk(
       const { data } = await requestsApi.cancelRequest(id);
       return data;
     } catch (err) {
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to cancel request' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudo cancelar la solicitud.' });
     }
   }
 );
@@ -92,7 +92,7 @@ export const getSentRequestsThunk = createAsyncThunk(
       const { data } = await requestsApi.getSentRequests();
       return data;
     } catch (err) {
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to fetch sent requests' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudieron recuperar las solicitudes enviadas.' });
     }
   }
 );
@@ -104,7 +104,7 @@ export const getReceivedRequestsThunk = createAsyncThunk(
       const { data } = await requestsApi.getReceivedRequests();
       return data;
     } catch (err) {
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to fetch received requests' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudieron recuperar las solicitudes recibidas.' });
     }
   }
 );

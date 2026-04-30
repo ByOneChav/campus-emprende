@@ -44,7 +44,7 @@ public class ServiceListingServiceImpl implements ServiceListingService {
     public ServiceListingResponse updateService(Long id, ServiceListingRequest request) throws UserException {
         ServiceListing listing = getOwnedListing(id);
         if (listing.getStatus() == ServiceStatus.INACTIVE) {
-            throw new UserException("Cannot edit an inactive service");
+            throw new UserException("No se puede editar un servicio inactivo.");
         }
         listing.setTitle(request.getTitle());
         listing.setDescription(request.getDescription());

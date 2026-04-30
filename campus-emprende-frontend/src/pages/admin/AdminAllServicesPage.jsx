@@ -8,12 +8,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Briefcase } from "lucide-react";
 
 const CATEGORY_LABELS = {
-  WEB_DEV: "Web Dev",
-  GRAPHIC_DESIGN: "Design",
-  TECH_SUPPORT: "Tech Support",
-  TUTORING: "Tutoring",
-  PHOTOGRAPHY: "Photography",
-  OTHER: "Other",
+  WEB_DEV: "Desarrollo web",
+  GRAPHIC_DESIGN: "Diseño Gráfico",
+  TECH_SUPPORT: "Soporte técnico",
+  TUTORING: "Tutoría",
+  PHOTOGRAPHY: "Fotografía",
+  OTHER: "Otro",
 };
 
 const STATUS_COLORS = {
@@ -34,7 +34,7 @@ export default function AdminAllServicesPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <h1 className="text-2xl font-bold">All Services</h1>
+        <h1 className="text-2xl font-bold">Todos los servicios</h1>
         {!loading && <Badge variant="secondary">{allServices.length}</Badge>}
       </div>
 
@@ -47,7 +47,7 @@ export default function AdminAllServicesPage() {
       ) : allServices.length === 0 ? (
         <div className="py-16 text-center text-muted-foreground">
           <Briefcase className="h-10 w-10 mx-auto mb-3" />
-          <p>No services found.</p>
+          <p>No se encontraron servicios.</p>
         </div>
       ) : (
         <div className="space-y-2">

@@ -8,7 +8,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { XCircle } from 'lucide-react';
 
 const CATEGORY_LABELS = {
-  WEB_DEV: 'Web Dev', GRAPHIC_DESIGN: 'Design',
+  WEB_DEV: 'Desarrollo web', GRAPHIC_DESIGN: 'Diseño Gráfico',
   TECH_SUPPORT: 'Tech Support', TUTORING: 'Tutoring',
   PHOTOGRAPHY: 'Photography', OTHER: 'Other',
 };
@@ -22,7 +22,7 @@ export default function AdminRejectedServicesPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <h1 className="text-2xl font-bold">Rejected Services</h1>
+        <h1 className="text-2xl font-bold">Servicios rechazados</h1>
         {!loading && <Badge variant="secondary">{rejectedServices.length}</Badge>}
       </div>
 
@@ -31,7 +31,7 @@ export default function AdminRejectedServicesPage() {
       ) : rejectedServices.length === 0 ? (
         <div className="py-16 text-center text-muted-foreground">
           <XCircle className="h-10 w-10 mx-auto mb-3" />
-          <p>No rejected services.</p>
+          <p>No hay servicios rechazados.</p>
         </div>
       ) : (
         <div className="space-y-2">
@@ -47,10 +47,10 @@ export default function AdminRejectedServicesPage() {
                     <Link to={`/profiles/${s.providerId}`} className="hover:underline">{s.providerName}</Link>
                   </p>
                   {s.rejectionReason && (
-                    <p className="text-xs text-red-600 mt-1">Reason: {s.rejectionReason}</p>
+                    <p className="text-xs text-red-600 mt-1">Razón: {s.rejectionReason}</p>
                   )}
                 </div>
-                <Badge className="bg-red-100 text-red-700">REJECTED</Badge>
+                <Badge className="bg-red-100 text-red-700">RECHAZADO</Badge>
               </CardContent>
             </Card>
           ))}

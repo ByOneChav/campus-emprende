@@ -17,9 +17,9 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Star, Flag, Send, ArrowLeft, Loader2 } from 'lucide-react';
 
 const CATEGORY_LABELS = {
-  WEB_DEV: 'Web Development', GRAPHIC_DESIGN: 'Graphic Design',
-  TECH_SUPPORT: 'Tech Support', TUTORING: 'Tutoring',
-  PHOTOGRAPHY: 'Photography', OTHER: 'Other',
+  WEB_DEV: 'Desarrollo web', GRAPHIC_DESIGN: 'Diseño Gráfico',
+  TECH_SUPPORT: 'Soporte técnico', TUTORING: 'Tutoría',
+  PHOTOGRAPHY: 'Fotografía', OTHER: 'Otro',
 };
 
 function StarRating({ rating }) {
@@ -58,7 +58,7 @@ export default function ServiceDetailPage() {
   }, [id]);
 
   const handleSendRequest = async () => {
-    if (!requestMsg.trim()) { setRequestError('Please enter a message.'); return; }
+    if (!requestMsg.trim()) { setRequestError('Por favor, escriba un mensaje.'); return; }
     setRequestLoading(true);
     setRequestError('');
     try {
@@ -67,7 +67,7 @@ export default function ServiceDetailPage() {
       setRequestMsg('');
       navigate('/requests');
     } catch (err) {
-      setRequestError(err.response?.data?.message || 'Failed to send request.');
+      setRequestError(err.response?.data?.message || 'No se pudo enviar la solicitud.');
     } finally {
       setRequestLoading(false);
     }
@@ -101,7 +101,7 @@ export default function ServiceDetailPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-8 space-y-6">
       <Button variant="ghost" size="sm" asChild className="-ml-2">
-        <Link to="/services"><ArrowLeft className="mr-2 h-4 w-4" />Back to services</Link>
+        <Link to="/services"><ArrowLeft className="mr-2 h-4 w-4" />Volver a servicios</Link>
       </Button>
 
       <Card>
@@ -122,12 +122,12 @@ export default function ServiceDetailPage() {
             <div className="flex gap-2">
               {isAuthenticated && !isOwner && (
                 <Button onClick={() => setRequestOpen(true)}>
-                  <Send className="mr-2 h-4 w-4" />Request Service
+                  <Send className="mr-2 h-4 w-4" />Solicitar Servicio
                 </Button>
               )}
               {isOwner && (
                 <Button variant="outline" asChild>
-                  <Link to={`/services/${id}/edit`}>Edit Service</Link>
+                  <Link to={`/services/${id}/edit`}>Editar servicio</Link>
                 </Button>
               )}
               {isAuthenticated && !isOwner && (
@@ -141,7 +141,7 @@ export default function ServiceDetailPage() {
         <Separator />
         <CardContent className="pt-5 space-y-5">
           <div>
-            <h3 className="font-semibold mb-2">Description</h3>
+            <h3 className="font-semibold mb-2">Descripción</h3>
             <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-line">{service?.description}</p>
           </div>
           <Separator />
@@ -155,7 +155,7 @@ export default function ServiceDetailPage() {
               <Link to={`/profiles/${service?.providerId}`} className="font-medium text-sm hover:underline">
                 {service?.providerName}
               </Link>
-              <p className="text-xs text-muted-foreground">Service provider</p>
+              <p className="text-xs text-muted-foreground">Proveedor de servicios</p>
             </div>
           </div>
         </CardContent>
@@ -163,7 +163,7 @@ export default function ServiceDetailPage() {
 
       {reviews.length > 0 && (
         <div>
-          <h2 className="text-lg font-semibold mb-3">Reviews ({reviews.length})</h2>
+          <h2 className="text-lg font-semibold mb-3">Reseñas ({reviews.length})</h2>
           <div className="space-y-3">
             {reviews.map((r) => (
               <Card key={r.id}>
@@ -183,20 +183,20 @@ export default function ServiceDetailPage() {
       {/* Request Dialog */}
       <Dialog open={requestOpen} onOpenChange={setRequestOpen}>
         <DialogContent>
-          <DialogHeader><DialogTitle>Request This Service</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle>Solicite este servicio</DialogTitle></DialogHeader>
           <div className="space-y-3">
             {requestError && <Alert variant="destructive"><AlertDescription>{requestError}</AlertDescription></Alert>}
             <Textarea
-              placeholder="Describe what you need…"
+              placeholder="Describe lo que necesitas…"
               rows={4}
               value={requestMsg}
               onChange={(e) => setRequestMsg(e.target.value)}
             />
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setRequestOpen(false)}>Cancel</Button>
+            <Button variant="outline" onClick={() => setRequestOpen(false)}>Cancelar</Button>
             <Button onClick={handleSendRequest} disabled={requestLoading}>
-              {requestLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Send Request
+              {requestLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Enviar solicitud
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -205,17 +205,17 @@ export default function ServiceDetailPage() {
       {/* Report Dialog */}
       <Dialog open={reportOpen} onOpenChange={setReportOpen}>
         <DialogContent>
-          <DialogHeader><DialogTitle>Report This Service</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle>Reportar este servicio</DialogTitle></DialogHeader>
           <Textarea
-            placeholder="Describe the issue…"
+            placeholder="Describe el problema..."
             rows={3}
             value={reportReason}
             onChange={(e) => setReportReason(e.target.value)}
           />
           <DialogFooter>
-            <Button variant="outline" onClick={() => setReportOpen(false)}>Cancel</Button>
+            <Button variant="outline" onClick={() => setReportOpen(false)}>Cancelar</Button>
             <Button variant="destructive" onClick={handleReport} disabled={reportLoading}>
-              {reportLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Submit Report
+              {reportLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Enviar informe
             </Button>
           </DialogFooter>
         </DialogContent>

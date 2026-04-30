@@ -8,7 +8,7 @@ export const submitReviewThunk = createAsyncThunk(
       const { data } = await reviewsApi.submitReview(requestId, rating, comment);
       return data;
     } catch (err) {
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to submit review' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudo enviar la revisión.' });
     }
   }
 );
@@ -20,7 +20,7 @@ export const getServiceReviewsThunk = createAsyncThunk(
       const { data } = await reviewsApi.getServiceReviews(serviceId);
       return data;
     } catch (err) {
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to fetch service reviews' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudieron obtener las reseñas del servicio.' });
     }
   }
 );
@@ -32,7 +32,7 @@ export const getProviderReviewsThunk = createAsyncThunk(
       const { data } = await reviewsApi.getProviderReviews(userId);
       return data;
     } catch (err) {
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to fetch provider reviews' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudieron obtener las reseñas del proveedor.' });
     }
   }
 );

@@ -26,7 +26,7 @@ const SkeletonList = () => (
 
 function ReportList({ reports, onResolve }) {
   if (reports.length === 0)
-    return <div className="py-12 text-center text-muted-foreground text-sm">No reports found.</div>;
+    return <div className="py-12 text-center text-muted-foreground text-sm">No se encontraron informes.</div>;
 
   return (
     <div className="space-y-3 mt-4">
@@ -40,15 +40,15 @@ function ReportList({ reports, onResolve }) {
                   <span className="text-sm text-muted-foreground">ID #{r.targetId}</span>
                   <Badge className={STATUS_COLORS[r.status]}>{r.status}</Badge>
                 </div>
-                <p className="text-xs text-muted-foreground mt-1">By {r.reporterName}</p>
+                <p className="text-xs text-muted-foreground mt-1">Por {r.reporterName}</p>
               </div>
               {r.status !== 'RESOLVED' && (
-                <Button size="sm" onClick={() => onResolve(r)}>Resolve</Button>
+                <Button size="sm" onClick={() => onResolve(r)}>Resolver</Button>
               )}
             </div>
             <p className="text-sm border-l-2 pl-3 text-muted-foreground">{r.reason}</p>
             {r.adminNotes && (
-              <p className="text-xs text-muted-foreground"><strong>Admin notes:</strong> {r.adminNotes}</p>
+              <p className="text-xs text-muted-foreground"><strong>Notas administrativas:</strong> {r.adminNotes}</p>
             )}
           </CardContent>
         </Card>
@@ -94,16 +94,16 @@ export default function AdminReportsPage() {
     <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
       <div className="flex items-center gap-3">
         <Button variant="ghost" size="sm" asChild className="-ml-2">
-          <Link to="/admin"><ArrowLeft className="mr-2 h-4 w-4" />Admin</Link>
+          <Link to="/admin"><ArrowLeft className="mr-2 h-4 w-4" />Administrador</Link>
         </Button>
-        <h1 className="text-2xl font-bold">Reports</h1>
+        <h1 className="text-2xl font-bold">Informes</h1>
       </div>
 
       <Tabs defaultValue="ALL" onValueChange={handleTabChange}>
         <TabsList>
-          <TabsTrigger value="ALL">All</TabsTrigger>
-          <TabsTrigger value="PENDING">Pending</TabsTrigger>
-          <TabsTrigger value="RESOLVED">Resolved</TabsTrigger>
+          <TabsTrigger value="ALL">Todo</TabsTrigger>
+          <TabsTrigger value="PENDING">Pendiente</TabsTrigger>
+          <TabsTrigger value="RESOLVED">Resuelto</TabsTrigger>
         </TabsList>
         <TabsContent value="ALL">{tabContent}</TabsContent>
         <TabsContent value="PENDING">{tabContent}</TabsContent>
@@ -112,23 +112,23 @@ export default function AdminReportsPage() {
 
       <Dialog open={!!resolveDialog} onOpenChange={() => setResolveDialog(null)}>
         <DialogContent>
-          <DialogHeader><DialogTitle>Resolve Report</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle>Resolver informe</DialogTitle></DialogHeader>
           <div className="space-y-3">
             <p className="text-sm text-muted-foreground">
-              Report about <Badge variant="outline">{resolveDialog?.targetType}</Badge> #{resolveDialog?.targetId}
+              Informe sobre <Badge variant="outline">{resolveDialog?.targetType}</Badge> #{resolveDialog?.targetId}
             </p>
             {error && <Alert variant="destructive"><AlertDescription>{error}</AlertDescription></Alert>}
             <Textarea
-              placeholder="Admin notes (optional)…"
+              placeholder="Notas del administrador (opcional)…"
               rows={3}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
             />
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setResolveDialog(null)}>Cancel</Button>
+            <Button variant="outline" onClick={() => setResolveDialog(null)}>Cancelar</Button>
             <Button onClick={handleResolve} disabled={actionLoading}>
-              {actionLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Mark Resolved
+              {actionLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Marcar resuelto
             </Button>
           </DialogFooter>
         </DialogContent>

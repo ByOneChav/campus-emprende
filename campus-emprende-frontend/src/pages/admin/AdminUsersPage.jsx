@@ -21,7 +21,7 @@ export default function AdminUsersPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <h1 className="text-2xl font-bold">All Users</h1>
+        <h1 className="text-2xl font-bold">Todos los usuarios</h1>
         {!loading && <Badge variant="secondary">{allUsers.length}</Badge>}
       </div>
 
@@ -30,7 +30,7 @@ export default function AdminUsersPage() {
       ) : allUsers.length === 0 ? (
         <div className="py-16 text-center text-muted-foreground">
           <Users className="h-10 w-10 mx-auto mb-3" />
-          <p>No users found.</p>
+          <p>No se encontraron usuarios.</p>
         </div>
       ) : (
         <div className="space-y-2">

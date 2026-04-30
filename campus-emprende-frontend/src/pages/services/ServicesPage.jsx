@@ -41,12 +41,12 @@ const CATEGORIES = [
   "OTHER",
 ];
 const CATEGORY_LABELS = {
-  WEB_DEV: "Web Dev",
-  GRAPHIC_DESIGN: "Design",
-  TECH_SUPPORT: "Tech Support",
-  TUTORING: "Tutoring",
-  PHOTOGRAPHY: "Photography",
-  OTHER: "Other",
+  WEB_DEV: "Desarrollo web",
+  GRAPHIC_DESIGN: "Diseño Gráfico",
+  TECH_SUPPORT: "Soporte técnico",
+  TUTORING: "Tutoría",
+  PHOTOGRAPHY: "Fotografía",
+  OTHER: "Otro",
 };
 const CATEGORY_GRADIENTS = {
   WEB_DEV: "from-blue-500 to-indigo-600",
@@ -172,7 +172,7 @@ function ServicePost({ service, currentUserId, isAuthenticated }) {
         >
           <Link to={`/services/${service.id}`}>
             <ExternalLink className="h-3.5 w-3.5 mr-1" />
-            View
+            Vista
           </Link>
         </Button>
       </div>
@@ -189,7 +189,7 @@ function ServicePost({ service, currentUserId, isAuthenticated }) {
             </div>
           ) : comments.length === 0 ? (
             <p className="text-xs text-muted-foreground text-center py-2">
-              No comments yet. Be the first!
+              Aún no hay comentarios. ¡Sé el primero!
             </p>
           ) : (
             <ul className="space-y-2 max-h-48 overflow-y-auto pr-1">
@@ -234,7 +234,7 @@ function ServicePost({ service, currentUserId, isAuthenticated }) {
             <form onSubmit={handleSubmit} className="flex items-center gap-2">
               <Input
                 ref={inputRef}
-                placeholder="Add a comment…"
+                placeholder="Añade un comentario…"
                 className="h-8 text-xs flex-1"
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
@@ -287,7 +287,6 @@ export default function ServicesPage() {
 
   const hasFilters = keyword.trim() !== "" || category !== "";
 
-  // Always load all approved services on initial mount
   useEffect(() => {
     dispatch(browseServicesThunk({keyword, category}));
   }, [keyword, category]);
@@ -325,11 +324,11 @@ export default function ServicesPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-bold">Browse Services</h1>
+          <h1 className="text-2xl font-bold">Explorar servicios</h1>
           <p className="text-muted-foreground text-sm mt-0.5">
             {loading
               ? "Loading…"
-              : `${services.length} approved service${services.length !== 1 ? "s" : ""}`}
+              : `${services.length} servicios aprobados${services.length !== 1 ? "s" : ""}`}
             {hasFilters && !loading && " matching your filters"}
           </p>
         </div>
@@ -337,7 +336,7 @@ export default function ServicesPage() {
           <Button asChild>
             <Link to="/services/create">
               <Plus className="mr-2 h-4 w-4" />
-              Offer a Service
+              Ofrecer un servicio
             </Link>
           </Button>
         )}
@@ -348,7 +347,7 @@ export default function ServicesPage() {
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search by title or description…"
+            placeholder="Buscar por título o descripción…"
             className="pl-9 pr-9"
             value={keyword}
             onChange={handleKeywordChange}
@@ -365,10 +364,10 @@ export default function ServicesPage() {
         </div>
         <Select value={category || "ALL"} onValueChange={handleCategoryChange}>
           <SelectTrigger className="w-full sm:w-48">
-            <SelectValue placeholder="All Categories" />
+            <SelectValue placeholder="Todas las categorías" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="ALL">All Categories</SelectItem>
+            <SelectItem value="ALL">Todas las categorías</SelectItem>
             {CATEGORIES.map((c) => (
               <SelectItem key={c} value={c}>
                 {CATEGORY_LABELS[c]}
@@ -408,7 +407,7 @@ export default function ServicesPage() {
             onClick={clearFilters}
             className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-2"
           >
-            Clear all
+            Borrar todo
           </button>
         </div>
       )}
@@ -424,8 +423,8 @@ export default function ServicesPage() {
       ) : services.length === 0 ? (
         <div className="text-center py-20 text-muted-foreground">
           <MessageCircle className="h-12 w-12 mx-auto mb-3 opacity-30" />
-          <p className="text-lg font-medium">No services found</p>
-          <p className="text-sm mt-1">Try a different keyword or category.</p>
+          <p className="text-lg font-medium">No se encontraron servicios</p>
+          <p className="text-sm mt-1">Prueba con una palabra clave o categoría diferente.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 space-y-4">

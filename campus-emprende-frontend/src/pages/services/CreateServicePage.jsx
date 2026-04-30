@@ -12,12 +12,12 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { ArrowLeft, Loader2, ImageIcon, Upload, X } from 'lucide-react';
 
 const CATEGORIES = [
-  { value: 'WEB_DEV', label: 'Web Development' },
-  { value: 'GRAPHIC_DESIGN', label: 'Graphic Design' },
-  { value: 'TECH_SUPPORT', label: 'Tech Support' },
-  { value: 'TUTORING', label: 'Tutoring' },
-  { value: 'PHOTOGRAPHY', label: 'Photography' },
-  { value: 'OTHER', label: 'Other' },
+  { value: 'WEB_DEV', label: 'Desarrollo web' },
+  { value: 'GRAPHIC_DESIGN', label: 'Diseño Gráfico' },
+  { value: 'TECH_SUPPORT', label: 'Soporte técnico' },
+  { value: 'TUTORING', label: 'Tutoría' },
+  { value: 'PHOTOGRAPHY', label: 'Fotografía' },
+  { value: 'OTHER', label: 'Otro' },
 ];
 
 export default function CreateServicePage() {
@@ -43,7 +43,7 @@ export default function CreateServicePage() {
       const url = await uploadToCloudinary(file);
       setForm((prev) => ({ ...prev, imageUrl: url }));
     } catch (err) {
-      setImageError(err.message || 'Image upload failed.');
+      setImageError(err.message || 'Error al cargar la imagen.');
       setImagePreview('');
       setForm((prev) => ({ ...prev, imageUrl: '' }));
     } finally {
@@ -60,15 +60,15 @@ export default function CreateServicePage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.category) { setError('Please select a category.'); return; }
-    if (imageUploading) { setError('Please wait for the image to finish uploading.'); return; }
+    if (!form.category) { setError('Por favor, seleccione una categoría.'); return; }
+    if (imageUploading) { setError('Por favor, espere a que la imagen termine de cargarse.'); return; }
     setError('');
     setLoading(true);
     try {
       await createService({ ...form, imageUrl: form.imageUrl || null });
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to create service.');
+      setError(err.response?.data?.message || 'No se pudo crear el servicio.');
     } finally {
       setLoading(false);
     }
@@ -77,21 +77,21 @@ export default function CreateServicePage() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
       <Button variant="ghost" size="sm" asChild className="-ml-2 mb-6">
-        <Link to="/dashboard"><ArrowLeft className="mr-2 h-4 w-4" />Back to Dashboard</Link>
+        <Link to="/dashboard"><ArrowLeft className="mr-2 h-4 w-4" />Volver al  Dashboard</Link>
       </Button>
       <Card>
         <CardHeader>
-          <CardTitle>Offer a Service</CardTitle>
-          <CardDescription>Your service will be reviewed before going live.</CardDescription>
+          <CardTitle>Ofrecer un servicio</CardTitle>
+          <CardDescription>Tu servicio será revisado antes de su lanzamiento.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && <Alert variant="destructive"><AlertDescription>{error}</AlertDescription></Alert>}
 
             <div className="space-y-1.5">
-              <Label>Title</Label>
+              <Label>Título</Label>
               <Input
-                placeholder="e.g. React website development"
+                placeholder="Desarrollo de sitios web con React."
                 value={form.title}
                 onChange={set('title')}
                 required
@@ -100,9 +100,9 @@ export default function CreateServicePage() {
             </div>
 
             <div className="space-y-1.5">
-              <Label>Category</Label>
+              <Label>Categoría</Label>
               <Select  value={form.category} onValueChange={(v) => setForm({ ...form, category: v })}>
-                <SelectTrigger className="w-full"><SelectValue placeholder="Select a category" /></SelectTrigger>
+                <SelectTrigger className="w-full"><SelectValue placeholder="Selecciona una categoría" /></SelectTrigger>
                 <SelectContent>
                   {CATEGORIES.map((c) => <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>)}
                 </SelectContent>
@@ -110,9 +110,9 @@ export default function CreateServicePage() {
             </div>
 
             <div className="space-y-1.5">
-              <Label>Description</Label>
+              <Label>Descripción</Label>
               <Textarea
-                placeholder="Describe what you offer, your experience, timeline and pricing…"
+                placeholder="Describe lo que ofreces, tu experiencia, plazos y precios…"
                 rows={6}
                 value={form.description}
                 onChange={set('description')}
@@ -123,8 +123,8 @@ export default function CreateServicePage() {
             <div className="space-y-1.5">
               <Label className="flex items-center gap-1.5">
                 <ImageIcon className="h-3.5 w-3.5" />
-                Cover Image
-                <span className="text-muted-foreground font-normal text-xs">(optional)</span>
+                Imagen de portada
+                <span className="text-muted-foreground font-normal text-xs">(opcional)</span>
               </Label>
 
               <input
@@ -145,7 +145,7 @@ export default function CreateServicePage() {
                   {imageUploading && (
                     <div className="absolute inset-0 bg-black/50 flex items-center justify-center gap-2 text-white text-sm">
                       <Loader2 className="h-5 w-5 animate-spin" />
-                      Uploading…
+                      Subiendo…
                     </div>
                   )}
                   {!imageUploading && (
@@ -165,8 +165,8 @@ export default function CreateServicePage() {
                   className="w-full aspect-video rounded-md border-2 border-dashed border-muted-foreground/30 hover:border-muted-foreground/60 flex flex-col items-center justify-center gap-2 text-muted-foreground hover:text-foreground transition-colors bg-muted/20"
                 >
                   <Upload className="h-7 w-7" />
-                  <span className="text-sm font-medium">Click to upload image</span>
-                  <span className="text-xs">PNG, JPG, WEBP up to 10MB</span>
+                  <span className="text-sm font-medium">Haga clic para subir la imagen</span>
+                  <span className="text-xs">PNG, JPG, WEBP hasta 10 MB</span>
                 </button>
               )}
 
@@ -177,7 +177,7 @@ export default function CreateServicePage() {
 
             <Button type="submit" disabled={loading}>
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Submit for Review
+              Enviar para revisión
             </Button>
           </form>
         </CardContent>

@@ -10,7 +10,7 @@ export const browseServicesThunk = createAsyncThunk(
       return data;
     } catch (err) {
       console.error('browseServicesThunk error:', err);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to fetch services' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudieron obtener los servicios.' });
     }
   }
 );
@@ -24,7 +24,7 @@ export const getServiceDetailThunk = createAsyncThunk(
       return data;
     } catch (err) {
       console.error('getServiceDetailThunk error:', err);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to fetch service' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudo obtener el servicio.' });
     }
   }
 );
@@ -38,7 +38,7 @@ export const getMyServicesThunk = createAsyncThunk(
       return data;
     } catch (err) {
       console.error('getMyServicesThunk error:', err);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to fetch my services' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudieron obtener mis servicios.' });
     }
   }
 );
@@ -52,7 +52,7 @@ export const createServiceThunk = createAsyncThunk(
       return data;
     } catch (err) {
       console.error('createServiceThunk error:', err);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to create service' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudo crear el servicio.' });
     }
   }
 );
@@ -66,7 +66,7 @@ export const updateServiceThunk = createAsyncThunk(
       return data;
     } catch (err) {
       console.error('updateServiceThunk error:', err);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to update service' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudo actualizar el servicio.' });
     }
   }
 );
@@ -80,7 +80,7 @@ export const deactivateServiceThunk = createAsyncThunk(
       return data;
     } catch (err) {
       console.error('deactivateServiceThunk error:', err);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to deactivate service' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudo desactivar el servicio.' });
     }
   }
 );

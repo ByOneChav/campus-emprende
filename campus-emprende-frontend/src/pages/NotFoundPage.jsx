@@ -5,10 +5,10 @@ export default function NotFoundPage() {
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4 gap-4">
       <h1 className="text-8xl font-bold text-muted-foreground/30">404</h1>
-      <h2 className="text-2xl font-semibold">Page not found</h2>
-      <p className="text-muted-foreground">The page you're looking for doesn't exist.</p>
+      <h2 className="text-2xl font-semibold">Página no encontrada</h2>
+      <p className="text-muted-foreground">La página que buscas no existe.</p>
       <Button asChild>
-        <Link to="/">Go Home</Link>
+        <Link to="/">Ir a casa</Link>
       </Button>
     </div>
   );

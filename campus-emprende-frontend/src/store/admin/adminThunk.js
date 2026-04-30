@@ -10,7 +10,7 @@ export const getDashboardThunk = createAsyncThunk(
       return data;
     } catch (err) {
       console.error('getDashboard error:', err.response?.data ?? err.message);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to fetch dashboard' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudo obtener el panel de control' });
     }
   }
 );
@@ -24,7 +24,7 @@ export const getAllServicesThunk = createAsyncThunk(
       return data;
     } catch (err) {
       console.error('getAllServices error:', err.response?.data ?? err.message);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to fetch services' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudieron obtener los servicios.' });
     }
   }
 );
@@ -38,7 +38,7 @@ export const getPendingServicesThunk = createAsyncThunk(
       return data;
     } catch (err) {
       console.error('getPendingServices error:', err.response?.data ?? err.message);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to fetch pending services' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudieron obtener los servicios pendientes.' });
     }
   }
 );
@@ -52,7 +52,7 @@ export const getActiveServicesThunk = createAsyncThunk(
       return data;
     } catch (err) {
       console.error('getActiveServices error:', err.response?.data ?? err.message);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to fetch active services' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudieron obtener los servicios activos.' });
     }
   }
 );
@@ -66,7 +66,7 @@ export const getRejectedServicesThunk = createAsyncThunk(
       return data;
     } catch (err) {
       console.error('getRejectedServices error:', err.response?.data ?? err.message);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to fetch rejected services' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudieron obtener los servicios rechazados.' });
     }
   }
 );
@@ -80,7 +80,7 @@ export const approveServiceThunk = createAsyncThunk(
       return data;
     } catch (err) {
       console.error('approveService error:', err.response?.data ?? err.message);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to approve service' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se aprobó el servicio' });
     }
   }
 );
@@ -94,7 +94,7 @@ export const rejectServiceThunk = createAsyncThunk(
       return data;
     } catch (err) {
       console.error('rejectService error:', err.response?.data ?? err.message);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to reject service' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se rechazó el servicio.' });
     }
   }
 );
@@ -108,7 +108,7 @@ export const getAllUsersThunk = createAsyncThunk(
       return data;
     } catch (err) {
       console.error('getAllUsers error:', err.response?.data ?? err.message);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to fetch users' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudieron obtener los usuarios.' });
     }
   }
 );
@@ -122,7 +122,7 @@ export const getStudentsThunk = createAsyncThunk(
       return data;
     } catch (err) {
       console.error('getStudents error:', err.response?.data ?? err.message);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to fetch students' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudo recoger a los estudiantes.' });
     }
   }
 );
@@ -136,7 +136,7 @@ export const getAllReviewsThunk = createAsyncThunk(
       return data;
     } catch (err) {
       console.error('getAllReviews error:', err.response?.data ?? err.message);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to fetch reviews' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudieron obtener las reseñas' });
     }
   }
 );
@@ -150,7 +150,7 @@ export const getGoodReviewsThunk = createAsyncThunk(
       return data;
     } catch (err) {
       console.error('getGoodReviews error:', err.response?.data ?? err.message);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to fetch good reviews' });
+      return rejectWithValue(err.response?.data ?? { message: 'No obtuvo buenas críticas.' });
     }
   }
 );
@@ -164,7 +164,7 @@ export const getTopStudentsThunk = createAsyncThunk(
       return data;
     } catch (err) {
       console.error('getTopStudents error:', err.response?.data ?? err.message);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to fetch top students' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudo buscar los/as mejores estudiantes.' });
     }
   }
 );
@@ -178,7 +178,7 @@ export const getBadReviewsThunk = createAsyncThunk(
       return data;
     } catch (err) {
       console.error('getBadReviews error:', err.response?.data ?? err.message);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to fetch bad reviews' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudieron obtener malas críticas' });
     }
   }
 );

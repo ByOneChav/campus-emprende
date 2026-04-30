@@ -10,7 +10,7 @@ export const getCommentsThunk = createAsyncThunk(
       return { serviceId, comments: data };
     } catch (err) {
       console.error('getComments error:', err.response?.data ?? err.message);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to load comments' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudieron cargar los comentarios.' });
     }
   }
 );
@@ -24,7 +24,7 @@ export const addCommentThunk = createAsyncThunk(
       return { serviceId, comment: data };
     } catch (err) {
       console.error('addComment error:', err.response?.data ?? err.message);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to post comment' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudo publicar el comentario.' });
     }
   }
 );
@@ -38,7 +38,7 @@ export const deleteCommentThunk = createAsyncThunk(
       return { commentId, serviceId };
     } catch (err) {
       console.error('deleteComment error:', err.response?.data ?? err.message);
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to delete comment' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudo eliminar el comentario.' });
     }
   }
 );

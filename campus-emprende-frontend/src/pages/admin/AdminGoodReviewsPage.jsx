@@ -29,8 +29,8 @@ export default function AdminGoodReviewsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <h1 className="text-2xl font-bold">Good Reviews</h1>
-        <Badge className="bg-green-100 text-green-700">4–5 stars</Badge>
+        <h1 className="text-2xl font-bold">Buenas críticas</h1>
+        <Badge className="bg-green-100 text-green-700">4–5 estrellas</Badge>
         {!loading && <Badge variant="secondary">{goodReviews.length}</Badge>}
       </div>
 
@@ -39,7 +39,7 @@ export default function AdminGoodReviewsPage() {
       ) : goodReviews.length === 0 ? (
         <div className="py-16 text-center text-muted-foreground">
           <ThumbsUp className="h-10 w-10 mx-auto mb-3" />
-          <p>No good reviews yet.</p>
+          <p>Todavía no hay buenas críticas.</p>
         </div>
       ) : (
         <div className="space-y-2">

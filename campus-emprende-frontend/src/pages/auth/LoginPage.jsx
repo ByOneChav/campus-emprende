@@ -28,7 +28,7 @@ export default function LoginPage() {
       await login(form.email, form.password);
       navigate(from, { replace: true });
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed. Check your credentials.');
+      setError(err.response?.data?.message || 'Error al iniciar sesión. Compruebe sus credenciales.');
     } finally {
       setLoading(false);
     }
@@ -47,7 +47,7 @@ export default function LoginPage() {
         <div className="relative z-10 flex flex-col justify-end p-12 text-white">
           <GraduationCap className="h-12 w-12 mb-4" />
           <h2 className="text-4xl font-bold leading-tight mb-2">Campus Emprende</h2>
-          <p className="text-white/80 text-lg">The student service marketplace</p>
+          <p className="text-white/80 text-lg">El mercado de servicios estudiantiles</p>
         </div>
       </div>
 
@@ -58,7 +58,7 @@ export default function LoginPage() {
           <div className="flex flex-col items-center text-center lg:hidden">
             <GraduationCap className="h-10 w-10 text-primary mb-2" />
             <h1 className="text-2xl font-bold">Campus Emprende</h1>
-            <p className="text-muted-foreground text-sm">Student service marketplace</p>
+            <p className="text-muted-foreground text-sm">Mercado de servicios para estudiantes</p>
           </div>
 
           {/* Decorated card */}
@@ -68,8 +68,8 @@ export default function LoginPage() {
 
             <div className="px-8 py-8 space-y-6">
               <div>
-                <h1 className="text-3xl font-bold tracking-tight">Welcome back</h1>
-                <p className="mt-1 text-muted-foreground">Sign in to your account to continue</p>
+                <h1 className="text-3xl font-bold tracking-tight">Bienvenido de nuevo</h1>
+                <p className="mt-1 text-muted-foreground">Inicia sesión en tu cuenta para continuar.</p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-5">
@@ -80,11 +80,11 @@ export default function LoginPage() {
                 )}
 
                 <div className="space-y-1.5">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">Correo electrónico</Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="you@university.edu"
+                    placeholder="eliasbombom@gmail.com"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     required
@@ -93,9 +93,9 @@ export default function LoginPage() {
 
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password">Contraseña</Label>
                     <Link to="/auth/forgot-password" className="text-xs text-primary hover:underline">
-                      Forgot password?
+                      ¿Has olvidado tu contraseña?
                     </Link>
                   </div>
                   <Input
@@ -110,14 +110,14 @@ export default function LoginPage() {
 
                 <Button type="submit" className="w-full" size="lg" disabled={loading}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  Sign In
+                  Iniciar sesión
                 </Button>
               </form>
 
               <p className="text-center text-sm text-muted-foreground">
-                No account?{' '}
+                ¿Sin cuenta?{' '}
                 <Link to="/auth/register" className="text-primary hover:underline font-medium">
-                  Register here
+                  Regístrate aquí
                 </Link>
               </p>
             </div>

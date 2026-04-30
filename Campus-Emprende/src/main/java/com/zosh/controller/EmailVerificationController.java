@@ -17,12 +17,12 @@ public class EmailVerificationController {
     @GetMapping("/verify-email")
     public ResponseEntity<ApiResponse> verifyEmail(@RequestParam String token) throws UserException {
         emailVerificationService.verifyEmail(token);
-        return ResponseEntity.ok(new ApiResponse("Email verified successfully", true));
+        return ResponseEntity.ok(new ApiResponse("Correo electrónico verificado exitosamente", true));
     }
 
     @PostMapping("/resend-verification")
     public ResponseEntity<ApiResponse> resendVerification(@RequestParam String email) throws UserException {
         emailVerificationService.resendVerification(email);
-        return ResponseEntity.ok(new ApiResponse("Verification email sent", true));
+        return ResponseEntity.ok(new ApiResponse("Correo electrónico de verificación enviado", true));
     }
 }

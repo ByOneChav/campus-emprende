@@ -32,13 +32,13 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
     public ServiceRequestResponse sendRequest(ServiceRequestCreate request) throws UserException {
         User client = userService.getCurrentUser();
         ServiceListing service = serviceListingRepository.findById(request.getServiceId())
-                .orElseThrow(() -> new UserException("Service not found"));
+                .orElseThrow(() -> new UserException("Servicio no encontrado"));
 
         if (service.getStatus() != ServiceStatus.APPROVED) {
-            throw new UserException("Cannot request a service that is not approved");
+            throw new UserException("No se puede solicitar un servicio que no esté aprobado.");
         }
         if (service.getProvider().getId().equals(client.getId())) {
-            throw new UserException("You cannot request your own service");
+            throw new UserException("No puedes solicitar tu propio servicio.");
         }
 
         ServiceRequest sr = ServiceRequest.builder()
@@ -88,7 +88,7 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
         ServiceRequest sr = getAsClient(id);
         requireStatus(sr, RequestStatus.COMPLETED);
         if (sr.getCompletedAt() != null) {
-            throw new UserException("Completion already confirmed");
+            throw new UserException("Finalización ya confirmada");
         }
         sr.setCompletedAt(LocalDateTime.now());
         return ServiceRequestMapper.toResponse(serviceRequestRepository.save(sr));
@@ -103,10 +103,10 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
         boolean isProvider = sr.getService().getProvider().getId().equals(current.getId());
 
         if (!isClient && !isProvider) {
-            throw new UserException("Not authorized to cancel this request");
+            throw new UserException("No estoy autorizado a cancelar esta solicitud.");
         }
         if (sr.getStatus() == RequestStatus.COMPLETED || sr.getStatus() == RequestStatus.CANCELLED) {
-            throw new UserException("Cannot cancel a request in status " + sr.getStatus());
+            throw new UserException("No se puede cancelar una solicitud en estado " + sr.getStatus());
         }
 
         sr.setStatus(RequestStatus.CANCELLED);
@@ -135,14 +135,14 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
 
     private ServiceRequest findById(Long id) throws UserException {
         return serviceRequestRepository.findById(id)
-                .orElseThrow(() -> new UserException("Service request not found with id " + id));
+                .orElseThrow(() -> new UserException("Solicitud de servicio no encontrada con ID " + id));
     }
 
     private ServiceRequest getAsProvider(Long id) throws UserException {
         User current = userService.getCurrentUser();
         ServiceRequest sr = findById(id);
         if (!sr.getService().getProvider().getId().equals(current.getId())) {
-            throw new UserException("Only the provider can perform this action");
+            throw new UserException("Solo el proveedor puede realizar esta acción.");
         }
         return sr;
     }
@@ -151,14 +151,14 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
         User current = userService.getCurrentUser();
         ServiceRequest sr = findById(id);
         if (!sr.getClient().getId().equals(current.getId())) {
-            throw new UserException("Only the client can perform this action");
+            throw new UserException("Solo el cliente puede realizar esta acción.");
         }
         return sr;
     }
 
     private void requireStatus(ServiceRequest sr, RequestStatus expected) throws UserException {
         if (sr.getStatus() != expected) {
-            throw new UserException("Request must be in status " + expected + " but is " + sr.getStatus());
+            throw new UserException("La solicitud debe estar en estado " + expected + " pero es " + sr.getStatus());
         }
     }
 }

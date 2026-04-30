@@ -54,11 +54,11 @@ public class AuthServiceImpl implements AuthService {
 
         User user = userRepository.findByEmail(req.getEmail());
         if(user != null) {
-            throw new UserException("Email id already registered ");
+            throw new UserException("La dirección de correo electrónico ya está registrada. ");
         }
 
         if(req.getRole().equals(UserRole.ROLE_ADMIN)){
-            throw new UserException("Role admin is not allowed");
+            throw new UserException("No se permite el rol de administrador.");
         }
 
 
@@ -81,8 +81,8 @@ public class AuthServiceImpl implements AuthService {
         String jwt = jwtProvider.generateToken(authentication);
 
         AuthResponse response = new AuthResponse();
-        response.setTitle("Welcome " + createdUser.getEmail());
-        response.setMessage("Register success");
+        response.setTitle("Bienvenido " + createdUser.getEmail());
+        response.setMessage("Registro exitoso");
         response.setUser(UserMapper.toDTO(savedUser));
         response.setJwt(jwt);
         return response;
@@ -103,8 +103,8 @@ public class AuthServiceImpl implements AuthService {
         userRepository.save(user);
 
         AuthResponse response = new AuthResponse();
-        response.setTitle("Login success");
-        response.setMessage("Welcome Back" + username);
+        response.setTitle("Inicio de sesión exitoso");
+        response.setMessage("Bienvenido de nuevo" + username);
         response.setJwt(token);
         response.setUser(UserMapper.toDTO(user));
 
@@ -115,10 +115,10 @@ public class AuthServiceImpl implements AuthService {
 
         UserDetails userDetails = customUserImplementation.loadUserByUsername(email);
         if(userDetails == null) {
-            throw new UserException("email id doesn't exist "+ email);
+            throw new UserException("La dirección de correo electrónico no existe: "+ email);
         }
         if(!passwordEncoder.matches(password, userDetails.getPassword())) {
-            throw new UserException("Wrong Password ");
+            throw new UserException("Contraseña incorrecta. XD");
         }
         return new UsernamePasswordAuthenticationToken(email, null, userDetails.getAuthorities());
     }
@@ -130,7 +130,7 @@ public class AuthServiceImpl implements AuthService {
         // Always return/give same response to caller to avoid enumeration attacks.
         if (user==null) {
 
-            throw new UserException("user not found with given email");
+            throw new UserException("Usuario no encontrado con el correo electrónico proporcionado");
         }
 
 
@@ -145,8 +145,8 @@ public class AuthServiceImpl implements AuthService {
         passwordResetTokenRepository.save(resetToken);
 
         String resetLink =  frontendResetUrl + token;
-        String subject = "Password Reset Request";
-        String body = "You requested to reset your password. Use this link (valid 5 minutes): " + resetLink;
+        String subject = "Solicitud de restablecimiento de contraseña";
+        String body = "Solicitaste restablecer tu contraseña. Usa este enlace (válido por 5 minutos): " + resetLink;
 
         emailService.sendEmail(user.getEmail(), subject, body);
     }
@@ -156,7 +156,7 @@ public class AuthServiceImpl implements AuthService {
     public void resetPassword(String token, String newPassword) {
         Optional<PasswordResetToken> optionalToken = passwordResetTokenRepository.findByToken(token);
         if (optionalToken.isEmpty()) {
-            throw new BadCredentialsException("Invalid or expired token");
+            throw new BadCredentialsException("Token no válido o caducado");
         }
 
         PasswordResetToken resetToken = optionalToken.get();

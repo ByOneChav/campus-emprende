@@ -41,11 +41,11 @@ public class EmailVerificationServiceImpl implements EmailVerificationService {
         tokenRepository.save(verificationToken);
 
         String verifyLink = frontendVerifyUrl + token;
-        String subject = "Verify your Campus Emprende account";
-        String body = "Welcome to Campus Emprende!\n\n"
-                + "Please verify your email address by clicking the link below (valid 24 hours):\n\n"
+        String subject = "Verifica tu cuenta de Campus Emprende";
+        String body = "¡Bienvenidos al Campus Emprende!\n\n"
+                + "Por favor, verifique su dirección de correo electrónico haciendo clic en el siguiente enlace (válido durante 24 horas):\n\n"
                 + verifyLink + "\n\n"
-                + "If you did not create an account, you can safely ignore this email.";
+                + "Si no has creado una cuenta, puedes ignorar este correo electrónico sin problema.";
         emailService.sendEmail(user.getEmail(), subject, body);
     }
 
@@ -54,17 +54,17 @@ public class EmailVerificationServiceImpl implements EmailVerificationService {
     public void verifyEmail(String token) throws UserException {
         Optional<EmailVerificationToken> optional = tokenRepository.findByToken(token);
         if (optional.isEmpty()) {
-            throw new UserException("Invalid verification token");
+            throw new UserException("Token de verificación no válido");
         }
 
         EmailVerificationToken verificationToken = optional.get();
 
         if (verificationToken.isUsed()) {
-            throw new UserException("Verification token already used");
+            throw new UserException("El token de verificación ya está en uso.");
         }
         if (verificationToken.isExpired()) {
             tokenRepository.delete(verificationToken);
-            throw new UserException("Verification token has expired. Please request a new one.");
+            throw new UserException("El token de verificación ha caducado. Solicite uno nuevo.");
         }
 
         User user = verificationToken.getUser();
@@ -80,10 +80,10 @@ public class EmailVerificationServiceImpl implements EmailVerificationService {
     public void resendVerification(String email) throws UserException {
         User user = userRepository.findByEmail(email);
         if (user == null) {
-            throw new UserException("No account found with this email");
+            throw new UserException("No se encontró ninguna cuenta con este correo electrónico.");
         }
         if (Boolean.TRUE.equals(user.getVerified())) {
-            throw new UserException("Email is already verified");
+            throw new UserException("El correo electrónico ya está verificado.");
         }
         sendVerificationEmail(user);
     }

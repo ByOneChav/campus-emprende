@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
             errors.put(fieldName, errorMessage);
         });
 
-        ValidationErrorResponse response = new ValidationErrorResponse("Validation failed", errors);
+        ValidationErrorResponse response = new ValidationErrorResponse("La validación falló", errors);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
@@ -65,7 +65,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse> handleGeneralException(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ApiResponse("An error occurred: " + ex.getMessage(),false));
+                .body(new ApiResponse("Se produjo un error. XD: " + ex.getMessage(),false));
     }
 
     /**

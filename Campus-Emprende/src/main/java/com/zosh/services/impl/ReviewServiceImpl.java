@@ -30,19 +30,19 @@ public class ReviewServiceImpl implements ReviewService {
         User reviewer = userService.getCurrentUser();
 
         ServiceRequest sr = serviceRequestRepository.findById(serviceRequestId)
-                .orElseThrow(() -> new UserException("Service request not found"));
+                .orElseThrow(() -> new UserException("Solicitud de servicio no encontrada"));
 
         if (!sr.getClient().getId().equals(reviewer.getId())) {
-            throw new UserException("Only the client can leave a review");
+            throw new UserException("Solo el cliente puede dejar una reseña.");
         }
         if (sr.getStatus() != RequestStatus.COMPLETED) {
-            throw new UserException("Review can only be submitted after the service is completed");
+            throw new UserException("La reseña solo se puede enviar una vez que se haya completado el servicio.");
         }
         if (sr.getCompletedAt() == null) {
-            throw new UserException("Please confirm completion before leaving a review");
+            throw new UserException("Por favor, confirme que ha finalizado el proceso antes de dejar una reseña.");
         }
         if (reviewRepository.existsByServiceRequestId(serviceRequestId)) {
-            throw new UserException("A review already exists for this request");
+            throw new UserException("Ya existe una reseña para esta solicitud.");
         }
 
         Review review = Review.builder()

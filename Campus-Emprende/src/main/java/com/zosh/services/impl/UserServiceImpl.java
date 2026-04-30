@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 	public User getUserByEmail(String email) throws UserException {
 		User user=userRepository.findByEmail(email);
 		if(user==null){
-			throw new UserException("User not found with email: "+email);
+			throw new UserException("Usuario no encontrado con el correo electrónico: "+email);
 		}
 		return user;
 	}
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
 	public User getUserFromJwtToken(String jwt) throws UserException {
 		String email = jwtProvider.getEmailFromJwtToken(jwt);
 		User user = userRepository.findByEmail(email);
-		if(user==null) throw new UserException("user not exist with email "+email);
+		if(user==null) throw new UserException("El usuario no existe con ese correo electrónico. YAPO REVISA BIEN WEONO/A "+email);
 		return user;
 	}
 
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user= userRepository.findByEmail(email);
 		if(user == null) {
-			throw new EntityNotFoundException("User not found");
+			throw new EntityNotFoundException("Usuario no encontrado");
 		}
 		return user;
 	}

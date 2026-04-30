@@ -115,14 +115,14 @@ public class ServiceListingServiceImpl implements ServiceListingService {
 
     private ServiceListing findById(Long id) throws UserException {
         return serviceListingRepository.findById(id)
-                .orElseThrow(() -> new UserException("Service not found with id " + id));
+                .orElseThrow(() -> new UserException("Servicio no encontrado con ID " + id));
     }
 
     private ServiceListing getOwnedListing(Long id) throws UserException {
         User current = userService.getCurrentUser();
         ServiceListing listing = findById(id);
         if (!listing.getProvider().getId().equals(current.getId())) {
-            throw new UserException("You are not the owner of this service");
+            throw new UserException("Usted no es el propietario de este servicio.");
         }
         return listing;
     }

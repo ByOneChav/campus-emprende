@@ -29,7 +29,7 @@ public class PdfServiceImpl implements PdfService {
     public byte[] generateProfilePdf() throws UserException, IOException {
         User currentUser = userService.getCurrentUser();
         Profile profile = profileRepository.findByUser(currentUser)
-                .orElseThrow(() -> new UserException("Profile not found. Please create one before exporting."));
+                .orElseThrow(() -> new UserException("Perfil no encontrado. Por favor, cree uno antes de exportar."));
 
         try (PDDocument document = new PDDocument();
              ByteArrayOutputStream out = new ByteArrayOutputStream()) {
@@ -96,7 +96,7 @@ public class PdfServiceImpl implements PdfService {
                 content.beginText();
                 content.setFont(fontBold, 13);
                 content.newLineAtOffset(margin, y);
-                content.showText("About Me");
+                content.showText("Acerca de mí");
                 content.endText();
                 y -= leading;
 

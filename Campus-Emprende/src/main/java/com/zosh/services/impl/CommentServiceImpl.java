@@ -28,7 +28,7 @@ public class CommentServiceImpl implements CommentService {
     public CommentResponse addComment(Long serviceId, CommentRequest request) throws UserException {
         User author = userService.getCurrentUser();
         ServiceListing service = serviceListingRepository.findById(serviceId)
-                .orElseThrow(() -> new UserException("Service not found with id " + serviceId));
+                .orElseThrow(() -> new UserException("Servicio no encontrado con ID " + serviceId));
 
         Comment comment = Comment.builder()
                 .service(service)
@@ -49,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
     public void deleteComment(Long commentId) throws UserException {
         User current = userService.getCurrentUser();
         Comment comment = commentRepository.findByIdAndAuthorId(commentId, current.getId())
-                .orElseThrow(() -> new UserException("Comment not found or you are not the author"));
+                .orElseThrow(() -> new UserException("Comentario no encontrado o usted no es el autor."));
         commentRepository.delete(comment);
     }
 }

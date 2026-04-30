@@ -58,7 +58,7 @@ public class AuthController {
         authService.createPasswordResetToken(request.getEmail());
 
         ApiResponse res= new ApiResponse(
-                "A Reset link was sent to your email.",true
+                "Se ha enviado un enlace de restablecimiento a su correo electrónico.",true
         );
         return ResponseEntity.ok(res);
     }
@@ -68,7 +68,7 @@ public class AuthController {
             @RequestBody ResetPasswordRequest request) {
         authService.resetPassword(request.getToken(), request.getPassword());
         ApiResponse res= new ApiResponse(
-                "Password reset successful",true
+                "Restablecimiento de contraseña exitosa",true
         );
         return ResponseEntity.ok(res);
     }

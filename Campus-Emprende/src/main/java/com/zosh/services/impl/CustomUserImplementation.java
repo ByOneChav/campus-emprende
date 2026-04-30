@@ -25,7 +25,7 @@ public class CustomUserImplementation implements UserDetailsService {
         User user = userRepository.findByEmail(username);
 
         if (user == null) {
-            throw new UsernameNotFoundException("user doesn't exist with email " + username);
+            throw new UsernameNotFoundException("El usuario no existe con el correo electrónico " + username);
         }
 
 

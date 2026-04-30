@@ -46,7 +46,7 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public ReportResponse resolveReport(Long id, String adminNotes) throws UserException {
         Report report = reportRepository.findById(id)
-                .orElseThrow(() -> new UserException("Report not found with id " + id));
+                .orElseThrow(() -> new UserException("Informe no encontrado con ID " + id));
         report.setStatus(ReportStatus.RESOLVED);
         report.setAdminNotes(adminNotes);
         return ReportMapper.toResponse(reportRepository.save(report));

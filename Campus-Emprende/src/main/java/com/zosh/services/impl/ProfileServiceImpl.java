@@ -27,7 +27,7 @@ public class ProfileServiceImpl implements ProfileService {
     public ProfileResponse getMyProfile() throws UserException {
         User currentUser = userService.getCurrentUser();
         Profile profile = profileRepository.findByUser(currentUser)
-                .orElseThrow(() -> new UserException("Profile not found. Please create one."));
+                .orElseThrow(() -> new UserException("Perfil no encontrado. Por favor, créelo."));
         return ProfileMapper.toResponse(profile);
     }
 
@@ -49,7 +49,7 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     public ProfileResponse getPublicProfile(Long userId) throws UserException {
         Profile profile = profileRepository.findByUserId(userId)
-                .orElseThrow(() -> new UserException("Profile not found for user " + userId));
+                .orElseThrow(() -> new UserException("Perfil no encontrado para el usuario " + userId));
         return ProfileMapper.toResponse(profile);
     }
 }

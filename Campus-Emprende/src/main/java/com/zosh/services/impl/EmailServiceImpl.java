@@ -53,7 +53,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
 
-    // ==================== HELPER METHODS ====================
+    // ==================== MÉTODOS DE AYUDA====================
 
     private String buildSimpleBody(EmailNotificationDTO notification) {
         if (notification.getTemplateData() != null && notification.getTemplateData().containsKey("message")) {

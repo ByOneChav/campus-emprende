@@ -45,20 +45,20 @@ export default function DashboardPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">Dashboard</h1>
-          <p className="text-muted-foreground text-sm">Welcome back, {user?.fullName?.split(' ')[0]}!</p>
+          <p className="text-muted-foreground text-sm">Bienvenido de nuevo, {user?.fullName?.split(' ')[0]}!</p>
         </div>
         <Button asChild>
-          <Link to="/services/create"><Plus className="mr-2 h-4 w-4" />New Service</Link>
+          <Link to="/services/create"><Plus className="mr-2 h-4 w-4" />Nuevo servicio</Link>
         </Button>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'My Services', value: services.length, icon: Briefcase },
-          { label: 'Pending Review', value: pendingServices, icon: AlertCircle },
-          { label: 'Requests Sent', value: sent.length, icon: Send },
-          { label: 'Active Requests', value: activeRequests, icon: Inbox },
+          { label: 'Mis servicios', value: services.length, icon: Briefcase },
+          { label: 'Revisión pendiente', value: pendingServices, icon: AlertCircle },
+          { label: 'Solicitudes enviadas', value: sent.length, icon: Send },
+          { label: 'Solicitudes activas', value: activeRequests, icon: Inbox },
         ].map(({ label, value, icon: Icon }) => (
           <Card key={label}>
             <CardContent className="pt-5 flex items-center gap-4">
@@ -77,7 +77,7 @@ export default function DashboardPage() {
       {/* My Services */}
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-lg font-semibold">My Services</h2>
+          <h2 className="text-lg font-semibold">Mis servicios</h2>
         </div>
         {loading ? (
           <div className="space-y-2">
@@ -87,8 +87,8 @@ export default function DashboardPage() {
           <Card>
             <CardContent className="py-10 flex flex-col items-center gap-3 text-center text-muted-foreground">
               <Briefcase className="h-8 w-8" />
-              <p>You haven't offered any services yet.</p>
-              <Button asChild><Link to="/services/create">Offer your first service</Link></Button>
+              <p>Todavía no has ofrecido ningún servicio.</p>
+              <Button asChild><Link to="/services/create">Ofrece tu primer servicio</Link></Button>
             </CardContent>
           </Card>
         ) : (
@@ -103,10 +103,10 @@ export default function DashboardPage() {
                   <div className="flex items-center gap-2 shrink-0">
                     <Badge className={STATUS_COLORS[s.status] || ''}>{s.status}</Badge>
                     <Button variant="outline" size="sm" asChild>
-                      <Link to={`/services/${s.id}`}>View Details</Link>
+                      <Link to={`/services/${s.id}`}>Ver detalles</Link>
                     </Button>
                     <Button variant="outline" size="sm" asChild>
-                      <Link to={`/services/${s.id}/edit`}>Edit</Link>
+                      <Link to={`/services/${s.id}/edit`}>Editar</Link>
                     </Button>
                   </div>
                 </CardContent>
@@ -120,9 +120,9 @@ export default function DashboardPage() {
       {received.length > 0 && (
         <div>
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-lg font-semibold">Incoming Requests</h2>
+            <h2 className="text-lg font-semibold">Solicitudes entrantes</h2>
             <Button variant="ghost" size="sm" asChild>
-              <Link to="/requests">View all →</Link>
+              <Link to="/requests">Ver todo →</Link>
             </Button>
           </div>
           <div className="space-y-2">

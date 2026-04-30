@@ -29,7 +29,7 @@ export default function AdminReviewsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <h1 className="text-2xl font-bold">All Reviews</h1>
+        <h1 className="text-2xl font-bold">Todas las reseñas</h1>
         {!loading && <Badge variant="secondary">{allReviews.length}</Badge>}
       </div>
 
@@ -38,7 +38,7 @@ export default function AdminReviewsPage() {
       ) : allReviews.length === 0 ? (
         <div className="py-16 text-center text-muted-foreground">
           <MessageSquare className="h-10 w-10 mx-auto mb-3" />
-          <p>No reviews yet.</p>
+          <p>Aún no hay reseñas.</p>
         </div>
       ) : (
         <div className="space-y-2">

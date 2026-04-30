@@ -32,9 +32,9 @@ export default function ResetPasswordPage() {
     setLoading(true);
     try {
       await resetPassword(token, password);
-      navigate('/auth/login', { state: { message: 'Password reset successfully. Please sign in.' } });
+      navigate('/auth/login', { state: { message: 'Contraseña restablecida correctamente. Inicie sesión.' } });
     } catch (err) {
-      setError(err.response?.data?.message || 'Reset failed. The link may have expired.');
+      setError(err.response?.data?.message || 'El reinicio falló. Es posible que el enlace haya caducado.');
     } finally {
       setLoading(false);
     }
@@ -45,8 +45,8 @@ export default function ResetPasswordPage() {
       <div className="w-full max-w-md">
         <Card>
           <CardHeader>
-            <CardTitle>Set New Password</CardTitle>
-            <CardDescription>Choose a strong password for your account</CardDescription>
+            <CardTitle>Establecer nueva contraseña</CardTitle>
+            <CardDescription>Elige una contraseña segura para tu cuenta.</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -56,7 +56,7 @@ export default function ResetPasswordPage() {
                 </Alert>
               )}
               <div className="space-y-1.5">
-                <Label htmlFor="password">New Password</Label>
+                <Label htmlFor="password">Nueva contraseña</Label>
                 <Input
                   id="password"
                   type="password"
@@ -68,7 +68,7 @@ export default function ResetPasswordPage() {
                 />
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="confirm">Confirm Password</Label>
+                <Label htmlFor="confirm">confirmar Contraseña</Label>
                 <Input
                   id="confirm"
                   type="password"
@@ -80,7 +80,7 @@ export default function ResetPasswordPage() {
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Reset Password
+                Restablecer contraseña
               </Button>
             </form>
           </CardContent>

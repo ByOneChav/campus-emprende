@@ -21,7 +21,7 @@ export default function ForgotPasswordPage() {
       await forgotPassword(email);
       setStatus('sent');
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to send reset email.');
+      setError(err.response?.data?.message || 'No se pudo enviar el correo electrónico de reinicio.');
       setStatus('idle');
     }
   };
@@ -31,18 +31,18 @@ export default function ForgotPasswordPage() {
       <div className="w-full max-w-md space-y-4">
         <Card>
           <CardHeader>
-            <CardTitle>Reset Password</CardTitle>
-            <CardDescription>Enter your email to receive a reset link</CardDescription>
+            <CardTitle>Restablecer contraseña</CardTitle>
+            <CardDescription>Introduce tu correo electrónico para recibir un enlace de restablecimiento.</CardDescription>
           </CardHeader>
           <CardContent>
             {status === 'sent' ? (
               <div className="text-center space-y-4 py-4">
-                <p className="text-green-600 font-medium">Email sent!</p>
+                <p className="text-green-600 font-medium">Correo electrónico enviado!</p>
                 <p className="text-sm text-muted-foreground">
-                  Check your inbox for a password reset link (valid 5 minutes).
+                  Revisa tu bandeja de entrada para obtener un enlace para restablecer la contraseña. (Válido 5 minutos).
                 </p>
                 <Button variant="outline" asChild>
-                  <Link to="/auth/login"><ArrowLeft className="mr-2 h-4 w-4" />Back to Login</Link>
+                  <Link to="/auth/login"><ArrowLeft className="mr-2 h-4 w-4" />Volver a iniciar sesión</Link>
                 </Button>
               </div>
             ) : (
@@ -53,7 +53,7 @@ export default function ForgotPasswordPage() {
                   </Alert>
                 )}
                 <div className="space-y-1.5">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">Correo electrónico</Label>
                   <Input
                     id="email"
                     type="email"
@@ -65,10 +65,10 @@ export default function ForgotPasswordPage() {
                 </div>
                 <Button type="submit" className="w-full" disabled={status === 'loading'}>
                   {status === 'loading' && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  Send Reset Link
+                  Enviar enlace de reinicio
                 </Button>
                 <Button variant="ghost" className="w-full" asChild>
-                  <Link to="/auth/login"><ArrowLeft className="mr-2 h-4 w-4" />Back to Login</Link>
+                  <Link to="/auth/login"><ArrowLeft className="mr-2 h-4 w-4" />Volver a iniciar sesión</Link>
                 </Button>
               </form>
             )}

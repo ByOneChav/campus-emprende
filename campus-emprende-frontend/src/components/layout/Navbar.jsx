@@ -37,7 +37,7 @@ export default function Navbar() {
 
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
           <Link to="/services" className="text-muted-foreground hover:text-foreground transition-colors">
-            Browse Services
+            Explorar servicios
           </Link>
           {isAuthenticated && (
             <>
@@ -45,7 +45,7 @@ export default function Navbar() {
                 Dashboard
               </Link>
               <Link to="/requests" className="text-muted-foreground hover:text-foreground transition-colors">
-                My Requests
+                Mis solicitudes
               </Link>
               {isAdmin && (
                 <Link to="/admin" className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
@@ -60,10 +60,10 @@ export default function Navbar() {
           {!isAuthenticated ? (
             <>
               <Button variant="ghost" asChild>
-                <Link to="/auth/login">Login</Link>
+                <Link to="/auth/login">Acceso</Link>
               </Button>
               <Button asChild>
-                <Link to="/auth/register">Register</Link>
+                <Link to="/auth/register">Registro</Link>
               </Button>
             </>
           ) : (
@@ -85,7 +85,7 @@ export default function Navbar() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                   <Link to="/profiles/me" className="flex items-center gap-2 cursor-pointer">
-                    <User className="h-4 w-4" /> My Profile
+                    <User className="h-4 w-4" /> Mi perfil
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
@@ -102,7 +102,7 @@ export default function Navbar() {
                 )}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogout} className="text-destructive flex items-center gap-2 cursor-pointer">
-                  <LogOut className="h-4 w-4" /> Logout
+                  <LogOut className="h-4 w-4" /> Cerrar sesión
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

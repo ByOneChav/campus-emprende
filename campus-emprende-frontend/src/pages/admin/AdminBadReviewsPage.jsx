@@ -29,8 +29,8 @@ export default function AdminBadReviewsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <h1 className="text-2xl font-bold">Bad Reviews</h1>
-        <Badge className="bg-red-100 text-red-700">1–2 stars</Badge>
+        <h1 className="text-2xl font-bold">Malas críticas</h1>
+        <Badge className="bg-red-100 text-red-700">1–2 estrellas</Badge>
         {!loading && <Badge variant="secondary">{badReviews.length}</Badge>}
       </div>
 
@@ -39,7 +39,7 @@ export default function AdminBadReviewsPage() {
       ) : badReviews.length === 0 ? (
         <div className="py-16 text-center text-muted-foreground">
           <ThumbsDown className="h-10 w-10 mx-auto mb-3" />
-          <p>No bad reviews found.</p>
+          <p>No se encontraron reseñas negativas.</p>
         </div>
       ) : (
         <div className="space-y-2">

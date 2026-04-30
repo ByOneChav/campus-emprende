@@ -16,7 +16,7 @@ export default function AdminStudentsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <h1 className="text-2xl font-bold">Students</h1>
+        <h1 className="text-2xl font-bold">Estudiantes</h1>
         {!loading && <Badge variant="secondary">{students.length}</Badge>}
       </div>
 
@@ -25,7 +25,7 @@ export default function AdminStudentsPage() {
       ) : students.length === 0 ? (
         <div className="py-16 text-center text-muted-foreground">
           <GraduationCap className="h-10 w-10 mx-auto mb-3" />
-          <p>No students found.</p>
+          <p>No se encontraron estudiantes.</p>
         </div>
       ) : (
         <div className="space-y-2">
@@ -44,7 +44,7 @@ export default function AdminStudentsPage() {
                       Joined {new Date(u.createdAt).toLocaleDateString()}
                     </span>
                   )}
-                  <Badge className="bg-blue-100 text-blue-700">STUDENT</Badge>
+                  <Badge className="bg-blue-100 text-blue-700">ESTUDIANTE</Badge>
                 </div>
               </CardContent>
             </Card>

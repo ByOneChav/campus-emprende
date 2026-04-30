@@ -58,7 +58,7 @@ export default function EditServicePage() {
       await updateService(id, form);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to update service.');
+      setError(err.response?.data?.message || 'No se pudo actualizar el servicio.');
     } finally {
       setSaving(false);
     }
@@ -76,20 +76,20 @@ export default function EditServicePage() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
       <Button variant="ghost" size="sm" asChild className="-ml-2 mb-6">
-        <Link to="/dashboard"><ArrowLeft className="mr-2 h-4 w-4" />Back to Dashboard</Link>
+        <Link to="/dashboard"><ArrowLeft className="mr-2 h-4 w-4" />Volver al Dashboard</Link>
       </Button>
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>Edit Service</CardTitle>
-              <CardDescription>Changes will resubmit the service for review.</CardDescription>
+              <CardTitle>Editar servicio</CardTitle>
+              <CardDescription>Los cambios requerirán que el servicio se vuelva a enviar para su revisión.</CardDescription>
             </div>
             <Badge className={STATUS_COLORS[status]}>{status}</Badge>
           </div>
           {status === 'REJECTED' && rejectionReason && (
             <Alert variant="destructive" className="mt-3">
-              <AlertDescription><strong>Rejection reason:</strong> {rejectionReason}</AlertDescription>
+              <AlertDescription><strong>Motivo del rechazo:</strong> {rejectionReason}</AlertDescription>
             </Alert>
           )}
         </CardHeader>
@@ -101,7 +101,7 @@ export default function EditServicePage() {
               <Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required maxLength={150} />
             </div>
             <div className="space-y-1.5">
-              <Label>Category</Label>
+              <Label>Categoria</Label>
               <Select value={form.category} onValueChange={(v) => setForm({ ...form, category: v })}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
@@ -115,11 +115,11 @@ export default function EditServicePage() {
             </div>
             <div className="flex gap-3">
               <Button type="submit" disabled={saving}>
-                {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Save Changes
+                {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Guardar cambios
               </Button>
               {status !== 'INACTIVE' && (
                 <Button type="button" variant="destructive" onClick={() => setDeactivateOpen(true)}>
-                  Deactivate
+                  Desactivar
                 </Button>
               )}
             </div>
@@ -129,11 +129,11 @@ export default function EditServicePage() {
 
       <Dialog open={deactivateOpen} onOpenChange={setDeactivateOpen}>
         <DialogContent>
-          <DialogHeader><DialogTitle>Deactivate Service?</DialogTitle></DialogHeader>
-          <p className="text-sm text-muted-foreground">This will hide the service from the marketplace. You can edit it to resubmit.</p>
+          <DialogHeader><DialogTitle>¿Desactivar el servicio?</DialogTitle></DialogHeader>
+          <p className="text-sm text-muted-foreground">Esto ocultará el servicio del mercado. Puedes editarlo para volver a enviarlo.</p>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setDeactivateOpen(false)}>Cancel</Button>
-            <Button variant="destructive" onClick={handleDeactivate}>Deactivate</Button>
+            <Button variant="outline" onClick={() => setDeactivateOpen(false)}>Cancelar</Button>
+            <Button variant="destructive" onClick={handleDeactivate}>Desactivar</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

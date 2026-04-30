@@ -31,19 +31,19 @@ export default function AdminDashboardPage() {
   }, [dispatch]);
 
   const stats = dashboard ? [
-    { label: 'Total Users',       value: dashboard.totalUsers,       icon: Users,        color: 'text-blue-600' },
-    { label: 'Approved Services', value: dashboard.approvedServices, icon: CheckCircle,  color: 'text-green-600' },
-    { label: 'Pending Review',    value: dashboard.pendingServices,  icon: Clock,        color: 'text-yellow-600' },
-    { label: 'Rejected',          value: dashboard.rejectedServices, icon: XCircle,      color: 'text-red-500' },
-    { label: 'Total Requests',    value: dashboard.totalRequests,    icon: Send,         color: 'text-indigo-600' },
-    { label: 'Pending Reports',   value: dashboard.pendingReports,   icon: Flag,         color: 'text-orange-500' },
+    { label: 'Total de usuarios',       value: dashboard.totalUsers,       icon: Users,        color: 'text-blue-600' },
+    { label: 'Servicios aprobados', value: dashboard.approvedServices, icon: CheckCircle,  color: 'text-green-600' },
+    { label: 'Revisión pendiente',    value: dashboard.pendingServices,  icon: Clock,        color: 'text-yellow-600' },
+    { label: 'Rechazado',          value: dashboard.rejectedServices, icon: XCircle,      color: 'text-red-500' },
+    { label: 'Solicitudes totales',    value: dashboard.totalRequests,    icon: Send,         color: 'text-indigo-600' },
+    { label: 'Informes pendientes',   value: dashboard.pendingReports,   icon: Flag,         color: 'text-orange-500' },
   ] : [];
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
       <div className="flex items-center gap-2">
         <ShieldCheck className="h-6 w-6 text-primary" />
-        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+        <h1 className="text-2xl font-bold">Panel de administración</h1>
       </div>
 
       {/* Stats grid */}
@@ -68,7 +68,7 @@ export default function AdminDashboardPage() {
         <CardHeader>
           <CardTitle className="text-base flex items-center gap-2">
             <Star className="h-4 w-4 text-yellow-500" />
-            Top 5 Students
+            Los 5 mejores estudiantes
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -77,17 +77,17 @@ export default function AdminDashboardPage() {
               {[...Array(5)].map((_, i) => <Skeleton key={i} className="h-10 w-full" />)}
             </div>
           ) : topStudents.length === 0 ? (
-            <p className="text-sm text-muted-foreground py-4 text-center">No student data yet.</p>
+            <p className="text-sm text-muted-foreground py-4 text-center">Aún no hay datos de los estudiantes.</p>
           ) : (
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-8">#</TableHead>
-                  <TableHead>Student</TableHead>
-                  <TableHead className="text-center">Services</TableHead>
-                  <TableHead className="text-center">Requests</TableHead>
-                  <TableHead className="text-center">Completed</TableHead>
-                  <TableHead className="text-center">Avg Rating</TableHead>
+                  <TableHead>Estudiantes</TableHead>
+                  <TableHead className="text-center">Servicios</TableHead>
+                  <TableHead className="text-center">Solicitudes</TableHead>
+                  <TableHead className="text-center">Completado</TableHead>
+                  <TableHead className="text-center">Calificación promedio</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -121,17 +121,17 @@ export default function AdminDashboardPage() {
       {/* Quick links */}
       <div className="grid md:grid-cols-2 gap-4">
         <Card>
-          <CardHeader><CardTitle className="text-base">Service Moderation</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="text-base">Moderación del servicio</CardTitle></CardHeader>
           <CardContent className="space-y-2">
-            <p className="text-sm text-muted-foreground">Review and approve or reject student service listings.</p>
-            <Button asChild><Link to="/admin/services">Manage Services</Link></Button>
+            <p className="text-sm text-muted-foreground">Revisar y aprobar o rechazar los listados de servicios estudiantiles.</p>
+            <Button asChild><Link to="/admin/services">Servicios de gestión</Link></Button>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader><CardTitle className="text-base">Content Reports</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="text-base">Informes de contenido</CardTitle></CardHeader>
           <CardContent className="space-y-2">
-            <p className="text-sm text-muted-foreground">Review reports submitted by students about services, reviews, and users.</p>
-            <Button asChild><Link to="/admin/reports">Manage Reports</Link></Button>
+            <p className="text-sm text-muted-foreground">Revisa los informes enviados por los estudiantes sobre los servicios, las reseñas y los usuarios.</p>
+            <Button asChild><Link to="/admin/reports">Administrar informes</Link></Button>
           </CardContent>
         </Card>
       </div>

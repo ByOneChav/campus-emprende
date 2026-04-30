@@ -20,40 +20,40 @@ import { cn } from '@/lib/utils';
 
 const navigation = [
   {
-    title: 'Overview',
+    title: 'Descripción general',
     items: [
       { name: 'Dashboard', href: '/admin', icon: LayoutDashboard, end: true },
     ],
   },
   {
-    title: 'Services',
+    title: 'Servicios',
     items: [
-      { name: 'All Services', href: '/admin/services', icon: Briefcase, end: true },
-      { name: 'Active Services', href: '/admin/services/active', icon: CheckCircle },
-      { name: 'Pending Services', href: '/admin/services/pending', icon: Clock },
-      { name: 'Rejected Services', href: '/admin/services/rejected', icon: XCircle },
+      { name: 'Todos los servicios', href: '/admin/services', icon: Briefcase, end: true },
+      { name: 'Servicios activos', href: '/admin/services/active', icon: CheckCircle },
+      { name: 'Servicios pendientes', href: '/admin/services/pending', icon: Clock },
+      { name: 'Servicios rechazados', href: '/admin/services/rejected', icon: XCircle },
     ],
   },
   {
-    title: 'Users',
+    title: 'Usuarios',
     items: [
-      { name: 'All Users', href: '/admin/users', icon: Users },
-      { name: 'Students', href: '/admin/users/students', icon: GraduationCap },
+      { name: 'Todos los usuarios', href: '/admin/users', icon: Users },
+      { name: 'Estudiantes', href: '/admin/users/students', icon: GraduationCap },
     ],
   },
   {
-    title: 'Reports & Reviews',
+    title: 'Informes y reseñas',
     items: [
-      { name: 'Reports', href: '/admin/reports', icon: BarChart3 },
-      { name: 'Reviews', href: '/admin/reviews', icon: MessageSquare, end: true },
-      { name: 'Good Reviews', href: '/admin/reviews/good', icon: ThumbsUp },
-      { name: 'Bad Reviews', href: '/admin/reviews/bad', icon: ThumbsDown },
+      { name: 'Informes', href: '/admin/reports', icon: BarChart3 },
+      { name: 'Reseñas', href: '/admin/reviews', icon: MessageSquare, end: true },
+      { name: 'Buenas críticas', href: '/admin/reviews/good', icon: ThumbsUp },
+      { name: 'Malas críticas', href: '/admin/reviews/bad', icon: ThumbsDown },
     ],
   },
   {
-    title: 'Account',
+    title: 'Cuenta',
     items: [
-      { name: 'Profile', href: '/profiles/me', icon: User },
+      { name: 'Perfil', href: '/profiles/me', icon: User },
     ],
   },
 ];
@@ -72,7 +72,7 @@ export default function AdminSidebar() {
       {/* Logo */}
       <div className="flex items-center gap-2 px-4 h-16 border-b font-bold text-lg">
         <Logo className="h-5 w-5 text-primary" />
-        <span>Admin Panel</span>
+        <span>Panel de administración</span>
       </div>
 
       {/* Nav groups */}
@@ -114,7 +114,7 @@ export default function AdminSidebar() {
           className="flex w-full items-center gap-2.5 rounded-md px-2 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
         >
           <LogOut className="h-4 w-4 shrink-0" />
-          Logout
+          Cerrar sesión
         </button>
       </div>
     </aside>

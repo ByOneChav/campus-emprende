@@ -8,7 +8,7 @@ export const submitReportThunk = createAsyncThunk(
       const { data } = await reportsApi.submitReport(reportData);
       return data;
     } catch (err) {
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to submit report' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudo enviar el informe.' });
     }
   }
 );
@@ -20,7 +20,7 @@ export const getReportsThunk = createAsyncThunk(
       const { data } = await reportsApi.getReports(status);
       return data;
     } catch (err) {
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to fetch reports' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudieron obtener los informes.' });
     }
   }
 );
@@ -32,7 +32,7 @@ export const resolveReportThunk = createAsyncThunk(
       const { data } = await reportsApi.resolveReport(id, reason);
       return data;
     } catch (err) {
-      return rejectWithValue(err.response?.data ?? { message: 'Failed to resolve report' });
+      return rejectWithValue(err.response?.data ?? { message: 'No se pudo resolver el informe' });
     }
   }
 );

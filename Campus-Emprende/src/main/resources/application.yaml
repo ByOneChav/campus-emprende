@@ -1,62 +1,61 @@
 spring:
   application:
-    name: Campus-Emprende
+    name: Campus-Emprende  # Nombre de la aplicación
 
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:campus_emprende}
-    driver-class-name: org.postgresql.Driver
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:Redimi2one2025*}
-
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:campus_emprende}  # Conexión a PostgreSQL
+    driver-class-name: org.postgresql.Driver  # Driver de la BD
+    username: ${DB_USERNAME:postgres}  # Usuario (variable o valor por defecto)
+    password: ${DB_PASSWORD:Redimi2one2025*}  # Contraseña de la BD
 
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: update  # Actualiza tablas automáticamente
+    show-sql: true  # Muestra consultas SQL en consola
 
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: onechavito1615@gmail.com
-    password: grbh hhcg iyot gsut
+    host: smtp.gmail.com  # Servidor SMTP de Gmail
+    port: 587  # Puerto TLS
+    username: onechavito1615@gmail.com  # Correo emisor
+    password: grbh hhcg iyot gsut  # Contraseña o app password
     properties:
       mail:
         smtp:
-          auth: true
+          auth: true  # Requiere autenticación
           starttls:
-            enable: true
-          connectiontimeout: 8080
-          timeout: 8080
-          writetimeout: 8080
+            enable: true  # Habilita TLS
+          connectiontimeout: 8080  # Tiempo de conexión
+          timeout: 8080  # Tiempo de espera
+          writetimeout: 8080  # Tiempo de escritura
 
   devtools:
     livereload:
-      enabled: true
+      enabled: true  # Recarga automática en desarrollo
 
   task:
     scheduling:
       pool:
-        size: 5
+        size: 5  # Cantidad de hilos para tareas programadas
 
   security:
     oauth2:
       client:
         registration:
           google:
-            client-id: ${GOOGLE_CLIENT_ID:}
-            client-secret: ${GOOGLE_CLIENT_SECRET:}
-            redirect-uri: http://localhost:8080/login/oauth2/code/google
+            client-id: ${GOOGLE_CLIENT_ID:}  # ID de cliente Google
+            client-secret: ${GOOGLE_CLIENT_SECRET:}  # Secreto de cliente
+            redirect-uri: http://localhost:8080/login/oauth2/code/google  # URL de redirección
         provider:
           google:
-            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
-            token-uri: https://oauth2.googleapis.com/token
-            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
-            user-name-attribute: sub
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth  # Autenticación Google
+            token-uri: https://oauth2.googleapis.com/token  # Obtención de token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo  # Info del usuario
+            user-name-attribute: sub  # Identificador único del usuario
 
 server:
-  port: 8080
+  port: 8080  # Puerto del backend
 
 app:
   frontend:
-    reset-url: http://localhost:5173/auth/reset-password?token=
-    verify-url: http://localhost:5173/auth/verify-email?token=
+    reset-url: http://localhost:5173/auth/reset-password?token=  # URL para resetear contraseña
+    verify-url: http://localhost:5173/auth/verify-email?token=  # URL para verificar correo

@@ -35,7 +35,7 @@ public class ReviewServiceImpl implements ReviewService {
         if (!sr.getClient().getId().equals(reviewer.getId())) {
             throw new UserException("Solo el cliente puede dejar una reseña.");
         }
-        if (sr.getStatus() != RequestStatus.COMPLETED) {
+        if (sr.getStatus() != RequestStatus.COMPLETADO) {
             throw new UserException("La reseña solo se puede enviar una vez que se haya completado el servicio.");
         }
         if (sr.getCompletedAt() == null) {

@@ -43,7 +43,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         String targetUrl = determineTargetUrl(token, user);
 
         if (response.isCommitted()) {
-            logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
+            logger.debug("La respuesta ya se ha enviado. No se puede redirigir a " + targetUrl);
             return;
         }
 

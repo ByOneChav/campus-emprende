@@ -41,10 +41,10 @@ public class AdminController {
     public ResponseEntity<DashboardResponse> getDashboard() {
         DashboardResponse dashboard = DashboardResponse.builder()
                 .totalUsers(userService.getTotalUserCount())
-                .pendingServices(serviceListingService.countByStatus(ServiceStatus.PENDING))
-                .approvedServices(serviceListingService.countByStatus(ServiceStatus.APPROVED))
-                .rejectedServices(serviceListingService.countByStatus(ServiceStatus.REJECTED))
-                .inactiveServices(serviceListingService.countByStatus(ServiceStatus.INACTIVE))
+                .pendingServices(serviceListingService.countByStatus(ServiceStatus.PENDIENTE))
+                .approvedServices(serviceListingService.countByStatus(ServiceStatus.APROBADO))
+                .rejectedServices(serviceListingService.countByStatus(ServiceStatus.RECHAZADO))
+                .inactiveServices(serviceListingService.countByStatus(ServiceStatus.INACTIVO))
                 .totalRequests(serviceRequestService.countAll())
                 .pendingReports(reportService.countPending())
                 .build();
@@ -60,17 +60,17 @@ public class AdminController {
 
     @GetMapping("/services/pending")
     public ResponseEntity<List<ServiceListingResponse>> getPendingServices() {
-        return ResponseEntity.ok(serviceListingService.getByStatus(ServiceStatus.PENDING));
+        return ResponseEntity.ok(serviceListingService.getByStatus(ServiceStatus.PENDIENTE));
     }
 
     @GetMapping("/services/active")
     public ResponseEntity<List<ServiceListingResponse>> getActiveServices() {
-        return ResponseEntity.ok(serviceListingService.getByStatus(ServiceStatus.APPROVED));
+        return ResponseEntity.ok(serviceListingService.getByStatus(ServiceStatus.APROBADO));
     }
 
     @GetMapping("/services/rejected")
     public ResponseEntity<List<ServiceListingResponse>> getRejectedServices() {
-        return ResponseEntity.ok(serviceListingService.getByStatus(ServiceStatus.REJECTED));
+        return ResponseEntity.ok(serviceListingService.getByStatus(ServiceStatus.RECHAZADO));
     }
 
     @PatchMapping("/services/{id}/approve")

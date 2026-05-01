@@ -41,8 +41,8 @@ public class EmailVerificationServiceImpl implements EmailVerificationService {
         tokenRepository.save(verificationToken);
 
         String verifyLink = frontendVerifyUrl + token;
-        String subject = "Verifica tu cuenta de Campus Emprende";
-        String body = "¡Bienvenidos al Campus Emprende!\n\n"
+        String subject = "Verifica tu cuenta de CAMPUS EMPRENDE";
+        String body = "¡Bienvenidos al CAMPUS EMPRENDE!\n\n"
                 + "Por favor, verifique su dirección de correo electrónico haciendo clic en el siguiente enlace (válido durante 24 horas):\n\n"
                 + verifyLink + "\n\n"
                 + "Si no has creado una cuenta, puedes ignorar este correo electrónico sin problema.";

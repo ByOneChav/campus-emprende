@@ -35,7 +35,7 @@ public class ServiceRequest {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private RequestStatus status = RequestStatus.PENDING;
+    private RequestStatus status = RequestStatus.PENDIENTE;
 
     @Enumerated(EnumType.STRING)
     private CancelledBy cancelledBy;

@@ -10,14 +10,14 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Plus, Briefcase, Send, Inbox, AlertCircle } from 'lucide-react';
 
 const STATUS_COLORS = {
-  PENDING: 'bg-yellow-100 text-yellow-700',
-  APPROVED: 'bg-green-100 text-green-700',
-  REJECTED: 'bg-red-100 text-red-700',
-  INACTIVE: 'bg-gray-100 text-gray-600',
-  ACCEPTED: 'bg-blue-100 text-blue-700',
-  IN_PROGRESS: 'bg-indigo-100 text-indigo-700',
-  COMPLETED: 'bg-green-100 text-green-700',
-  CANCELLED: 'bg-red-100 text-red-700',
+  PENDIENTE: 'bg-yellow-100 text-yellow-700',
+  APROBADO: 'bg-green-100 text-green-700',
+  RECHAZADO: 'bg-red-100 text-red-700',
+  INACTIVO: 'bg-gray-100 text-gray-600',
+  ACEPTADO: 'bg-blue-100 text-blue-700',
+  EN_CURSO: 'bg-indigo-100 text-indigo-700',
+  COMPLETADO: 'bg-green-100 text-green-700',
+  CANCELADO: 'bg-red-100 text-red-700',
 };
 
 export default function DashboardPage() {
@@ -37,8 +37,8 @@ export default function DashboardPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  const pendingServices = services.filter((s) => s.status === 'PENDING').length;
-  const activeRequests = received.filter((r) => ['PENDING', 'ACCEPTED', 'IN_PROGRESS'].includes(r.status)).length;
+  const pendingServices = services.filter((s) => s.status === 'PENDIENTE').length;
+  const activeRequests = received.filter((r) => ['PENDIENTE', 'ACEPTADO', 'EN_CURSO'].includes(r.status)).length;
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
@@ -131,7 +131,7 @@ export default function DashboardPage() {
                 <CardContent className="py-3 flex items-center justify-between gap-3">
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-sm truncate">{r.serviceTitle}</p>
-                    <p className="text-xs text-muted-foreground">From {r.clientName}</p>
+                    <p className="text-xs text-muted-foreground">De: {r.clientName}</p>
                   </div>
                   <Badge className={STATUS_COLORS[r.status] || ''}>{r.status.replace('_', ' ')}</Badge>
                 </CardContent>

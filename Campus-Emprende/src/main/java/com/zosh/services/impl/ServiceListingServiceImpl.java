@@ -35,7 +35,7 @@ public class ServiceListingServiceImpl implements ServiceListingService {
                 .description(request.getDescription())
                 .category(request.getCategory())
                 .imageUrl(request.getImageUrl())
-                .status(ServiceStatus.PENDING)
+                .status(ServiceStatus.PENDIENTE)
                 .build();
         return ServiceListingMapper.toResponse(serviceListingRepository.save(listing));
     }
@@ -43,14 +43,14 @@ public class ServiceListingServiceImpl implements ServiceListingService {
     @Override
     public ServiceListingResponse updateService(Long id, ServiceListingRequest request) throws UserException {
         ServiceListing listing = getOwnedListing(id);
-        if (listing.getStatus() == ServiceStatus.INACTIVE) {
+        if (listing.getStatus() == ServiceStatus.INACTIVO) {
             throw new UserException("No se puede editar un servicio inactivo.");
         }
         listing.setTitle(request.getTitle());
         listing.setDescription(request.getDescription());
         listing.setCategory(request.getCategory());
         listing.setImageUrl(request.getImageUrl());
-        listing.setStatus(ServiceStatus.PENDING);
+        listing.setStatus(ServiceStatus.PENDIENTE);
         listing.setRejectionReason(null);
         return ServiceListingMapper.toResponse(serviceListingRepository.save(listing));
     }
@@ -58,7 +58,7 @@ public class ServiceListingServiceImpl implements ServiceListingService {
     @Override
     public ServiceListingResponse deactivateService(Long id) throws UserException {
         ServiceListing listing = getOwnedListing(id);
-        listing.setStatus(ServiceStatus.INACTIVE);
+        listing.setStatus(ServiceStatus.INACTIVO);
         return ServiceListingMapper.toResponse(serviceListingRepository.save(listing));
     }
 
@@ -95,7 +95,7 @@ public class ServiceListingServiceImpl implements ServiceListingService {
     @Override
     public ServiceListingResponse approveService(Long id) throws UserException {
         ServiceListing listing = findById(id);
-        listing.setStatus(ServiceStatus.APPROVED);
+        listing.setStatus(ServiceStatus.APROBADO);
         listing.setRejectionReason(null);
         return ServiceListingMapper.toResponse(serviceListingRepository.save(listing));
     }
@@ -103,7 +103,7 @@ public class ServiceListingServiceImpl implements ServiceListingService {
     @Override
     public ServiceListingResponse rejectService(Long id, String reason) throws UserException {
         ServiceListing listing = findById(id);
-        listing.setStatus(ServiceStatus.REJECTED);
+        listing.setStatus(ServiceStatus.RECHAZADO);
         listing.setRejectionReason(reason);
         return ServiceListingMapper.toResponse(serviceListingRepository.save(listing));
     }

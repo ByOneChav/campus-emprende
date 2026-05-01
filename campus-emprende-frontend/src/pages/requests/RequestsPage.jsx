@@ -17,11 +17,11 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Star, Loader2 } from 'lucide-react';
 
 const STATUS_COLORS = {
-  PENDING: 'bg-yellow-100 text-yellow-700',
-  ACCEPTED: 'bg-blue-100 text-blue-700',
-  IN_PROGRESS: 'bg-indigo-100 text-indigo-700',
-  COMPLETED: 'bg-green-100 text-green-700',
-  CANCELLED: 'bg-red-100 text-red-700',
+  PENDIENTE: 'bg-yellow-100 text-yellow-700',
+  ACEPTADO: 'bg-blue-100 text-blue-700',
+  EN_CURSO: 'bg-indigo-100 text-indigo-700',
+  COMPLETADO: 'bg-green-100 text-green-700',
+  CANCELADO: 'bg-red-100 text-red-700',
 };
 
 function StarPicker({ value, onChange }) {
@@ -54,7 +54,7 @@ function RequestCard({ request, asProvider, onAction }) {
               {request.serviceTitle}
             </Link>
             <p className="text-xs text-muted-foreground mt-0.5">
-              {asProvider ? `From: ${request.clientName}` : `Provider: ${request.providerName}`}
+              {asProvider ? `De: ${request.clientName}` : `Proveedor: ${request.providerName}`}
             </p>
           </div>
           <Badge className={STATUS_COLORS[request.status] || ''}>
@@ -66,7 +66,7 @@ function RequestCard({ request, asProvider, onAction }) {
         {/* Provider actions */}
         {asProvider && (
           <div className="flex flex-wrap gap-2">
-            {request.status === 'PENDING' && (
+            {request.status === 'PENDIENTE' && (
               <>
                 <Button size="sm" disabled={loading} onClick={() => action(acceptRequest)}>
                   {loading && <Loader2 className="mr-1 h-3 w-3 animate-spin" />}Aceptar
@@ -76,17 +76,17 @@ function RequestCard({ request, asProvider, onAction }) {
                 </Button>
               </>
             )}
-            {request.status === 'ACCEPTED' && (
+            {request.status === 'ACEPTADO' && (
               <Button size="sm" disabled={loading} onClick={() => action(startRequest)}>
                 {loading && <Loader2 className="mr-1 h-3 w-3 animate-spin" />}Marcar en progreso
               </Button>
             )}
-            {request.status === 'IN_PROGRESS' && (
+            {request.status === 'EN_CURSO' && (
               <Button size="sm" disabled={loading} onClick={() => action(completeRequest)}>
                 {loading && <Loader2 className="mr-1 h-3 w-3 animate-spin" />}Marcar completado
               </Button>
             )}
-            {['PENDING', 'ACCEPTED', 'IN_PROGRESS'].includes(request.status) && (
+            {['PENDIENTE', 'ACEPTADO', 'EN_CURSO'].includes(request.status) && (
               <Button size="sm" variant="ghost" disabled={loading} onClick={() => action(cancelRequest)}>
                 Cancelar
               </Button>
@@ -97,17 +97,17 @@ function RequestCard({ request, asProvider, onAction }) {
         {/* Client actions */}
         {!asProvider && (
           <div className="flex flex-wrap gap-2">
-            {request.status === 'COMPLETED' && !request.completedAt && (
+            {request.status === 'COMPLETADO' && !request.completedAt && (
               <Button size="sm" disabled={loading} onClick={() => action(confirmRequest)}>
                 {loading && <Loader2 className="mr-1 h-3 w-3 animate-spin" />}Confirmar finalización
               </Button>
             )}
-            {request.status === 'COMPLETED' && request.completedAt && (
+            {request.status === 'COMPLETADO' && request.completedAt && (
               <Button size="sm" variant="secondary" onClick={() => onAction('review', request)}>
                 <Star className="mr-1 h-3 w-3" />Dejar reseña
               </Button>
             )}
-            {['PENDING', 'ACCEPTED', 'IN_PROGRESS'].includes(request.status) && (
+            {['PENDIENTE', 'ACEPTADO', 'EN_CURSO'].includes(request.status) && (
               <Button size="sm" variant="ghost" disabled={loading} onClick={() => action(cancelRequest)}>
                 Cancelar
               </Button>

@@ -9,8 +9,8 @@ import { XCircle } from 'lucide-react';
 
 const CATEGORY_LABELS = {
   WEB_DEV: 'Desarrollo web', GRAPHIC_DESIGN: 'Diseño Gráfico',
-  TECH_SUPPORT: 'Tech Support', TUTORING: 'Tutoring',
-  PHOTOGRAPHY: 'Photography', OTHER: 'Other',
+  TECH_SUPPORT: 'Soporte técnico', TUTORING: 'Tutoría',
+  PHOTOGRAPHY: 'Fotografía', OTHER: 'Otro',
 };
 
 export default function AdminRejectedServicesPage() {

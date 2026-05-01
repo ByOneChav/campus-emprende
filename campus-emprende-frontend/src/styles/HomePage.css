@@ -1,0 +1,59 @@
+/* Fondo tipo Apple mejorado */
+.home-container {
+  background: radial-gradient(circle at 20% 20%, #dbeafe, transparent 40%),
+              radial-gradient(circle at 80% 30%, #bfdbfe, transparent 40%),
+              radial-gradient(circle at 50% 80%, #e0f2fe, transparent 40%);
+}
+
+/* Glass mejorado (más contraste) */
+.glass {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+
+  border: 1px solid rgba(255, 255, 255, 0.6);
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Hero más impactante */
+.hero-box {
+  padding: 4rem 2.5rem;
+  transition: all 0.3s ease;
+}
+
+.hero-box:hover {
+  transform: translateY(-3px);
+}
+
+/* Categorías (más premium) */
+.category-hover {
+  transition: all 0.25s ease;
+}
+
+.category-hover:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Features */
+.feature-item {
+  transition: all 0.25s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-6px);
+}
+
+/* Texto más elegante */
+h1 {
+  letter-spacing: -0.5px;
+}
+
+h2 {
+  letter-spacing: -0.3px;
+}

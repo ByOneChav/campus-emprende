@@ -15,7 +15,7 @@ import { ArrowLeft, Loader2 } from 'lucide-react';
 const STATUS_COLORS = {
   PENDING: 'bg-yellow-100 text-yellow-700',
   REVIEWED: 'bg-blue-100 text-blue-700',
-  RESOLVED: 'bg-green-100 text-green-700',
+  RESUELTO: 'bg-green-100 text-green-700',
 };
 
 const SkeletonList = () => (
@@ -42,7 +42,7 @@ function ReportList({ reports, onResolve }) {
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">Por {r.reporterName}</p>
               </div>
-              {r.status !== 'RESOLVED' && (
+              {r.status !== 'RESUELTO' && (
                 <Button size="sm" onClick={() => onResolve(r)}>Resolver</Button>
               )}
             </div>
@@ -103,11 +103,11 @@ export default function AdminReportsPage() {
         <TabsList>
           <TabsTrigger value="ALL">Todo</TabsTrigger>
           <TabsTrigger value="PENDING">Pendiente</TabsTrigger>
-          <TabsTrigger value="RESOLVED">Resuelto</TabsTrigger>
+          <TabsTrigger value="RESUELTO">Resuelto</TabsTrigger>
         </TabsList>
         <TabsContent value="ALL">{tabContent}</TabsContent>
         <TabsContent value="PENDING">{tabContent}</TabsContent>
-        <TabsContent value="RESOLVED">{tabContent}</TabsContent>
+        <TabsContent value="RESUELTO">{tabContent}</TabsContent>
       </Tabs>
 
       <Dialog open={!!resolveDialog} onOpenChange={() => setResolveDialog(null)}>

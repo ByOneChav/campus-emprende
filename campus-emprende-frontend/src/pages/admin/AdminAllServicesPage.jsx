@@ -18,9 +18,9 @@ const CATEGORY_LABELS = {
 
 const STATUS_COLORS = {
   ACTIVE: "bg-green-100 text-green-700",
-  PENDING: "bg-yellow-100 text-yellow-700",
-  REJECTED: "bg-red-100 text-red-700",
-  INACTIVE: "bg-gray-100 text-gray-600",
+  PENDIENTE: "bg-yellow-100 text-yellow-700",
+  RECHAZADO: "bg-red-100 text-red-700",
+  INACTIVO: "bg-gray-100 text-gray-600",
 };
 
 export default function AdminAllServicesPage() {

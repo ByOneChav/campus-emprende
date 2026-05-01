@@ -13,19 +13,19 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '
 import { ArrowLeft, Loader2 } from 'lucide-react';
 
 const CATEGORIES = [
-  { value: 'WEB_DEV', label: 'Web Development' },
-  { value: 'GRAPHIC_DESIGN', label: 'Graphic Design' },
-  { value: 'TECH_SUPPORT', label: 'Tech Support' },
-  { value: 'TUTORING', label: 'Tutoring' },
-  { value: 'PHOTOGRAPHY', label: 'Photography' },
-  { value: 'OTHER', label: 'Other' },
+  { value: 'WEB_DEV', label: 'Desarrollo Web' },
+  { value: 'GRAPHIC_DESIGN', label: 'Diseño Gráfico' },
+  { value: 'TECH_SUPPORT', label: 'Soporte técnico' },
+  { value: 'TUTORING', label: 'Tutoría' },
+  { value: 'PHOTOGRAPHY', label: 'Fotografía' },
+  { value: 'OTHER', label: 'Otro' },
 ];
 
 const STATUS_COLORS = {
-  PENDING: 'bg-yellow-100 text-yellow-700',
-  APPROVED: 'bg-green-100 text-green-700',
-  REJECTED: 'bg-red-100 text-red-700',
-  INACTIVE: 'bg-gray-100 text-gray-700',
+  PENDIENTE: 'bg-yellow-100 text-yellow-700',
+  APROVADO: 'bg-green-100 text-green-700',
+  RECHAZADO: 'bg-red-100 text-red-700',
+  INACTIVO: 'bg-gray-100 text-gray-700',
 };
 
 export default function EditServicePage() {
@@ -87,7 +87,7 @@ export default function EditServicePage() {
             </div>
             <Badge className={STATUS_COLORS[status]}>{status}</Badge>
           </div>
-          {status === 'REJECTED' && rejectionReason && (
+          {status === 'RECHAZADO' && rejectionReason && (
             <Alert variant="destructive" className="mt-3">
               <AlertDescription><strong>Motivo del rechazo:</strong> {rejectionReason}</AlertDescription>
             </Alert>
@@ -117,7 +117,7 @@ export default function EditServicePage() {
               <Button type="submit" disabled={saving}>
                 {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Guardar cambios
               </Button>
-              {status !== 'INACTIVE' && (
+              {status !== 'INACTIVO' && (
                 <Button type="button" variant="destructive" onClick={() => setDeactivateOpen(true)}>
                   Desactivar
                 </Button>

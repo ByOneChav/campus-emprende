@@ -50,7 +50,7 @@ public class PdfServiceImpl implements PdfService {
                 content.beginText();
                 content.setFont(fontBold, 22);
                 content.newLineAtOffset(margin, y);
-                content.showText("Campus Emprende — Portfolio");
+                content.showText("Campus Emprende — Portafolio 2026");
                 content.endText();
                 y -= leading * 2;
 

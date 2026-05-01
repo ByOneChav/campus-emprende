@@ -38,7 +38,7 @@ public class ServiceListing {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ServiceStatus status = ServiceStatus.PENDING;
+    private ServiceStatus status = ServiceStatus.PENDIENTE;
 
     @Column(columnDefinition = "TEXT")
     private String rejectionReason;

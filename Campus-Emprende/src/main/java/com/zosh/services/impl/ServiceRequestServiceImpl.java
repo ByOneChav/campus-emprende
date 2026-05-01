@@ -34,7 +34,7 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
         ServiceListing service = serviceListingRepository.findById(request.getServiceId())
                 .orElseThrow(() -> new UserException("Servicio no encontrado"));
 
-        if (service.getStatus() != ServiceStatus.APPROVED) {
+        if (service.getStatus() != ServiceStatus.APROBADO) {
             throw new UserException("No se puede solicitar un servicio que no esté aprobado.");
         }
         if (service.getProvider().getId().equals(client.getId())) {
@@ -45,7 +45,7 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
                 .service(service)
                 .client(client)
                 .message(request.getMessage())
-                .status(RequestStatus.PENDING)
+                .status(RequestStatus.PENDIENTE)
                 .build();
         return ServiceRequestMapper.toResponse(serviceRequestRepository.save(sr));
     }
@@ -53,16 +53,16 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
     @Override
     public ServiceRequestResponse accept(Long id) throws UserException {
         ServiceRequest sr = getAsProvider(id);
-        requireStatus(sr, RequestStatus.PENDING);
-        sr.setStatus(RequestStatus.ACCEPTED);
+        requireStatus(sr, RequestStatus.PENDIENTE);
+        sr.setStatus(RequestStatus.ACEPTADO);
         return ServiceRequestMapper.toResponse(serviceRequestRepository.save(sr));
     }
 
     @Override
     public ServiceRequestResponse decline(Long id) throws UserException {
         ServiceRequest sr = getAsProvider(id);
-        requireStatus(sr, RequestStatus.PENDING);
-        sr.setStatus(RequestStatus.CANCELLED);
+        requireStatus(sr, RequestStatus.PENDIENTE);
+        sr.setStatus(RequestStatus.CANCELADO);
         sr.setCancelledBy(CancelledBy.PROVIDER);
         return ServiceRequestMapper.toResponse(serviceRequestRepository.save(sr));
     }
@@ -70,23 +70,23 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
     @Override
     public ServiceRequestResponse markInProgress(Long id) throws UserException {
         ServiceRequest sr = getAsProvider(id);
-        requireStatus(sr, RequestStatus.ACCEPTED);
-        sr.setStatus(RequestStatus.IN_PROGRESS);
+        requireStatus(sr, RequestStatus.ACEPTADO);
+        sr.setStatus(RequestStatus.EN_CURSO);
         return ServiceRequestMapper.toResponse(serviceRequestRepository.save(sr));
     }
 
     @Override
     public ServiceRequestResponse markCompleted(Long id) throws UserException {
         ServiceRequest sr = getAsProvider(id);
-        requireStatus(sr, RequestStatus.IN_PROGRESS);
-        sr.setStatus(RequestStatus.COMPLETED);
+        requireStatus(sr, RequestStatus.EN_CURSO);
+        sr.setStatus(RequestStatus.COMPLETADO);
         return ServiceRequestMapper.toResponse(serviceRequestRepository.save(sr));
     }
 
     @Override
     public ServiceRequestResponse confirmCompletion(Long id) throws UserException {
         ServiceRequest sr = getAsClient(id);
-        requireStatus(sr, RequestStatus.COMPLETED);
+        requireStatus(sr, RequestStatus.COMPLETADO);
         if (sr.getCompletedAt() != null) {
             throw new UserException("Finalización ya confirmada");
         }
@@ -105,11 +105,11 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
         if (!isClient && !isProvider) {
             throw new UserException("No estoy autorizado a cancelar esta solicitud.");
         }
-        if (sr.getStatus() == RequestStatus.COMPLETED || sr.getStatus() == RequestStatus.CANCELLED) {
+        if (sr.getStatus() == RequestStatus.COMPLETADO || sr.getStatus() == RequestStatus.CANCELADO) {
             throw new UserException("No se puede cancelar una solicitud en estado " + sr.getStatus());
         }
 
-        sr.setStatus(RequestStatus.CANCELLED);
+        sr.setStatus(RequestStatus.CANCELADO);
         sr.setCancelledBy(isClient ? CancelledBy.CLIENT : CancelledBy.PROVIDER);
         return ServiceRequestMapper.toResponse(serviceRequestRepository.save(sr));
     }

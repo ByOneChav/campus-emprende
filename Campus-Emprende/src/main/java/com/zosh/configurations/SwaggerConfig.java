@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * Configuración principal de Swagger (OpenAPI)
  * Define la información general de la API y el esquema de seguridad JWT
  */
+
 @Configuration
 @OpenAPIDefinition(
     info = @Info(

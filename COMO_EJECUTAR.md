@@ -40,6 +40,7 @@ El backend se encuentra en `Campus-Emprende/`.
 ```bash
 cd "backend"
 ```
+para ver la documentacion : http://localhost:8080/swagger-ui.html
  
 ### Variables de entorno (configuraciones opcionales)
  

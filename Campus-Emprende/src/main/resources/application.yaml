@@ -25,9 +25,9 @@ spring:
           auth: true
           starttls:
             enable: true
-          connectiontimeout: 5000
-          timeout: 5000
-          writetimeout: 5000
+          connectiontimeout: 8080
+          timeout: 8080
+          writetimeout: 8080
 
   devtools:
     livereload:
@@ -45,7 +45,7 @@ spring:
           google:
             client-id: ${GOOGLE_CLIENT_ID:}
             client-secret: ${GOOGLE_CLIENT_SECRET:}
-            redirect-uri: http://localhost:5000/login/oauth2/code/google
+            redirect-uri: http://localhost:8080/login/oauth2/code/google
         provider:
           google:
             authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
@@ -54,7 +54,7 @@ spring:
             user-name-attribute: sub
 
 server:
-  port: 5000
+  port: 8080
 
 app:
   frontend:

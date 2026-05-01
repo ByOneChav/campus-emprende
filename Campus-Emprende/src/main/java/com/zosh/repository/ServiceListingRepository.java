@@ -15,7 +15,7 @@ public interface ServiceListingRepository extends JpaRepository<ServiceListing, 
 
     List<ServiceListing> findByProviderId(Long providerId);
 
-    @Query("SELECT s FROM ServiceListing s WHERE s.status = 'APPROVED' " +
+    @Query("SELECT s FROM ServiceListing s WHERE s.status = 'APROBADO' " +
            "AND (:category IS NULL OR s.category = :category) " +
            "AND (:keyword IS NULL OR (LOWER(s.title) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
            "     OR LOWER(s.description) LIKE LOWER(CONCAT('%', :keyword, '%'))))")

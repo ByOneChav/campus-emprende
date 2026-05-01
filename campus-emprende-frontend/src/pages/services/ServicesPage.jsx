@@ -328,7 +328,7 @@ export default function ServicesPage() {
           <p className="text-muted-foreground text-sm mt-0.5">
             {loading
               ? "Loading…"
-              : `${services.length} servicios aprobados${services.length !== 1 ? "s" : ""}`}
+              : `${services.length} servicios aprobado${services.length !== 1 ? "s" : ""}`}
             {hasFilters && !loading && " matching your filters"}
           </p>
         </div>

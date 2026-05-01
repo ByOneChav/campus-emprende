@@ -32,6 +32,7 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
+    
     @Operation(summary = "Login de usuario")
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> loginHandler(

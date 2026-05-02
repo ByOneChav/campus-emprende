@@ -1,7 +1,8 @@
 package com.zosh.repository;
 
 import com.zosh.domain.ReportStatus;
-import com.zosh.modal.Report;
+import com.zosh.model.Report;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

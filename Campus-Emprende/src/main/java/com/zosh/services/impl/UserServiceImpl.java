@@ -4,7 +4,7 @@ package com.zosh.services.impl;
 import com.zosh.configurations.JwtProvider;
 import com.zosh.domain.UserRole;
 import com.zosh.exception.UserException;
-import com.zosh.modal.User;
+import com.zosh.model.User;
 import com.zosh.payload.projection.TopStudentProjection;
 import com.zosh.payload.response.TopStudentResponse;
 import com.zosh.repository.UserRepository;

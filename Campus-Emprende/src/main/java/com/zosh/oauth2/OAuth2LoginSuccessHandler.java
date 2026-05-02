@@ -1,7 +1,8 @@
 package com.zosh.oauth2;
 
 import com.zosh.configurations.JwtProvider;
-import com.zosh.modal.User;
+import com.zosh.model.User;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,6 +1,6 @@
 package com.zosh.mapper;
 
-import com.zosh.modal.ServiceListing;
+import com.zosh.model.ServiceListing;
 import com.zosh.payload.response.ServiceListingResponse;
 
 import java.util.List;

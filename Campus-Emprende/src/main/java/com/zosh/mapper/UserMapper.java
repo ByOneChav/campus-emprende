@@ -1,7 +1,6 @@
 package com.zosh.mapper;
 
-import com.zosh.modal.User;
-
+import com.zosh.model.User;
 import com.zosh.payload.response.UserDTO;
 import org.springframework.stereotype.Service;
 

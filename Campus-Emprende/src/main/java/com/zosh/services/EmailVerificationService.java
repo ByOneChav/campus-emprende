@@ -1,7 +1,7 @@
 package com.zosh.services;
 
 import com.zosh.exception.UserException;
-import com.zosh.modal.User;
+import com.zosh.model.User;
 
 public interface EmailVerificationService {
     void sendVerificationEmail(User user);

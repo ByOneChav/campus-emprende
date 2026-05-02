@@ -3,7 +3,7 @@ package com.zosh.services;
 
 import com.zosh.domain.UserRole;
 import com.zosh.exception.UserException;
-import com.zosh.modal.User;
+import com.zosh.model.User;
 import com.zosh.payload.response.TopStudentResponse;
 
 import java.util.List;

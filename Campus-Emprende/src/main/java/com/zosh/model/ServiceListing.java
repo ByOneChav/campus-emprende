@@ -1,7 +1,7 @@
-package com.zosh.modal;
+package com.zosh.model;
 
-import com.zosh.domain.CancelledBy;
-import com.zosh.domain.RequestStatus;
+import com.zosh.domain.ServiceCategory;
+import com.zosh.domain.ServiceStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,38 +10,40 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "service_requests")
+@Table(name = "services")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ServiceRequest {
+public class ServiceListing {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "service_id", nullable = false)
-    private ServiceListing service;
+    @JoinColumn(name = "provider_id", nullable = false)
+    private User provider;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id", nullable = false)
-    private User client;
+    @Column(nullable = false, length = 150)
+    private String title;
 
     @Column(nullable = false, columnDefinition = "TEXT")
-    private String message;
+    private String description;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private RequestStatus status = RequestStatus.PENDIENTE;
+    private ServiceCategory category;
 
     @Enumerated(EnumType.STRING)
-    private CancelledBy cancelledBy;
+    @Column(nullable = false)
+    private ServiceStatus status = ServiceStatus.PENDIENTE;
 
-    // set when client confirms completion (enables leaving a review)
-    private LocalDateTime completedAt;
+    @Column(columnDefinition = "TEXT")
+    private String rejectionReason;
+
+    private String imageUrl;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)

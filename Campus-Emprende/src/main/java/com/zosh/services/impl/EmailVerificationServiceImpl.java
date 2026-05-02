@@ -1,8 +1,8 @@
 package com.zosh.services.impl;
 
 import com.zosh.exception.UserException;
-import com.zosh.modal.EmailVerificationToken;
-import com.zosh.modal.User;
+import com.zosh.model.EmailVerificationToken;
+import com.zosh.model.User;
 import com.zosh.repository.EmailVerificationTokenRepository;
 import com.zosh.repository.UserRepository;
 import com.zosh.services.EmailService;

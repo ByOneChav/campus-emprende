@@ -1,7 +1,7 @@
-package com.zosh.modal;
+package com.zosh.model;
 
-import com.zosh.domain.ServiceCategory;
-import com.zosh.domain.ServiceStatus;
+import com.zosh.domain.ReportStatus;
+import com.zosh.domain.ReportTargetType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,40 +10,38 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "services")
+@Table(name = "reports")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ServiceListing {
+public class Report {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "provider_id", nullable = false)
-    private User provider;
+    @JoinColumn(name = "reporter_id", nullable = false)
+    private User reporter;
 
-    @Column(nullable = false, length = 150)
-    private String title;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ReportTargetType targetType;
+
+    @Column(nullable = false)
+    private Long targetId;
 
     @Column(nullable = false, columnDefinition = "TEXT")
-    private String description;
+    private String reason;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ServiceCategory category;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private ServiceStatus status = ServiceStatus.PENDIENTE;
+    private ReportStatus status = ReportStatus.PENDING;
 
     @Column(columnDefinition = "TEXT")
-    private String rejectionReason;
-
-    private String imageUrl;
+    private String adminNotes;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)

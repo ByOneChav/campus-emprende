@@ -1,7 +1,8 @@
 package com.zosh.repository;
 
-import com.zosh.modal.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.zosh.model.Comment;
 
 import java.util.List;
 import java.util.Optional;

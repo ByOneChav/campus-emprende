@@ -1,7 +1,7 @@
-package com.zosh.modal;
+package com.zosh.model;
 
-import com.zosh.domain.ReportStatus;
-import com.zosh.domain.ReportTargetType;
+import com.zosh.domain.CancelledBy;
+import com.zosh.domain.RequestStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,38 +10,38 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "reports")
+@Table(name = "service_requests")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Report {
+public class ServiceRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "reporter_id", nullable = false)
-    private User reporter;
+    @JoinColumn(name = "service_id", nullable = false)
+    private ServiceListing service;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private ReportTargetType targetType;
-
-    @Column(nullable = false)
-    private Long targetId;
+    @ManyToOne
+    @JoinColumn(name = "client_id", nullable = false)
+    private User client;
 
     @Column(nullable = false, columnDefinition = "TEXT")
-    private String reason;
+    private String message;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ReportStatus status = ReportStatus.PENDING;
+    private RequestStatus status = RequestStatus.PENDIENTE;
 
-    @Column(columnDefinition = "TEXT")
-    private String adminNotes;
+    @Enumerated(EnumType.STRING)
+    private CancelledBy cancelledBy;
+
+    // set when client confirms completion (enables leaving a review)
+    private LocalDateTime completedAt;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)

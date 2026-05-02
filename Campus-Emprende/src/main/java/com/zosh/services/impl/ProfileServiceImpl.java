@@ -2,8 +2,8 @@ package com.zosh.services.impl;
 
 import com.zosh.exception.UserException;
 import com.zosh.mapper.ProfileMapper;
-import com.zosh.modal.Profile;
-import com.zosh.modal.User;
+import com.zosh.model.Profile;
+import com.zosh.model.User;
 import com.zosh.payload.request.ProfileRequest;
 import com.zosh.payload.response.ProfileResponse;
 import com.zosh.repository.ProfileRepository;

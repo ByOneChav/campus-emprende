@@ -1,7 +1,8 @@
 package com.zosh.repository;
 
-import com.zosh.modal.ServiceRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.zosh.model.ServiceRequest;
 
 import java.util.List;
 

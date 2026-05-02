@@ -18,17 +18,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/auth")
+@RestController // 📥 Punto de entrada de las peticiones HTTP
+@RequestMapping("/auth") // Ruta base de autenticación
 @RequiredArgsConstructor
 
-// Agrupa endpoints en Swagger
+// 📚 Agrupa endpoints en Swagger
 @Tag(name = "Autenticación", description = "Endpoints para login, registro y recuperación de contraseña")
 public class AuthController {
 
-    private final AuthService authService;
+    private final AuthService authService; // 🔗 Conecta con la lógica de negocio
 
-    // Registrar un nuevo usuario
+    // 📝 REGISTRO DE USUARIO
     @Operation(
         summary = "Registrar usuario",
         description = "Permite registrar un nuevo usuario en el sistema"
@@ -42,11 +42,13 @@ public class AuthController {
     public ResponseEntity<AuthResponse> signupHandler(
             @RequestBody UserDTO req) throws UserException {
 
+        // Llama al servicio para registrar usuario + generar JWT
         AuthResponse response = authService.signup(req);
+
         return ResponseEntity.ok(response);
     }
 
-    // Login de usuario y generación de JWT
+    // 🔐 LOGIN DE USUARIO
     @Operation(
         summary = "Login de usuario",
         description = "Permite autenticar al usuario y obtener un token JWT"
@@ -60,11 +62,13 @@ public class AuthController {
     public ResponseEntity<AuthResponse> loginHandler(
             @RequestBody LoginRequest req) throws UserException {
 
+        // Valida credenciales y genera token
         AuthResponse response = authService.login(req.getEmail(), req.getPassword());
+
         return ResponseEntity.ok(response);
     }
 
-    // Solicitar recuperación de contraseña
+    // 📩 SOLICITAR RECUPERACIÓN DE CONTRASEÑA
     @Operation(
         summary = "Solicitar recuperación de contraseña",
         description = "Envía un correo con enlace para restablecer la contraseña"
@@ -79,6 +83,7 @@ public class AuthController {
             @RequestBody ForgotPasswordRequest request
     ) throws UserException {
 
+        // Genera token y envía correo
         authService.createPasswordResetToken(request.getEmail());
 
         ApiResponse res = new ApiResponse(
@@ -87,7 +92,7 @@ public class AuthController {
         return ResponseEntity.ok(res);
     }
 
-    // Restablecer contraseña usando token
+    // 🔑 RESTABLECER CONTRASEÑA
     @Operation(
         summary = "Restablecer contraseña",
         description = "Permite actualizar la contraseña usando un token válido"
@@ -101,6 +106,7 @@ public class AuthController {
     public ResponseEntity<ApiResponse> resetPassword(
             @RequestBody ResetPasswordRequest request) {
 
+        // Valida token y actualiza contraseña
         authService.resetPassword(request.getToken(), request.getPassword());
 
         ApiResponse res = new ApiResponse(

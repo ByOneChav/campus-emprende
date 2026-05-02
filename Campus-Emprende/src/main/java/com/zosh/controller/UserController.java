@@ -2,7 +2,7 @@ package com.zosh.controller;
 
 import com.zosh.exception.UserException;
 import com.zosh.mapper.UserMapper;
-import com.zosh.modal.User;
+import com.zosh.model.User;
 import com.zosh.payload.response.UserDTO;
 import com.zosh.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -98,18 +98,6 @@ public class UserController {
 		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}
 
-	/**
-	 * Get total user statistics (Admin only)
-	 * GET /api/users/statistics
-	 *
-	 * Returns total number of registered users in the system
-	 *
-	 * Example response:
-	 * {
-	 *   "totalUsers": 245
-	 * }
-	 */
-
 	// Obtener estadísticas de usuarios (solo ADMIN)
 	@Operation(
         summary = "Obtener estadísticas de usuarios (ADMIN)",
@@ -130,10 +118,6 @@ public class UserController {
         // Se retorna en formato DTO simple
 		return ResponseEntity.ok(new UserStatisticsResponse(totalUsers));
 	}
-
-	/**
-	 * Response DTO for user statistics endpoint
-	 */
 
 	public static class UserStatisticsResponse {
 

@@ -1,6 +1,6 @@
 package com.zosh.mapper;
 
-import com.zosh.modal.Comment;
+import com.zosh.model.Comment;
 import com.zosh.payload.response.CommentResponse;
 
 import java.util.List;

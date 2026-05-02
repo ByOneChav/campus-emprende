@@ -1,8 +1,9 @@
 package com.zosh.repository;
 
 
-import com.zosh.modal.PasswordResetToken;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.zosh.model.PasswordResetToken;
 
 import java.time.LocalDateTime;
 import java.util.Optional;

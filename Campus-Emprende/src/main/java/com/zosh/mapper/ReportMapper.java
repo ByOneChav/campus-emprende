@@ -1,6 +1,6 @@
 package com.zosh.mapper;
 
-import com.zosh.modal.Report;
+import com.zosh.model.Report;
 import com.zosh.payload.response.ReportResponse;
 
 import java.util.List;

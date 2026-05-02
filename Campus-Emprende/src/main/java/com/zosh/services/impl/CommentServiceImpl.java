@@ -2,9 +2,9 @@ package com.zosh.services.impl;
 
 import com.zosh.exception.UserException;
 import com.zosh.mapper.CommentMapper;
-import com.zosh.modal.Comment;
-import com.zosh.modal.ServiceListing;
-import com.zosh.modal.User;
+import com.zosh.model.Comment;
+import com.zosh.model.ServiceListing;
+import com.zosh.model.User;
 import com.zosh.payload.request.CommentRequest;
 import com.zosh.payload.response.CommentResponse;
 import com.zosh.repository.CommentRepository;

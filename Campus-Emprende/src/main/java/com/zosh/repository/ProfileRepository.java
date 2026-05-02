@@ -1,8 +1,9 @@
 package com.zosh.repository;
 
-import com.zosh.modal.Profile;
-import com.zosh.modal.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.zosh.model.Profile;
+import com.zosh.model.User;
 
 import java.util.Optional;
 

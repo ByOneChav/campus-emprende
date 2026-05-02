@@ -1,6 +1,6 @@
 package com.zosh.mapper;
 
-import com.zosh.modal.Review;
+import com.zosh.model.Review;
 import com.zosh.payload.response.ReviewResponse;
 
 import java.util.List;

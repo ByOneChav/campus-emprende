@@ -1,7 +1,7 @@
 package com.zosh.repository;
 
 import com.zosh.domain.UserRole;
-import com.zosh.modal.User;
+import com.zosh.model.User;
 import com.zosh.payload.projection.TopStudentProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -9,11 +9,22 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Set;
 
+// 🗄️ Repositorio de usuarios
+// Extiende JpaRepository → ya tiene CRUD (save, findAll, delete, etc.)
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    // 🔍 Busca usuario por email (usado en login)
     User findByEmail(String email);
+
+    // 👥 Obtiene usuarios por rol (ej: ROLE_STUDENT, ROLE_ADMIN)
     Set<User> findByRole(UserRole role);
 
+    // 📊 Query nativa para obtener top 5 estudiantes
+    // Calcula:
+    // - total de servicios
+    // - total de solicitudes
+    // - solicitudes completadas
+    // - promedio de rating
     @Query(value = """
             SELECT u.id                                                              AS studentId,
                    u.full_name                                                       AS studentName,

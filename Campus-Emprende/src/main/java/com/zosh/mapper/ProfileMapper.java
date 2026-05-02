@@ -1,6 +1,6 @@
 package com.zosh.mapper;
 
-import com.zosh.modal.Profile;
+import com.zosh.model.Profile;
 import com.zosh.payload.response.ProfileResponse;
 
 public class ProfileMapper {

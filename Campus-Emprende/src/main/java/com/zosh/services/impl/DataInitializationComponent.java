@@ -1,7 +1,7 @@
 package com.zosh.services.impl;
 
 import com.zosh.domain.UserRole;
-import com.zosh.modal.User;
+import com.zosh.model.User;
 import com.zosh.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;

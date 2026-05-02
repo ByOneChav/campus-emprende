@@ -1,6 +1,6 @@
 package com.zosh.services.impl;
 
-import com.zosh.modal.User;
+import com.zosh.model.User;
 import com.zosh.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

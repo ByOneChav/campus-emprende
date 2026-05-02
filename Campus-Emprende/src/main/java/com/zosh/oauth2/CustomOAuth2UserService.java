@@ -2,7 +2,7 @@ package com.zosh.oauth2;
 
 import com.zosh.domain.AuthProvider;
 import com.zosh.domain.UserRole;
-import com.zosh.modal.User;
+import com.zosh.model.User;
 import com.zosh.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;

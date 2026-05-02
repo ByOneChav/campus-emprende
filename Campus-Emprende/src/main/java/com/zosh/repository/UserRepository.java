@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Set;
 
+
 // 🗄️ Repositorio de usuarios
 // Extiende JpaRepository → ya tiene CRUD (save, findAll, delete, etc.)
 public interface UserRepository extends JpaRepository<User, Long> {

@@ -22,19 +22,19 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
-@RestController
+@RestController // 📥 Controlador REST (entrada de peticiones)
 @RequiredArgsConstructor
 
-// Agrupa endpoints relacionados a usuarios
+// 📚 Agrupa endpoints relacionados a usuarios
 @Tag(
     name = "Usuarios",
     description = "Endpoints para gestión, consulta y estadísticas de usuarios del sistema"
 )
 public class UserController {
 
-	private final UserService userService;
+	private final UserService userService; // 🔗 Lógica de negocio
 
-	// Obtener perfil del usuario autenticado a partir del JWT
+	// 👤 PERFIL DEL USUARIO AUTENTICADO (desde JWT)
 	@Operation(
         summary = "Obtener perfil del usuario autenticado",
         description = "Obtiene la información del usuario autenticado a partir del token JWT enviado en el header Authorization"
@@ -48,16 +48,16 @@ public class UserController {
 	public ResponseEntity<UserDTO> getUserProfileFromJwtHandler(
 			@RequestHeader("Authorization") String jwt) throws UserException {
 
-        // Se obtiene el usuario desde el token JWT
+        // 🔐 Extrae usuario desde el token
 		User user = userService.getUserFromJwtToken(jwt);
 
-        // Se convierte a DTO para no exponer la entidad completa
+        // 🔄 Convierte Entity → DTO
 		UserDTO userDTO = UserMapper.toDTO(user);
 
 		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}
 
-	// Obtener lista de todos los usuarios
+	// 📋 LISTA DE USUARIOS
 	@Operation(
         summary = "Obtener lista de usuarios",
         description = "Devuelve una lista completa de todos los usuarios registrados en el sistema"
@@ -69,13 +69,13 @@ public class UserController {
 	@GetMapping("/users/list")
 	public ResponseEntity<List<User>> getUsersListHandler() throws UserException {
 
-        // Se obtiene la lista de usuarios desde el servicio
+        // 📥 Obtiene todos los usuarios
 		List<User> users = userService.getUsers();
 
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
-	// Obtener usuario por ID
+	// 🔍 USUARIO POR ID
 	@Operation(
         summary = "Obtener usuario por ID",
         description = "Obtiene la información de un usuario específico a partir de su ID"
@@ -89,16 +89,16 @@ public class UserController {
 			@PathVariable Long userId
 	) throws UserException {
 
-        // Se obtiene el usuario desde la base de datos
+        // 🔍 Busca usuario en BD
 		User user = userService.getUserById(userId);
 
-        // Se convierte a DTO
+        // 🔄 Entity → DTO
 		UserDTO userDTO = UserMapper.toDTO(user);
 
 		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}
 
-	// Obtener estadísticas de usuarios (solo ADMIN)
+	// 📊 ESTADÍSTICAS (solo ADMIN)
 	@Operation(
         summary = "Obtener estadísticas de usuarios (ADMIN)",
         description = "Devuelve estadísticas generales de usuarios, como el total registrado en el sistema. Requiere rol ADMIN"
@@ -109,16 +109,17 @@ public class UserController {
         @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
 	@GetMapping("/api/users/statistics")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')") // 🔐 Solo ADMIN puede acceder
 	public ResponseEntity<UserStatisticsResponse> getUserStatistics() {
 
-        // Se obtiene el total de usuarios
+        // 📊 Obtiene total de usuarios
 		long totalUsers = userService.getTotalUserCount();
 
-        // Se retorna en formato DTO simple
+        // 📤 Retorna DTO simple
 		return ResponseEntity.ok(new UserStatisticsResponse(totalUsers));
 	}
 
+    // 📦 DTO interno para estadísticas
 	public static class UserStatisticsResponse {
 
         // Total de usuarios registrados

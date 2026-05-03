@@ -9,11 +9,11 @@ import lombok.Data;
 public class ReportRequest {
 
     @NotNull(message = "Target type is required")
-    private ReportTargetType targetType;
+    private ReportTargetType targetType; // tipo de objetivo (USER, SERVICE, etc.)
 
     @NotNull(message = "Target ID is required")
-    private Long targetId;
+    private Long targetId; // id del objeto reportado
 
     @NotBlank(message = "Reason is required")
-    private String reason;
+    private String reason; // motivo del reporte
 }

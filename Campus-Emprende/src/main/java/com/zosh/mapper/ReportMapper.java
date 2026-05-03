@@ -8,22 +8,34 @@ import java.util.stream.Collectors;
 
 public class ReportMapper {
 
+    // convierte Report → ReportResponse
     public static ReportResponse toResponse(Report r) {
         ReportResponse res = new ReportResponse();
-        res.setId(r.getId());
-        res.setReporterId(r.getReporter().getId());
-        res.setReporterName(r.getReporter().getFullName());
-        res.setTargetType(r.getTargetType());
-        res.setTargetId(r.getTargetId());
-        res.setReason(r.getReason());
-        res.setStatus(r.getStatus());
-        res.setAdminNotes(r.getAdminNotes());
-        res.setCreatedAt(r.getCreatedAt());
-        res.setUpdatedAt(r.getUpdatedAt());
+
+        res.setId(r.getId()); // id del reporte
+
+        res.setReporterId(r.getReporter().getId()); // id del usuario que reporta
+        res.setReporterName(r.getReporter().getFullName()); // nombre del usuario
+
+        res.setTargetType(r.getTargetType()); // tipo de objetivo reportado
+        res.setTargetId(r.getTargetId()); // id del objetivo
+
+        res.setReason(r.getReason()); // motivo del reporte
+
+        res.setStatus(r.getStatus()); // estado (PENDING, RESUELTO)
+
+        res.setAdminNotes(r.getAdminNotes()); // notas del admin
+
+        res.setCreatedAt(r.getCreatedAt()); // fecha creación
+        res.setUpdatedAt(r.getUpdatedAt()); // fecha actualización
+
         return res;
     }
 
+    // convierte lista de Report → lista de DTO
     public static List<ReportResponse> toResponseList(List<Report> list) {
-        return list.stream().map(ReportMapper::toResponse).collect(Collectors.toList());
+        return list.stream()
+                .map(ReportMapper::toResponse) // transforma cada elemento
+                .collect(Collectors.toList()); // devuelve lista
     }
 }

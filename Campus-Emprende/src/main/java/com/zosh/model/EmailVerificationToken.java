@@ -17,29 +17,29 @@ public class EmailVerificationToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; // id del token
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private User user; // usuario asociado al token
 
     @Column(nullable = false, unique = true)
-    private String token;
+    private String token; // valor único del token (UUID)
 
     @Column(nullable = false)
-    private LocalDateTime expiresAt;
+    private LocalDateTime expiresAt; // fecha de expiración
 
-    private LocalDateTime usedAt;
+    private LocalDateTime usedAt; // fecha en que se usó el token
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt; // fecha de creación
 
     public boolean isExpired() {
-        return expiresAt.isBefore(LocalDateTime.now());
+        return expiresAt.isBefore(LocalDateTime.now()); // verifica si ya expiró
     }
 
     public boolean isUsed() {
-        return usedAt != null;
+        return usedAt != null; // verifica si ya fue utilizado
     }
 }

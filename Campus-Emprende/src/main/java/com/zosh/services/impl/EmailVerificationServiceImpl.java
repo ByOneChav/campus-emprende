@@ -20,71 +20,71 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class EmailVerificationServiceImpl implements EmailVerificationService {
 
-    private final EmailVerificationTokenRepository tokenRepository;
-    private final UserRepository userRepository;
-    private final EmailService emailService;
+    private final EmailVerificationTokenRepository tokenRepository; // acceso a tokens
+    private final UserRepository userRepository; // acceso a usuarios
+    private final EmailService emailService; // servicio de envío de correos
 
     @Value("${app.frontend.verify-url}")
-    private String frontendVerifyUrl;
+    private String frontendVerifyUrl; // URL del frontend para verificación
 
     @Override
     @Transactional
     public void sendVerificationEmail(User user) {
-        tokenRepository.deleteByUser(user);
+        tokenRepository.deleteByUser(user); // elimina tokens anteriores del usuario
 
-        String token = UUID.randomUUID().toString();
+        String token = UUID.randomUUID().toString(); // genera token único
         EmailVerificationToken verificationToken = EmailVerificationToken.builder()
-                .user(user)
-                .token(token)
-                .expiresAt(LocalDateTime.now().plusHours(24))
+                .user(user) // usuario asociado
+                .token(token) // valor del token
+                .expiresAt(LocalDateTime.now().plusHours(24)) // expiración (24h)
                 .build();
-        tokenRepository.save(verificationToken);
+        tokenRepository.save(verificationToken); // guarda token en BD
 
-        String verifyLink = frontendVerifyUrl + token;
+        String verifyLink = frontendVerifyUrl + token; // link completo para el usuario
         String subject = "Verifica tu cuenta de CAMPUS EMPRENDE";
         String body = "¡Bienvenidos al CAMPUS EMPRENDE!\n\n"
                 + "Por favor, verifique su dirección de correo electrónico haciendo clic en el siguiente enlace (válido durante 24 horas):\n\n"
                 + verifyLink + "\n\n"
                 + "Si no has creado una cuenta, puedes ignorar este correo electrónico sin problema.";
-        emailService.sendEmail(user.getEmail(), subject, body);
+        emailService.sendEmail(user.getEmail(), subject, body); // envía correo
     }
 
     @Override
     @Transactional
     public void verifyEmail(String token) throws UserException {
-        Optional<EmailVerificationToken> optional = tokenRepository.findByToken(token);
+        Optional<EmailVerificationToken> optional = tokenRepository.findByToken(token); // busca token
         if (optional.isEmpty()) {
-            throw new UserException("Token de verificación no válido");
+            throw new UserException("Token de verificación no válido"); // token inexistente
         }
 
         EmailVerificationToken verificationToken = optional.get();
 
         if (verificationToken.isUsed()) {
-            throw new UserException("El token de verificación ya está en uso.");
+            throw new UserException("El token de verificación ya está en uso."); // token ya usado
         }
         if (verificationToken.isExpired()) {
-            tokenRepository.delete(verificationToken);
+            tokenRepository.delete(verificationToken); // elimina token expirado
             throw new UserException("El token de verificación ha caducado. Solicite uno nuevo.");
         }
 
-        User user = verificationToken.getUser();
-        user.setVerified(true);
-        userRepository.save(user);
+        User user = verificationToken.getUser(); // obtiene usuario asociado
+        user.setVerified(true); // activa cuenta
+        userRepository.save(user); // guarda cambios
 
-        verificationToken.setUsedAt(LocalDateTime.now());
-        tokenRepository.save(verificationToken);
+        verificationToken.setUsedAt(LocalDateTime.now()); // marca token como usado
+        tokenRepository.save(verificationToken); // actualiza token
     }
 
     @Override
     @Transactional
     public void resendVerification(String email) throws UserException {
-        User user = userRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email); // busca usuario por email
         if (user == null) {
             throw new UserException("No se encontró ninguna cuenta con este correo electrónico.");
         }
         if (Boolean.TRUE.equals(user.getVerified())) {
             throw new UserException("El correo electrónico ya está verificado.");
         }
-        sendVerificationEmail(user);
+        sendVerificationEmail(user); // reenvía correo
     }
 }

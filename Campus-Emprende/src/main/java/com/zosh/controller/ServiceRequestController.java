@@ -151,6 +151,7 @@ public class ServiceRequestController {
         return ResponseEntity.ok(serviceRequestService.cancel(id));
     }
 
+    
     // Obtener solicitudes enviadas por el usuario
     @Operation(
         summary = "Obtener solicitudes enviadas",

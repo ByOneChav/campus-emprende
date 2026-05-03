@@ -2,7 +2,7 @@ package com.zosh.configurations;
 
 import com.zosh.oauth2.CustomOAuth2UserService;
 import com.zosh.oauth2.OAuth2LoginSuccessHandler;
-import jakarta.servlet.http.HttpServletRequest;
+// import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

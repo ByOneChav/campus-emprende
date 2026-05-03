@@ -102,7 +102,7 @@ export default function Navbar() {
                 <DropdownMenuSeparator />
 
                 <DropdownMenuItem asChild>
-                  <Link to="/profile" className="flex items-center gap-2">
+                  <Link to="/profiles/me" className="flex items-center gap-2">
                     <User className="h-4 w-4" /> Mi perfil
                   </Link>
                 </DropdownMenuItem>

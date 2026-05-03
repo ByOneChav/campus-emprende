@@ -17,17 +17,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
-@RestController
+@RestController // 📥 Punto de entrada HTTP
 @RequiredArgsConstructor
 
-// Swagger: grupo Perfil en Swagger UI
+// 📚 Agrupa endpoints del perfil en Swagger
 @Tag(name = "Perfil", description = "Endpoints para gestión del perfil de usuario y exportación de CV")
 public class ProfileController {
 
-    private final ProfileService profileService;
-    private final PdfService pdfService;
+    private final ProfileService profileService; // 🧠 Lógica de perfil
+    private final PdfService pdfService; // 📄 Servicio para generar PDF
 
-    // Obtener perfil del usuario autenticado
+    // 👤 OBTENER PERFIL DEL USUARIO AUTENTICADO
     @Operation(
             summary = "Obtener perfil del usuario autenticado",
             description = "Devuelve la información completa del perfil del usuario actualmente autenticado"
@@ -40,10 +40,12 @@ public class ProfileController {
     })
     @GetMapping("/api/profiles/me")
     public ResponseEntity<ProfileResponse> getMyProfile() throws UserException {
+
+        // Obtiene el perfil del usuario autenticado
         return ResponseEntity.ok(profileService.getMyProfile());
     }
 
-    // Crear o actualizar perfil
+    // ✏️ CREAR O ACTUALIZAR PERFIL (UPSERT)
     @Operation(
             summary = "Crear o actualizar perfil del usuario",
             description = "Permite crear un nuevo perfil o actualizar uno existente para el usuario autenticado"
@@ -56,10 +58,12 @@ public class ProfileController {
     })
     @PutMapping("/api/profiles/me")
     public ResponseEntity<ProfileResponse> upsertProfile(@RequestBody ProfileRequest request) throws UserException {
+
+        // Crea o actualiza el perfil
         return ResponseEntity.ok(profileService.upsertProfile(request));
     }
 
-    // Obtener perfil público por ID
+    // 🌍 PERFIL PÚBLICO POR ID
     @Operation(
             summary = "Obtener perfil público de un usuario",
             description = "Permite obtener el perfil público de cualquier usuario mediante su ID"
@@ -71,10 +75,12 @@ public class ProfileController {
     })
     @GetMapping("/profiles/{userId}")
     public ResponseEntity<ProfileResponse> getPublicProfile(@PathVariable Long userId) throws UserException {
+
+        // Obtiene perfil de otro usuario
         return ResponseEntity.ok(profileService.getPublicProfile(userId));
     }
 
-    // Exportar perfil en PDF
+    // 📄 EXPORTAR PERFIL A PDF
     @Operation(
             summary = "Exportar perfil en PDF",
             description = "Genera y descarga el perfil del usuario autenticado en formato PDF"
@@ -87,10 +93,10 @@ public class ProfileController {
     @GetMapping("/api/profiles/me/export-pdf")
     public ResponseEntity<byte[]> exportPdf() throws UserException, IOException {
 
-        // Genera el PDF del perfil
+        // 📄 Genera el PDF del perfil
         byte[] pdf = pdfService.generateProfilePdf();
 
-        // Retorna el archivo como descarga
+        // 📤 Devuelve el archivo como descarga
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"portfolio.pdf\"")
                 .contentType(MediaType.APPLICATION_PDF)

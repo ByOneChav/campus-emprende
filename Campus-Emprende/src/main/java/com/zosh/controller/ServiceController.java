@@ -87,6 +87,7 @@ public class ServiceController {
         return ResponseEntity.ok(serviceListingService.deactivateService(id));
     }
 
+    
     // Listar servicios públicos
     @Operation(
         summary = "Listar servicios disponibles",

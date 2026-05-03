@@ -59,9 +59,12 @@ public class EmailVerificationServiceImpl implements EmailVerificationService {
 
         EmailVerificationToken verificationToken = optional.get();
 
+        // 🔥 CAMBIO AQUÍ: si ya fue usado, no lanzar error
         if (verificationToken.isUsed()) {
-            throw new UserException("El token de verificación ya está en uso."); // token ya usado
+            // El usuario ya fue verificado anteriormente, no hacemos nada
+            return;
         }
+
         if (verificationToken.isExpired()) {
             tokenRepository.delete(verificationToken); // elimina token expirado
             throw new UserException("El token de verificación ha caducado. Solicite uno nuevo.");

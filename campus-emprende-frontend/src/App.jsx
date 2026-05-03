@@ -1,111 +1,115 @@
-import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react'; // Hook para ejecutar lógica al montar componentes
+import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom'; // Librería de enrutamiento
+import { useDispatch } from 'react-redux'; // Hook para despachar acciones a Redux
 
-import { Toaster } from '@/components/ui/sonner';
+import { Toaster } from '@/components/ui/sonner'; // Componente para mostrar notificaciones (toasts)
 
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
-import ProtectedRoute from '@/components/layout/ProtectedRoute';
-import AdminRoute from '@/components/layout/AdminRoute';
+import Navbar from '@/components/layout/Navbar'; // Barra de navegación superior
+import Footer from '@/components/layout/Footer'; // Pie de página
+import ProtectedRoute from '@/components/layout/ProtectedRoute'; // Protege rutas autenticadas
+import AdminRoute from '@/components/layout/AdminRoute'; // Protege rutas solo ADMIN
 
-import HomePage from '@/pages/home/HomePage';
-import NotFoundPage from '@/pages/NotFoundPage';
+import HomePage from '@/pages/home/HomePage'; // Página principal
+import NotFoundPage from '@/pages/NotFoundPage'; // Página 404
 
-import LoginPage from '@/pages/auth/LoginPage';
-import RegisterPage from '@/pages/auth/RegisterPage';
-import VerifyEmailPage from '@/pages/auth/VerifyEmailPage';
-import ForgotPasswordPage from '@/pages/auth/ForgotPasswordPage';
-import ResetPasswordPage from '@/pages/auth/ResetPasswordPage';
+import LoginPage from '@/pages/auth/LoginPage'; // Login
+import RegisterPage from '@/pages/auth/RegisterPage'; // Registro
+import VerifyEmailPage from '@/pages/auth/VerifyEmailPage'; // Verificación de correo
+import ForgotPasswordPage from '@/pages/auth/ForgotPasswordPage'; // Recuperar contraseña
+import ResetPasswordPage from '@/pages/auth/ResetPasswordPage'; // Resetear contraseña
 
-import MyProfilePage from '@/pages/profile/MyProfilePage';
-import PublicProfilePage from '@/pages/profile/PublicProfilePage';
+import MyProfilePage from '@/pages/profile/MyProfilePage'; // Perfil propio
+import PublicProfilePage from '@/pages/profile/PublicProfilePage'; // Perfil público
 
-import ServicesPage from '@/pages/services/ServicesPage';
-import ServiceDetailPage from '@/pages/services/ServiceDetailPage';
-import CreateServicePage from '@/pages/services/CreateServicePage';
-import EditServicePage from '@/pages/services/EditServicePage';
+import ServicesPage from '@/pages/services/ServicesPage'; // Lista de servicios
+import ServiceDetailPage from '@/pages/services/ServiceDetailPage'; // Detalle de servicio
+import CreateServicePage from '@/pages/services/CreateServicePage'; // Crear servicio
+import EditServicePage from '@/pages/services/EditServicePage'; // Editar servicio
 
-import DashboardPage from '@/pages/dashboard/DashboardPage';
-import RequestsPage from '@/pages/requests/RequestsPage';
+import DashboardPage from '@/pages/dashboard/DashboardPage'; // Dashboard usuario
+import RequestsPage from '@/pages/requests/RequestsPage'; // Solicitudes
 
-import AdminLayout from '@/components/layout/AdminLayout';
-import AdminDashboardPage from '@/pages/admin/AdminDashboardPage';
-import AdminAllServicesPage from '@/pages/admin/AdminAllServicesPage';
-import AdminServicesPage from '@/pages/admin/AdminServicesPage';
-import AdminActiveServicesPage from '@/pages/admin/AdminActiveServicesPage';
-import AdminRejectedServicesPage from '@/pages/admin/AdminRejectedServicesPage';
-import AdminUsersPage from '@/pages/admin/AdminUsersPage';
-import AdminStudentsPage from '@/pages/admin/AdminStudentsPage';
-import AdminReportsPage from '@/pages/admin/AdminReportsPage';
-import AdminReviewsPage from '@/pages/admin/AdminReviewsPage';
-import AdminGoodReviewsPage from '@/pages/admin/AdminGoodReviewsPage';
-import AdminBadReviewsPage from '@/pages/admin/AdminBadReviewsPage';
-import { initialize } from './store/auth/authSlice';
+import AdminLayout from '@/components/layout/AdminLayout'; // Layout especial para admin (con sidebar)
+import AdminDashboardPage from '@/pages/admin/AdminDashboardPage'; // Dashboard admin
+import AdminAllServicesPage from '@/pages/admin/AdminAllServicesPage'; // Todos los servicios
+import AdminServicesPage from '@/pages/admin/AdminServicesPage'; // Servicios pendientes
+import AdminActiveServicesPage from '@/pages/admin/AdminActiveServicesPage'; // Servicios activos
+import AdminRejectedServicesPage from '@/pages/admin/AdminRejectedServicesPage'; // Servicios rechazados
+import AdminUsersPage from '@/pages/admin/AdminUsersPage'; // Gestión de usuarios
+import AdminStudentsPage from '@/pages/admin/AdminStudentsPage'; // Estudiantes
+import AdminReportsPage from '@/pages/admin/AdminReportsPage'; // Reportes
+import AdminReviewsPage from '@/pages/admin/AdminReviewsPage'; // Reseñas
+import AdminGoodReviewsPage from '@/pages/admin/AdminGoodReviewsPage'; // Reseñas positivas
+import AdminBadReviewsPage from '@/pages/admin/AdminBadReviewsPage'; // Reseñas negativas
+import { initialize } from './store/auth/authSlice'; // Acción para inicializar auth desde localStorage
 
+// Componente que inicializa el estado de autenticación al cargar la app
 function AppInitializer() {
-  const dispatch = useDispatch();
-  useEffect(() => { dispatch(initialize()); }, [dispatch]);
-  return null;
+  const dispatch = useDispatch(); // Permite ejecutar acciones Redux
+  useEffect(() => { dispatch(initialize()); }, [dispatch]); // Ejecuta initialize al montar
+  return null; // No renderiza nada
 }
 
+// Layout principal con navbar y footer
 function Layout() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-1">
-        <Outlet />
+    <div className="min-h-screen flex flex-col"> {/* Contenedor principal */}
+      <Navbar /> {/* Barra superior */}
+      <main className="flex-1"> {/* Contenido dinámico */}
+        <Outlet /> {/* Aquí se renderizan las páginas */}
       </main>
-      <Footer />
+      <Footer /> {/* Pie de página */}
     </div>
   );
 }
 
+// Componente principal de la app
 export default function App() {
   return (
-    <BrowserRouter>
-      <AppInitializer />
-      <Routes>
-        {/* Auth pages — no navbar/footer */}
-        <Route path="/auth/login" element={<LoginPage />} />
-        <Route path="/auth/register" element={<RegisterPage />} />
-        <Route path="/auth/verify-email" element={<VerifyEmailPage />} />
-        <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
-        <Route path="/auth/reset-password" element={<ResetPasswordPage />} />
+    <BrowserRouter> {/* Habilita el sistema de rutas */}
+      <AppInitializer /> {/* Inicializa el estado de auth */}
+      <Routes> {/* Define todas las rutas */}
 
-        <Route element={<Layout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/services/:id" element={<ServiceDetailPage />} />
-          <Route path="/profiles/:userId" element={<PublicProfilePage />} />
+        {/* Auth pages — no navbar/footer */}
+        <Route path="/auth/login" element={<LoginPage />} /> {/* Ruta login */}
+        <Route path="/auth/register" element={<RegisterPage />} /> {/* Ruta registro */}
+        <Route path="/auth/verify-email" element={<VerifyEmailPage />} /> {/* Verificar email */}
+        <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} /> {/* Recuperar contraseña */}
+        <Route path="/auth/reset-password" element={<ResetPasswordPage />} /> {/* Resetear contraseña */}
+
+        <Route element={<Layout />}> {/* Rutas con layout (navbar + footer) */}
+          <Route path="/" element={<HomePage />} /> {/* Home */}
+          <Route path="/services" element={<ServicesPage />} /> {/* Lista de servicios */}
+          <Route path="/services/:id" element={<ServiceDetailPage />} /> {/* Detalle */}
+          <Route path="/profiles/:userId" element={<PublicProfilePage />} /> {/* Perfil público */}
 
           {/* Protected — any authenticated user */}
-          <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
-          <Route path="/profiles/me" element={<ProtectedRoute><MyProfilePage /></ProtectedRoute>} />
-          <Route path="/services/create" element={<ProtectedRoute><CreateServicePage /></ProtectedRoute>} />
-          <Route path="/services/:id/edit" element={<ProtectedRoute><EditServicePage /></ProtectedRoute>} />
-          <Route path="/requests" element={<ProtectedRoute><RequestsPage /></ProtectedRoute>} />
+          <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} /> {/* Dashboard protegido */}
+          <Route path="/profiles/me" element={<ProtectedRoute><MyProfilePage /></ProtectedRoute>} /> {/* Perfil propio protegido */}
+          <Route path="/services/create" element={<ProtectedRoute><CreateServicePage /></ProtectedRoute>} /> {/* Crear servicio */}
+          <Route path="/services/:id/edit" element={<ProtectedRoute><EditServicePage /></ProtectedRoute>} /> {/* Editar servicio */}
+          <Route path="/requests" element={<ProtectedRoute><RequestsPage /></ProtectedRoute>} /> {/* Solicitudes */}
 
-
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="*" element={<NotFoundPage />} /> {/* Ruta 404 */}
         </Route>
 
         {/* Admin — separate layout with sidebar */}
-        <Route element={<AdminRoute><AdminLayout /></AdminRoute>}>
-          <Route path="/admin" element={<AdminDashboardPage />} />
-          <Route path="/admin/services" element={<AdminAllServicesPage />} />
-          <Route path="/admin/services/pending" element={<AdminServicesPage />} />
-          <Route path="/admin/services/active" element={<AdminActiveServicesPage />} />
-          <Route path="/admin/services/rejected" element={<AdminRejectedServicesPage />} />
-          <Route path="/admin/users" element={<AdminUsersPage />} />
-          <Route path="/admin/users/students" element={<AdminStudentsPage />} />
-          <Route path="/admin/reports" element={<AdminReportsPage />} />
-          <Route path="/admin/reviews" element={<AdminReviewsPage />} />
-          <Route path="/admin/reviews/good" element={<AdminGoodReviewsPage />} />
-          <Route path="/admin/reviews/bad" element={<AdminBadReviewsPage />} />
+        <Route element={<AdminRoute><AdminLayout /></AdminRoute>}> {/* Protege todo el layout admin */}
+          <Route path="/admin" element={<AdminDashboardPage />} /> {/* Dashboard admin */}
+          <Route path="/admin/services" element={<AdminAllServicesPage />} /> {/* Servicios */}
+          <Route path="/admin/services/pending" element={<AdminServicesPage />} /> {/* Pendientes */}
+          <Route path="/admin/services/active" element={<AdminActiveServicesPage />} /> {/* Activos */}
+          <Route path="/admin/services/rejected" element={<AdminRejectedServicesPage />} /> {/* Rechazados */}
+          <Route path="/admin/users" element={<AdminUsersPage />} /> {/* Usuarios */}
+          <Route path="/admin/users/students" element={<AdminStudentsPage />} /> {/* Estudiantes */}
+          <Route path="/admin/reports" element={<AdminReportsPage />} /> {/* Reportes */}
+          <Route path="/admin/reviews" element={<AdminReviewsPage />} /> {/* Reseñas */}
+          <Route path="/admin/reviews/good" element={<AdminGoodReviewsPage />} /> {/* Buenas reseñas */}
+          <Route path="/admin/reviews/bad" element={<AdminBadReviewsPage />} /> {/* Malas reseñas */}
         </Route>
+
       </Routes>
-      <Toaster />
+      <Toaster /> {/* Componente global de notificaciones */}
     </BrowserRouter>
   );
 }

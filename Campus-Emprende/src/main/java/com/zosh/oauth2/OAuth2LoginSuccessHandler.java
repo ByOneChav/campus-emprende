@@ -16,46 +16,51 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.IOException;
 import java.util.Collections;
 
+// Handler que se ejecuta cuando el login OAuth2 es exitoso
 @Component
 public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
+    // Proveedor encargado de generar el token JWT
     @Autowired
     private JwtProvider jwtProvider;
 
+    // Método que se ejecuta al autenticarse correctamente con OAuth2
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-        Authentication authentication) throws IOException, ServletException {
+            Authentication authentication) throws IOException, ServletException {
 
+        // Obtiene el usuario autenticado desde el principal personalizado
         OAuth2UserPrincipal oauth2User = (OAuth2UserPrincipal) authentication.getPrincipal();
         User user = oauth2User.getUser();
 
-        // Create authentication object for JWT generation
-        org.springframework.security.authentication.UsernamePasswordAuthenticationToken auth =
-            new org.springframework.security.authentication.UsernamePasswordAuthenticationToken(
+        // Crea un objeto de autenticación para generar el JWT
+        org.springframework.security.authentication.UsernamePasswordAuthenticationToken auth = new org.springframework.security.authentication.UsernamePasswordAuthenticationToken(
                 user.getEmail(),
                 null,
-                Collections.singletonList(new SimpleGrantedAuthority(user.getRole().name()))
-            );
+                Collections.singletonList(new SimpleGrantedAuthority(user.getRole().name())));
 
-        // Generate JWT token
+        // Genera el token JWT
         String token = jwtProvider.generateToken(auth);
 
-        // Redirect to frontend with token
+        // Construye la URL de redirección hacia el frontend con el token
         String targetUrl = determineTargetUrl(token, user);
 
+        // Verifica si la respuesta ya fue enviada
         if (response.isCommitted()) {
             logger.debug("La respuesta ya se ha enviado. No se puede redirigir a " + targetUrl);
             return;
         }
 
+        // Redirige al frontend con los datos del usuario y el token
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
 
+    // Construye la URL de destino con parámetros para el frontend
     protected String determineTargetUrl(String token, User user) {
-        // Redirect to frontend with token as query parameter
-        // Frontend will extract the token and store it
+        // URL del frontend donde se procesará el login OAuth2
         String frontendUrl = "http://localhost:5173/oauth2/callback";
 
+        // Agrega el token y datos del usuario como parámetros en la URL
         return UriComponentsBuilder.fromUriString(frontendUrl)
                 .queryParam("token", token)
                 .queryParam("email", user.getEmail())

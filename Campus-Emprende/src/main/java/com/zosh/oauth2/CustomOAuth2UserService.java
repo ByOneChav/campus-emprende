@@ -14,42 +14,48 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+// Servicio personalizado para manejar autenticación OAuth2 (Google)
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
+    // Repositorio para acceder a los usuarios en base de datos
     @Autowired
     private UserRepository userRepository;
 
+    // Carga el usuario desde el proveedor OAuth2
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oauth2User = super.loadUser(userRequest);
 
-        // Process OAuth2 user info
+        // Procesa la información del usuario OAuth2
         return processOAuth2User(userRequest, oauth2User);
     }
 
+    // Procesa los datos del usuario obtenidos desde Google
     private OAuth2User processOAuth2User(OAuth2UserRequest userRequest, OAuth2User oauth2User) {
-        // Extract user info from Google
+        // Extrae atributos del usuario
         Map<String, Object> attributes = oauth2User.getAttributes();
         String email = (String) attributes.get("email");
         String name = (String) attributes.get("name");
         String picture = (String) attributes.get("picture");
         String googleId = (String) attributes.get("sub");
 
-        // Check if user already exists
+        // Busca usuario por email
         User user = userRepository.findByEmail(email);
 
         if (user == null) {
-            // Create new user
+            // Crea nuevo usuario si no existe
             user = createNewUser(email, name, picture, googleId);
         } else {
-            // Update existing user
+            // Actualiza usuario existente
             user = updateExistingUser(user, name, picture, googleId);
         }
 
+        // Retorna principal personalizado para Spring Security
         return new OAuth2UserPrincipal(user, oauth2User.getAttributes());
     }
 
+    // Crea un nuevo usuario autenticado con Google
     private User createNewUser(String email, String name, String picture, String googleId) {
         User user = new User();
         user.setEmail(email);
@@ -58,19 +64,20 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         user.setGoogleId(googleId);
         user.setAuthProvider(AuthProvider.GOOGLE);
         user.setRole(UserRole.ROLE_STUDENT);
-        user.setVerified(true); // Google users are pre-verified
+        user.setVerified(true); // Usuario verificado automáticamente por Google
         user.setLastLogin(LocalDateTime.now());
 
         return userRepository.save(user);
     }
 
+    // Actualiza información de un usuario existente
     private User updateExistingUser(User user, String name, String picture, String googleId) {
-        // Update user info if needed
+        // Si era usuario local, se vincula con Google
         if (user.getAuthProvider() == AuthProvider.LOCAL) {
-            // Link Google account to existing local account
             user.setAuthProvider(AuthProvider.GOOGLE);
         }
 
+        // Actualiza datos del usuario
         user.setGoogleId(googleId);
         user.setProfileImage(picture);
         user.setFullName(name);

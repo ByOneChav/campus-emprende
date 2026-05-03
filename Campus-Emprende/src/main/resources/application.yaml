@@ -42,8 +42,8 @@ spring:
       client:
         registration:
           google:
-            client-id: ${GOOGLE_CLIENT_ID:}  # ID de cliente Google
-            client-secret: ${GOOGLE_CLIENT_SECRET:} # Secreto de cliente
+            client-id: ${GOOGLE_CLIENT_ID:}
+            client-secret: ${GOOGLE_CLIENT_SECRET:}
             redirect-uri: http://localhost:8080/login/oauth2/code/google  # URL de redirección
         provider:
           google:

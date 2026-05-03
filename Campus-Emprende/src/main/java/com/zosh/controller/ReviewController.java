@@ -20,16 +20,17 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 @RestController
 @RequiredArgsConstructor
 
-// Agrupa endpoints relacionados a reseñas
+// 📚 Agrupa endpoints relacionados a reseñas
 @Tag(
     name = "Reseñas",
     description = "Endpoints para gestión de reseñas de servicios y proveedores"
 )
 public class ReviewController {
 
+    // 🧠 Servicio que contiene la lógica de negocio
     private final ReviewService reviewService;
 
-    // Crear una reseña para una solicitud de servicio
+    // ⭐ CREAR RESEÑA
     @Operation(
         summary = "Registrar reseña de un servicio",
         description = "Permite a un usuario registrar una reseña asociada a una solicitud de servicio finalizada"
@@ -46,11 +47,11 @@ public class ReviewController {
             @PathVariable Long requestId,
             @RequestBody @Valid ReviewRequest request) throws UserException {
 
-        // Se registra la reseña en el sistema
+        // 🧾 Se registra la reseña (solo si el flujo fue completado)
         return ResponseEntity.ok(reviewService.submitReview(requestId, request));
     }
 
-    // Obtener reseñas asociadas a un servicio
+    // 📥 OBTENER RESEÑAS DE UN SERVICIO
     @Operation(
         summary = "Obtener reseñas de un servicio",
         description = "Devuelve todas las reseñas asociadas a un servicio específico"
@@ -63,11 +64,11 @@ public class ReviewController {
     @GetMapping("/services/{serviceId}/reviews")
     public ResponseEntity<List<ReviewResponse>> getServiceReviews(@PathVariable Long serviceId) {
 
-        // Se obtienen las reseñas del servicio
+        // 📊 Lista de reseñas para un servicio
         return ResponseEntity.ok(reviewService.getReviewsByService(serviceId));
     }
 
-    // Obtener reseñas asociadas a un proveedor
+    // 👤 OBTENER RESEÑAS DE UN PROVEEDOR
     @Operation(
         summary = "Obtener reseñas de un proveedor",
         description = "Devuelve todas las reseñas asociadas a un proveedor específico"
@@ -80,7 +81,7 @@ public class ReviewController {
     @GetMapping("/profiles/{userId}/reviews")
     public ResponseEntity<List<ReviewResponse>> getProviderReviews(@PathVariable Long userId) {
 
-        // Se obtienen las reseñas del proveedor
+        // 📊 Lista de reseñas del proveedor
         return ResponseEntity.ok(reviewService.getReviewsByProvider(userId));
     }
 }

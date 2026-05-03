@@ -66,4 +66,5 @@ public class EmailVerificationController {
         // Se retorna respuesta de éxito
         return ResponseEntity.ok(new ApiResponse("Correo electrónico de verificación enviado", true));
     }
+    
 }

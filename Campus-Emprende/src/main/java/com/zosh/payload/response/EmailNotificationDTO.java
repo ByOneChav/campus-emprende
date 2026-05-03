@@ -14,13 +14,16 @@ import java.util.Map;
 @AllArgsConstructor
 public class EmailNotificationDTO {
 
-    private String recipient;
-    private String subject;
-    private String templateName;
-    private Map<String, Object> templateData;
+    private String recipient; // destinatario del correo
+
+    private String subject; // asunto del email
+
+    private String templateName; // nombre del template (para emails HTML)
+
+    private Map<String, Object> templateData; // datos dinámicos para el template
 
     public EmailNotificationDTO(String recipient, String subject) {
-        this.recipient = recipient;
+        this.recipient = recipient; // constructor simplificado
         this.subject = subject;
     }
 }

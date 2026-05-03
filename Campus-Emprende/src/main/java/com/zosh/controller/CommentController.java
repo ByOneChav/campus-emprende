@@ -20,16 +20,21 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 @RestController
 @RequiredArgsConstructor
 
-// Agrupa los endpoints de comentarios en Swagger
+// 📌 Agrupa los endpoints en Swagger (documentación API)
 @Tag(
     name = "Comentarios",
     description = "Endpoints para gestión de comentarios en servicios"
 )
 public class CommentController {
 
+    // 🔗 Inyección del servicio de comentarios
     private final CommentService commentService;
 
-    // Obtener todos los comentarios de un servicio
+    // ============================
+    // 📥 OBTENER COMENTARIOS
+    // ============================
+
+    // 🔎 Endpoint para listar comentarios de un servicio
     @Operation(
         summary = "Obtener comentarios por servicio",
         description = "Devuelve todos los comentarios asociados a un servicio específico"
@@ -42,11 +47,15 @@ public class CommentController {
     @GetMapping("/services/{serviceId}/comments")
     public ResponseEntity<List<CommentResponse>> getComments(@PathVariable Long serviceId) {
 
-        // Se obtienen los comentarios del servicio
+        // 📌 Llama al service para obtener comentarios del servicio
         return ResponseEntity.ok(commentService.getCommentsByService(serviceId));
     }
 
-    // Crear un comentario para un servicio
+    // ============================
+    // ✍️ CREAR COMENTARIO
+    // ============================
+
+    // 📝 Endpoint para agregar comentario a un servicio
     @Operation(
         summary = "Agregar comentario a un servicio",
         description = "Permite a un usuario agregar un comentario a un servicio específico"
@@ -63,11 +72,15 @@ public class CommentController {
             @PathVariable Long serviceId,
             @RequestBody @Valid CommentRequest request) throws UserException {
 
-        // Se agrega el comentario al servicio
+        // 📌 Envía el request al service para crear el comentario
         return ResponseEntity.ok(commentService.addComment(serviceId, request));
     }
 
-    // Eliminar un comentario por ID
+    // ============================
+    // ❌ ELIMINAR COMENTARIO
+    // ============================
+
+    // 🗑️ Endpoint para eliminar comentario por ID
     @Operation(
         summary = "Eliminar comentario por ID",
         description = "Permite eliminar un comentario existente por su identificador"
@@ -81,9 +94,10 @@ public class CommentController {
     @DeleteMapping("/api/comments/{id}")
     public ResponseEntity<Void> deleteComment(@PathVariable Long id) throws UserException {
 
-        // Se elimina el comentario
+        // 📌 Lógica delegada al service
         commentService.deleteComment(id);
 
+        // 📤 Retorna 204 No Content (eliminación exitosa)
         return ResponseEntity.noContent().build();
     }
 }

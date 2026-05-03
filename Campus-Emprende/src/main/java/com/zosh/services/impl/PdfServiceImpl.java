@@ -18,35 +18,48 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+// Servicio encargado de generar un PDF con la información del perfil del usuario
 @Service
 @RequiredArgsConstructor
 public class PdfServiceImpl implements PdfService {
 
+    // Servicio para obtener el usuario autenticado
     private final UserService userService;
+
+    // Repositorio para obtener el perfil del usuario
     private final ProfileRepository profileRepository;
 
+    // Genera el PDF del perfil del usuario actual
     @Override
     public byte[] generateProfilePdf() throws UserException, IOException {
+
+        // Obtiene el usuario autenticado
         User currentUser = userService.getCurrentUser();
+
+        // Obtiene el perfil asociado al usuario
         Profile profile = profileRepository.findByUser(currentUser)
                 .orElseThrow(() -> new UserException("Perfil no encontrado. Por favor, cree uno antes de exportar."));
 
+        // Crea documento PDF y flujo de salida en memoria
         try (PDDocument document = new PDDocument();
-             ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+                ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 
+            // Crea una página tamaño A4
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
 
+            // Define fuentes para el documento
             PDType1Font fontBold = new PDType1Font(Standard14Fonts.FontName.HELVETICA_BOLD);
             PDType1Font fontRegular = new PDType1Font(Standard14Fonts.FontName.HELVETICA);
 
+            // Crea el flujo de contenido para escribir en el PDF
             try (PDPageContentStream content = new PDPageContentStream(document, page)) {
                 float margin = 50;
                 float yStart = PDRectangle.A4.getHeight() - margin;
                 float leading = 20f;
                 float y = yStart;
 
-                // Title
+                // Título del documento
                 content.beginText();
                 content.setFont(fontBold, 22);
                 content.newLineAtOffset(margin, y);
@@ -54,7 +67,7 @@ public class PdfServiceImpl implements PdfService {
                 content.endText();
                 y -= leading * 2;
 
-                // Name
+                // Nombre del usuario
                 content.beginText();
                 content.setFont(fontBold, 16);
                 content.newLineAtOffset(margin, y);
@@ -62,7 +75,7 @@ public class PdfServiceImpl implements PdfService {
                 content.endText();
                 y -= leading;
 
-                // Email
+                // Email del usuario
                 content.beginText();
                 content.setFont(fontRegular, 12);
                 content.newLineAtOffset(margin, y);
@@ -70,7 +83,7 @@ public class PdfServiceImpl implements PdfService {
                 content.endText();
                 y -= leading;
 
-                // Career
+                // Carrera del usuario (si existe)
                 if (profile.getCareer() != null) {
                     content.beginText();
                     content.setFont(fontRegular, 12);
@@ -80,7 +93,7 @@ public class PdfServiceImpl implements PdfService {
                     y -= leading;
                 }
 
-                // LinkedIn
+                // LinkedIn del usuario (si existe)
                 if (profile.getLinkedinUrl() != null) {
                     content.beginText();
                     content.setFont(fontRegular, 12);
@@ -92,7 +105,7 @@ public class PdfServiceImpl implements PdfService {
 
                 y -= leading;
 
-                // Bio header
+                // Encabezado de la sección de biografía
                 content.beginText();
                 content.setFont(fontBold, 13);
                 content.newLineAtOffset(margin, y);
@@ -100,11 +113,12 @@ public class PdfServiceImpl implements PdfService {
                 content.endText();
                 y -= leading;
 
-                // Bio text (simple, single block)
+                // Genera el texto de la biografía con salto de líneas
                 if (profile.getBio() != null && !profile.getBio().isBlank()) {
                     float pageWidth = PDRectangle.A4.getWidth() - 2 * margin;
                     String bio = profile.getBio();
-                    // wrap bio into lines of ~90 chars
+
+                    // Divide el texto en palabras para manejar el salto de línea
                     String[] words = bio.split(" ");
                     StringBuilder line = new StringBuilder();
                     for (String word : words) {
@@ -119,6 +133,8 @@ public class PdfServiceImpl implements PdfService {
                         }
                         line.append(word).append(" ");
                     }
+
+                    // Escribe la última línea restante
                     if (!line.toString().isBlank()) {
                         content.beginText();
                         content.setFont(fontRegular, 11);
@@ -129,7 +145,10 @@ public class PdfServiceImpl implements PdfService {
                 }
             }
 
+            // Guarda el documento en memoria
             document.save(out);
+
+            // Retorna el PDF en formato byte[]
             return out.toByteArray();
         }
     }

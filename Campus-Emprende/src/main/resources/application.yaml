@@ -28,6 +28,7 @@ spring:
           timeout: 8080  # Tiempo de espera
           writetimeout: 8080  # Tiempo de escritura
   
+
   devtools:
     livereload:
       enabled: true  # Recarga automática en desarrollo

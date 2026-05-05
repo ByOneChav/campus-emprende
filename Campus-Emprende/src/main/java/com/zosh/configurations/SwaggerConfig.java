@@ -27,3 +27,5 @@ import org.springframework.context.annotation.Configuration;
 )
 public class SwaggerConfig {
 }
+
+// http://localhost:8080/swagger-ui.html

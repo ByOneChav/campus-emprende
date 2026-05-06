@@ -27,7 +27,6 @@ spring:
           connectiontimeout: 8080  # Tiempo de conexión
           timeout: 8080  # Tiempo de espera
           writetimeout: 8080  # Tiempo de escritura
-  
 
   devtools:
     livereload:

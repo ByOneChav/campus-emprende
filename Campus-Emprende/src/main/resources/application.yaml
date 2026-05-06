@@ -41,16 +41,27 @@ spring:
     oauth2:
       client:
         registration:
-          google:
-            client-id: ${GOOGLE_CLIENT_ID:}
-            client-secret: ${GOOGLE_CLIENT_SECRET:}
-            redirect-uri: http://localhost:8080/login/oauth2/code/google  # URL de redirección
-        provider:
-          google:
-            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth  # Autenticación Google
-            token-uri: https://oauth2.googleapis.com/token  # Obtención de token
-            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo  # Info del usuario
-            user-name-attribute: sub  # Identificador único del usuario
+          # GOOGLE
+          # google:
+            # client-id: ${GOOGLE_CLIENT_ID:}
+            # client-secret: ${GOOGLE_CLIENT_SECRET:}
+            # redirect-uri: http://localhost:8080/login/oauth2/code/google  # URL de redirección
+
+          # GITHUB
+          github:
+            client-id: ${OAUTH_GITHUB_CLIENT_ID}
+            client-secret: ${OAUTH_GITHUB_CLIENT_SECRET}
+            scope:
+              - read:user
+              - user:email
+            redirect-uri: http://localhost:8080/login/oauth2/code/github
+
+        # provider:
+        #   google:
+        #     authorization-uri: https://accounts.google.com/o/oauth2/v2/auth  # Autenticación Google
+        #     token-uri: https://oauth2.googleapis.com/token  # Obtención de token
+        #     user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo  # Info del usuario
+        #     user-name-attribute: sub  # Identificador único del usuario
 
 server:
   port: 8080  # Puerto del backend

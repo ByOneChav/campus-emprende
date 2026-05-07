@@ -1,147 +1,325 @@
 import { useState } from 'react'; // Hook para manejar estado local
 import { Link, useNavigate, useLocation } from 'react-router-dom'; // Navegación y acceso a la ruta actual
 import { useAuth } from '@/context/AuthContext'; // Hook de autenticación (Redux)
+
 import { Button } from '@/components/ui/button'; // Botón reutilizable
 import { Input } from '@/components/ui/input'; // Input reutilizable
 import { Label } from '@/components/ui/label'; // Label para formularios
 import { Alert, AlertDescription } from '@/components/ui/alert'; // Componente para mostrar errores
-import { GraduationCap, Loader2 } from 'lucide-react'; // Iconos
 
-import logoCampus from '@/assets/logoCampus.png'; // Importa imagen local
+import {
+  GraduationCap,
+  Loader2,
+  Sparkles
+} from 'lucide-react'; // Iconos
 
-
+import backgroundCampus from '@/assets/background-campus.png'; // Imagen de fondo
+import logoCampus from '@/assets/logoCampus.png'; // Logo local
 
 const LogoCampus = logoCampus; // Imagen usada en el componente
 
 export default function LoginPage() {
+
   const { login } = useAuth(); // Función login que conecta con Redux + backend
+
   const navigate = useNavigate(); // Permite redireccionar
+
   const location = useLocation(); // Permite saber desde dónde vino el usuario
 
   // Ruta a la que se redirige después del login (o dashboard por defecto)
   const from = location.state?.from?.pathname || '/dashboard';
 
   // Estado del formulario
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({
+    email: '',
+    password: ''
+  });
+
   const [error, setError] = useState(''); // Manejo de errores
+
   const [loading, setLoading] = useState(false); // Estado de carga
 
   // Función que se ejecuta al enviar el formulario
   const handleSubmit = async (e) => {
+
     e.preventDefault(); // Evita recargar la página
+
     setError(''); // Limpia errores previos
+
     setLoading(true); // Activa loading
+
     try {
-      await login(form.email, form.password); // Llama a useAuth → thunk → backend
-      navigate(from, { replace: true }); // Redirige a la página original o dashboard
+
+      // Llama a useAuth → thunk → backend
+      await login(form.email, form.password);
+
+      // Redirige a la página original o dashboard
+      navigate(from, { replace: true });
+
     } catch (err) {
-      setError(err.response?.data?.message || 'Error al iniciar sesión. Compruebe sus credenciales.'); // Muestra error
+
+      // Muestra error
+      setError(
+        err.response?.data?.message ||
+        'Error al iniciar sesión. Compruebe sus credenciales.'
+      );
+
     } finally {
+
       setLoading(false); // Desactiva loading
+
     }
   };
 
   return (
-    <div className="min-h-screen flex"> {/* Contenedor principal */}
 
-      {/* Left — hero image */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-primary"> {/* Imagen solo en desktop */}
+    <div className="relative min-h-screen overflow-hidden bg-[#f5f7fb]">
+
+      {/* =========================
+          IMAGEN DE FONDO COMPLETA
+      ========================== */}
+      <div className="absolute inset-0 overflow-hidden">
+
+        {/* Imagen fondo */}
         <img
-          src={LogoCampus}
-          alt="Campus Emprende"
-          className="absolute inset-0 w-full h-full object-cover object-center"
+          src={backgroundCampus}
+          alt="Campus Emprende Background"
+
+          // object-cover hace que la imagen ocupe TODO el espacio
+          // scale aumenta un poco el tamaño para evitar cortes raros
+          className="h-full w-full object-cover object-center scale-110"
         />
-        <div className="absolute inset-0 bg-primary/40" /> {/* Overlay oscuro */}
-        <div className="relative z-10 flex flex-col justify-end p-12 text-white"> {/* Texto sobre imagen */}
-          <GraduationCap className="h-12 w-12 mb-4" />
-          <h2 className="text-4xl font-bold leading-tight mb-2">Campus Emprende</h2>
-          <p className="text-white/80 text-lg">El mercado de servicios estudiantiles</p>
-        </div>
+
+        {/* Overlay oscuro/transparente */}
+        <div className="absolute inset-0 bg-[#001B44]/75" />
+
+        {/* Degradado elegante */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#001B44]/70 via-[#0A84FF]/20 to-[#001B44]/80" />
+
+        {/* Glow central */}
+        <div className="absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/10 blur-3xl" />
+
       </div>
 
-      {/* Right — form */}
-      <div className="flex flex-1 items-center justify-center px-6 py-12 bg-background"> {/* Contenedor del formulario */}
-        <div className="w-full max-w-md space-y-6"> {/* Card central */}
+      {/* =========================
+          CONTENIDO PRINCIPAL FLEX
+      ========================== */}
 
-          {/* Mobile-only brand */}
-          <div className="flex flex-col items-center text-center lg:hidden"> {/* Branding en móvil */}
-            <GraduationCap className="h-10 w-10 text-primary mb-2" />
-            <h1 className="text-2xl font-bold">Campus Emprende</h1>
-            <p className="text-muted-foreground text-sm">Mercado de servicios para estudiantes</p>
-          </div>
+      <div className="relative z-10 flex min-h-screen items-center justify-center px-6 py-12 backdrop-blur-[2px]">
 
-          {/* Decorated card */}
-          <div className="relative rounded-2xl border border-border bg-card shadow-xl overflow-hidden"> {/* Tarjeta */}
+        {/* Glow decorativo */}
+        <div className="absolute left-[-100px] top-[-100px] h-[300px] w-[300px] rounded-full bg-blue-500/20 blur-3xl" />
 
-            {/* Top accent bar */}
-            <div className="h-1.5 w-full bg-linear-to-r from-primary via-primary/70 to-primary/30" />
+        <div className="absolute bottom-[-100px] right-[-100px] h-[300px] w-[300px] rounded-full bg-cyan-400/20 blur-3xl" />
 
-            <div className="px-8 py-8 space-y-6"> {/* Contenido */}
+        {/* =========================
+            CARD LOGIN
+        ========================== */}
 
-              <div>
-                <h1 className="text-3xl font-bold tracking-tight">Bienvenido de nuevo</h1>
-                <p className="mt-1 text-muted-foreground">Inicia sesión en tu cuenta para continuar.</p>
+        <div className="relative w-full max-w-md animate-in fade-in zoom-in-95 duration-500">
+
+          {/* Card */}
+          <div className="relative overflow-hidden rounded-[32px] border border-white/20 bg-white/92 shadow-2xl backdrop-blur-xl">
+
+            {/* Barra superior */}
+            <div className="h-1.5 w-full bg-gradient-to-r from-[#0A84FF] via-[#5AA9FF] to-[#B7D8FF]" />
+
+            {/* Glow interno */}
+            <div className="absolute -top-24 right-[-50px] h-52 w-52 rounded-full bg-blue-100 blur-3xl opacity-50" />
+
+            {/* Contenido */}
+            <div className="relative px-8 py-9 space-y-7">
+
+              {/* Header */}
+              <div className="space-y-5">
+
+                {/* Top Row */}
+                <div className="flex items-center justify-between">
+
+                  {/* Icono */}
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#0A84FF] to-[#5AA9FF] shadow-lg shadow-blue-500/30">
+
+                    <GraduationCap className="h-8 w-8 text-white" />
+
+                  </div>
+
+                  {/* Badge */}
+                  <div className="flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 text-sm font-medium text-[#0A84FF] shadow-sm">
+
+                    <Sparkles className="h-4 w-4" />
+
+                    Acceso seguro
+
+                  </div>
+
+                </div>
+
+                {/* Título */}
+                <div>
+
+                  <h1 className="text-4xl font-black tracking-tight text-slate-900">
+                    Bienvenido de nuevo
+                  </h1>
+
+                  <p className="mt-2 text-[17px] leading-relaxed text-slate-600">
+                    Inicia sesión en tu cuenta para continuar.
+                  </p>
+
+                </div>
+
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-5"> {/* Formulario */}
+              {/* =========================
+                  FORMULARIO
+              ========================== */}
 
-                {/* Mostrar error si existe */}
+              <form onSubmit={handleSubmit} className="space-y-5">
+
+                {/* Error */}
                 {error && (
-                  <Alert variant="destructive">
-                    <AlertDescription>{error}</AlertDescription>
+
+                  <Alert
+                    variant="destructive"
+                    className="rounded-2xl border-red-200"
+                  >
+
+                    <AlertDescription>
+                      {error}
+                    </AlertDescription>
+
                   </Alert>
+
                 )}
 
                 {/* Campo email */}
-                <div className="space-y-1.5">
-                  <Label htmlFor="email">Correo electrónico</Label>
+                <div className="space-y-2">
+
+                  <Label
+                    htmlFor="email"
+                    className="text-[15px] font-semibold text-slate-800"
+                  >
+                    Correo electrónico
+                  </Label>
+
                   <Input
                     id="email"
                     type="email"
                     placeholder="eliasbombom@gmail.com"
                     value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })} // Actualiza estado
+
+                    onChange={(e) =>
+                      setForm({
+                        ...form,
+                        email: e.target.value
+                      })
+                    }
+
                     required
+
+                    className="h-14 rounded-2xl border-slate-200 bg-white/80 text-[15px] shadow-sm backdrop-blur-sm transition-all duration-200 focus:border-[#0A84FF] focus:ring-4 focus:ring-blue-100"
                   />
+
                 </div>
 
-                {/* Campo password */}
-                <div className="space-y-1.5">
+                {/* Campo contraseña */}
+                <div className="space-y-2">
+
+                  {/* Header password */}
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="password">Contraseña</Label>
-                    <Link to="/auth/forgot-password" className="text-xs text-primary hover:underline">
+
+                    <Label
+                      htmlFor="password"
+                      className="text-[15px] font-semibold text-slate-800"
+                    >
+                      Contraseña
+                    </Label>
+
+                    <Link
+                      to="/auth/forgot-password"
+                      className="text-sm font-medium text-[#0A84FF] transition-colors hover:text-[#006BE6] hover:underline"
+                    >
                       ¿Has olvidado tu contraseña?
                     </Link>
+
                   </div>
+
                   <Input
                     id="password"
                     type="password"
                     placeholder="***************"
                     value={form.password}
-                    onChange={(e) => setForm({ ...form, password: e.target.value })}
+
+                    onChange={(e) =>
+                      setForm({
+                        ...form,
+                        password: e.target.value
+                      })
+                    }
+
                     required
+
+                    className="h-14 rounded-2xl border-slate-200 bg-white/80 text-[15px] shadow-sm backdrop-blur-sm transition-all duration-200 focus:border-[#0A84FF] focus:ring-4 focus:ring-blue-100"
                   />
+
                 </div>
 
-                {/* Botón submit */}
-                <Button type="submit" className="w-full" size="lg" disabled={loading}>
-                  {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} {/* Spinner */}
+                {/* Botón login */}
+                <Button
+                  type="submit"
+                  className="w-full h-14 rounded-2xl bg-[#0A84FF] text-white text-[17px] font-semibold shadow-lg shadow-blue-500/30 transition-all duration-300 hover:-translate-y-[1px] hover:bg-[#339CFF] hover:shadow-xl hover:shadow-blue-500/40"
+                  size="lg"
+                  disabled={loading}
+                >
+
+                  {loading && (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  )}
+
                   Iniciar sesión
+
                 </Button>
+
               </form>
 
-              {/* Link a registro */}
-              <p className="text-center text-sm text-muted-foreground">
+              {/* Divider */}
+              <div className="relative">
+
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-slate-200/70" />
+                </div>
+
+                <div className="relative flex justify-center text-xs uppercase">
+
+                  <span className="bg-white px-3 text-slate-400">
+                    Campus Emprende
+                  </span>
+
+                </div>
+
+              </div>
+
+              {/* Footer */}
+              <p className="text-center text-[15px] text-slate-600">
+
                 ¿Sin cuenta?{' '}
-                <Link to="/auth/register" className="text-primary hover:underline font-medium">
+
+                <Link
+                  to="/auth/register"
+                  className="font-semibold text-[#0A84FF] transition-colors hover:text-[#006BE6] hover:underline"
+                >
                   Regístrate aquí
                 </Link>
+
               </p>
 
             </div>
+
           </div>
+
         </div>
+
       </div>
+
     </div>
   );
 }

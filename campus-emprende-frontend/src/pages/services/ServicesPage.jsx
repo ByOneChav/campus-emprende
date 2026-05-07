@@ -23,6 +23,7 @@ import {
   Search,
   Plus,
   MessageCircle,
+  Sparkles,
   Send,
   Trash2,
   ExternalLink,
@@ -30,6 +31,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { formatDistanceToNow } from "date-fns";
+import { es } from "date-fns/locale";
 import { browseServicesThunk } from "../../store/service/serviceThunk";
 
 const CATEGORIES = [
@@ -58,12 +60,28 @@ const CATEGORY_GRADIENTS = {
 };
 
 function timeAgo(dateStr) {
+
   if (!dateStr) return "";
+
   try {
-    return formatDistanceToNow(new Date(dateStr), { addSuffix: true });
+
+    return formatDistanceToNow(
+
+      new Date(dateStr),
+
+      {
+        addSuffix: true,
+        locale: es, // Cambia el idioma a español
+      }
+
+    );
+
   } catch {
+
     return "";
+
   }
+
 }
 
 function ServicePost({ service, currentUserId, isAuthenticated }) {
@@ -320,125 +338,366 @@ export default function ServicesPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
-        <div>
-          <h1 className="text-2xl font-bold">Explorar servicios</h1>
-          <p className="text-muted-foreground text-sm mt-0.5">
-            {loading
-              ? "Loading…"
-              : `${services.length} servicios aprobado${services.length !== 1 ? "s" : ""}`}
-            {hasFilters && !loading && " matching your filters"}
-          </p>
+  <div className="max-w-7xl mx-auto px-4 py-8">
+
+    {/* =========================
+        HERO HEADER
+    ========================== */}
+
+    <div className="relative overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-xl shadow-slate-200/40 mb-8">
+
+      {/* Glow */}
+      <div className="absolute -top-20 right-[-60px] h-56 w-56 rounded-full bg-blue-100 blur-3xl opacity-70" />
+
+      {/* Barra superior */}
+      <div className="h-1.5 w-full bg-gradient-to-r from-[#0A84FF] via-[#5AA9FF] to-[#B7D8FF]" />
+
+      <div className="relative px-7 py-7">
+
+        {/* Top section */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+
+          {/* Left */}
+          <div>
+
+            {/* Badge */}
+            <div
+              className="
+                inline-flex
+                items-center
+                gap-2
+                rounded-full
+                border
+                border-blue-200
+                bg-blue-50
+                px-4
+                py-1.5
+                text-sm
+                font-medium
+                text-[#0A84FF]
+                shadow-sm
+                mb-5
+              "
+            >
+
+              <Sparkles className="h-4 w-4" />
+
+              Marketplace universitario
+
+            </div>
+
+            {/* Title */}
+            <h1
+              className="
+                text-4xl
+                font-black
+                tracking-tight
+                text-slate-900
+              "
+            >
+              Explorar servicios
+            </h1>
+
+            {/* Subtitle */}
+            <p className="mt-2 text-[16px] text-slate-500">
+
+              {loading
+                ? "Cargando servicios..."
+                : `${services.length} servicio${services.length !== 1 ? "s" : ""} aprobado${services.length !== 1 ? "s" : ""}`}
+
+              {hasFilters && !loading && " encontrados con tus filtros"}
+
+            </p>
+
+          </div>
+
+          {/* Right Button */}
+          {isAuthenticated && (
+
+            <Button
+              asChild
+
+              className="
+                h-14
+                rounded-2xl
+                px-7
+                text-[15px]
+                font-semibold
+                shadow-lg
+                shadow-blue-500/30
+                transition-all
+                duration-300
+                hover:scale-[1.02]
+                hover:shadow-xl
+              "
+            >
+
+              <Link to="/services/create">
+
+                <Plus className="mr-2 h-5 w-5" />
+
+                Ofrecer un servicio
+
+              </Link>
+
+            </Button>
+
+          )}
+
         </div>
-        {isAuthenticated && (
-          <Button asChild>
-            <Link to="/services/create">
-              <Plus className="mr-2 h-4 w-4" />
-              Ofrecer un servicio
-            </Link>
-          </Button>
-        )}
+
+        {/* =========================
+            SEARCH + FILTER
+        ========================== */}
+
+        <form className="mt-8 flex flex-col lg:flex-row gap-4">
+
+          {/* Search */}
+          <div className="relative flex-1">
+
+            <Search
+              className="
+                absolute
+                left-4
+                top-1/2
+                -translate-y-1/2
+                h-5
+                w-5
+                text-slate-400
+              "
+            />
+
+            <Input
+              placeholder="Buscar por título o descripción..."
+              className="
+                h-14
+                rounded-2xl
+                border-slate-200
+                bg-slate-50/70
+                pl-12
+                pr-10
+                text-[15px]
+                shadow-sm
+                transition-all
+                duration-300
+                focus:bg-white
+                focus:ring-2
+                focus:ring-blue-200
+              "
+              value={keyword}
+              onChange={handleKeywordChange}
+            />
+
+            {keyword && (
+
+              <button
+                type="button"
+                onClick={() => handleKeywordChange({ target: { value: "" } })}
+
+                className="
+                  absolute
+                  right-4
+                  top-1/2
+                  -translate-y-1/2
+                  text-slate-400
+                  transition-colors
+                  hover:text-slate-700
+                "
+              >
+
+                <X className="h-4 w-4" />
+
+              </button>
+
+            )}
+
+          </div>
+
+          {/* Select */}
+          <Select
+            value={category || "ALL"}
+            onValueChange={handleCategoryChange}
+          >
+
+            <SelectTrigger
+              className="
+                h-14
+                w-full
+                lg:w-[250px]
+                rounded-2xl
+                border-slate-200
+                bg-slate-50/70
+                text-[15px]
+                shadow-sm
+              "
+            >
+
+              <SelectValue placeholder="Todas las categorías" />
+
+            </SelectTrigger>
+
+            <SelectContent className="rounded-2xl">
+
+              <SelectItem value="ALL">
+                Todas las categorías
+              </SelectItem>
+
+              {CATEGORIES.map((c) => (
+
+                <SelectItem key={c} value={c}>
+
+                  {CATEGORY_LABELS[c]}
+
+                </SelectItem>
+
+              ))}
+
+            </SelectContent>
+
+          </Select>
+
+        </form>
+
       </div>
 
-      {/* Search & Filter */}
-      <form className="flex flex-col sm:flex-row gap-3 mb-2">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Buscar por título o descripción…"
-            className="pl-9 pr-9"
-            value={keyword}
-            onChange={handleKeywordChange}
-          />
-          {keyword && (
-            <button
-              type="button"
-              onClick={() => handleKeywordChange({ target: { value: "" } })}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-            >
-              <X className="h-3.5 w-3.5" />
-            </button>
-          )}
-        </div>
-        <Select value={category || "ALL"} onValueChange={handleCategoryChange}>
-          <SelectTrigger className="w-full sm:w-48">
-            <SelectValue placeholder="Todas las categorías" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="ALL">Todas las categorías</SelectItem>
-            {CATEGORIES.map((c) => (
-              <SelectItem key={c} value={c}>
-                {CATEGORY_LABELS[c]}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        
-      </form>
-
-      {/* Active filter pills */}
-      {hasFilters && (
-        <div className="flex items-center gap-2 mb-6 flex-wrap">
-          {keyword && (
-            <Badge variant="secondary" className="flex items-center gap-1 pr-1">
-              "{keyword}"
-              <button
-                onClick={() => handleKeywordChange({ target: { value: "" } })}
-                className="ml-0.5 hover:text-destructive"
-              >
-                <X className="h-3 w-3" />
-              </button>
-            </Badge>
-          )}
-          {category && (
-            <Badge variant="secondary" className="flex items-center gap-1 pr-1">
-              {CATEGORY_LABELS[category]}
-              <button
-                onClick={() => handleCategoryChange("ALL")}
-                className="ml-0.5 hover:text-destructive"
-              >
-                <X className="h-3 w-3" />
-              </button>
-            </Badge>
-          )}
-          <button
-            onClick={clearFilters}
-            className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-2"
-          >
-            Borrar todo
-          </button>
-        </div>
-      )}
-      {!hasFilters && <div className="mb-6" />}
-
-      {/* Feed */}
-      {loading ? (
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-          {[...Array(6)].map((_, i) => (
-            <PostSkeleton key={i} />
-          ))}
-        </div>
-      ) : services.length === 0 ? (
-        <div className="text-center py-20 text-muted-foreground">
-          <MessageCircle className="h-12 w-12 mx-auto mb-3 opacity-30" />
-          <p className="text-lg font-medium">No se encontraron servicios</p>
-          <p className="text-sm mt-1">Prueba con una palabra clave o categoría diferente.</p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 space-y-4">
-          {services.map((s) => (
-            <div key={s.id} className="break-inside-avoid mb-4">
-              <ServicePost
-                service={s}
-                currentUserId={currentUserId}
-                isAuthenticated={isAuthenticated}
-              />
-            </div>
-          ))}
-        </div>
-      )}
     </div>
-  );
+
+    {/* =========================
+        FILTER PILLS
+    ========================== */}
+
+    {hasFilters && (
+
+      <div className="flex items-center gap-2 mb-6 flex-wrap">
+
+        {keyword && (
+
+          <Badge
+            variant="secondary"
+
+            className="
+              flex
+              items-center
+              gap-1
+              rounded-full
+              px-3
+              py-1.5
+            "
+          >
+
+            "{keyword}"
+
+            <button
+              onClick={() => handleKeywordChange({ target: { value: "" } })}
+
+              className="hover:text-destructive"
+            >
+
+              <X className="h-3 w-3" />
+
+            </button>
+
+          </Badge>
+
+        )}
+
+        {category && (
+
+          <Badge
+            variant="secondary"
+
+            className="
+              flex
+              items-center
+              gap-1
+              rounded-full
+              px-3
+              py-1.5
+            "
+          >
+
+            {CATEGORY_LABELS[category]}
+
+            <button
+              onClick={() => handleCategoryChange("ALL")}
+
+              className="hover:text-destructive"
+            >
+
+              <X className="h-3 w-3" />
+
+            </button>
+
+          </Badge>
+
+        )}
+
+      </div>
+
+    )}
+
+    {/* =========================
+        SERVICES GRID
+    ========================== */}
+
+    {loading ? (
+
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+        {[...Array(6)].map((_, i) => (
+          <PostSkeleton key={i} />
+        ))}
+
+      </div>
+
+    ) : services.length === 0 ? (
+
+      <div
+        className="
+          rounded-[32px]
+          border
+          border-slate-200
+          bg-white
+          py-24
+          text-center
+          shadow-lg
+        "
+      >
+
+        <MessageCircle className="h-14 w-14 mx-auto mb-4 text-slate-300" />
+
+        <p className="text-xl font-semibold text-slate-700">
+          No se encontraron servicios
+        </p>
+
+        <p className="text-sm text-slate-500 mt-2">
+          Prueba con otra búsqueda o categoría.
+        </p>
+
+      </div>
+
+    ) : (
+
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+        {services.map((s) => (
+
+          <div key={s.id} className="break-inside-avoid">
+
+            <ServicePost
+              service={s}
+              currentUserId={currentUserId}
+              isAuthenticated={isAuthenticated}
+            />
+
+          </div>
+
+        ))}
+
+      </div>
+
+    )}
+
+  </div>
+);
 }

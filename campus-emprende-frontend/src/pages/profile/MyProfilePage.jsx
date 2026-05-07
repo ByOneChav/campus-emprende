@@ -90,19 +90,74 @@ export default function MyProfilePage() {
   );
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8 space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Mi perfil</h1>
-        <Button variant="outline" onClick={handleExport} disabled={exporting}>
-          {exporting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}
+
+  <div className="min-h-screen bg-[#f5f7fb] px-4 py-10">
+
+    {/* Glow decorativo */}
+    <div className="fixed inset-0 overflow-hidden pointer-events-none">
+
+      <div className="absolute top-[-120px] left-[-120px] h-[320px] w-[320px] rounded-full bg-blue-100 blur-3xl opacity-60" />
+
+      <div className="absolute bottom-[-120px] right-[-120px] h-[320px] w-[320px] rounded-full bg-slate-200 blur-3xl opacity-60" />
+
+    </div>
+
+    <div className="relative max-w-4xl mx-auto space-y-8">
+
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+
+        <div>
+
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-xs font-semibold mb-3">
+
+            <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse"></span>
+
+            Perfil profesional
+
+          </div>
+
+          <h1 className="text-4xl font-black tracking-tight text-slate-900">
+            Mi perfil
+          </h1>
+
+          <p className="text-slate-500 mt-1">
+            Personaliza tu información profesional y tu presencia en Campus Emprende.
+          </p>
+
+        </div>
+
+        <Button
+          variant="outline"
+          onClick={handleExport}
+          disabled={exporting}
+          className="h-14 px-6 rounded-2xl border-slate-200 bg-white/90 backdrop-blur-sm shadow-lg hover:bg-blue-50 hover:border-blue-200 transition-all duration-300"
+        >
+
+          {exporting
+            ? <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            : <Download className="mr-2 h-4 w-4" />
+          }
+
           Exportar PDF
+
         </Button>
+
       </div>
 
-      <Card>
-        <CardHeader>
-          <div className="flex items-center gap-4">
+      {/* Card principal */}
+      <Card className="overflow-hidden rounded-[32px] border border-slate-200/80 bg-white/90 backdrop-blur-sm shadow-2xl shadow-slate-300/20">
+
+        {/* Top gradient */}
+        <div className="h-2 w-full bg-gradient-to-r from-[#0A0F5C] via-[#3B82F6] to-[#93C5FD]" />
+
+        <CardHeader className="pb-8 pt-8">
+
+          <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+
+            {/* Avatar */}
             <div className="relative group shrink-0">
+
               <input
                 ref={avatarInputRef}
                 type="file"
@@ -110,76 +165,185 @@ export default function MyProfilePage() {
                 className="hidden"
                 onChange={handleAvatarChange}
               />
+
               <button
                 type="button"
                 onClick={() => avatarInputRef.current?.click()}
-                className="relative h-16 w-16 rounded-full overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="relative h-28 w-28 rounded-full overflow-hidden border-4 border-white shadow-xl focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200"
                 disabled={avatarUploading}
               >
+
                 {form.avatarUrl ? (
-                  <img src={form.avatarUrl} alt="avatar" className="h-16 w-16 object-cover" />
+
+                  <img
+                    src={form.avatarUrl}
+                    alt="avatar"
+                    className="h-full w-full object-cover"
+                  />
+
                 ) : (
-                  <Avatar className="h-16 w-16">
-                    <AvatarFallback className="text-xl bg-primary text-primary-foreground">
+
+                  <Avatar className="h-28 w-28">
+
+                    <AvatarFallback className="text-3xl font-bold bg-gradient-to-br from-[#0A0F5C] to-[#2563EB] text-white">
+
                       {initials || 'U'}
+
                     </AvatarFallback>
+
                   </Avatar>
+
                 )}
-                <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-full">
+
+                {/* Hover */}
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+
                   {avatarUploading
-                    ? <Loader2 className="h-5 w-5 text-white animate-spin" />
-                    : <Camera className="h-5 w-5 text-white" />
+                    ? <Loader2 className="h-6 w-6 text-white animate-spin" />
+                    : <Camera className="h-6 w-6 text-white" />
                   }
+
                 </div>
+
               </button>
+
             </div>
-            <div>
-              <CardTitle>{user?.fullName}</CardTitle>
-              <CardDescription>{user?.email}</CardDescription>
-              {avatarError && <p className="text-xs text-destructive mt-1">{avatarError}</p>}
+
+            {/* Info */}
+            <div className="flex-1">
+
+              <CardTitle className="text-3xl font-black text-slate-900">
+                {user?.fullName}
+              </CardTitle>
+
+              <CardDescription className="text-base text-slate-500 mt-1">
+                {user?.email}
+              </CardDescription>
+
+              <div className="flex flex-wrap gap-2 mt-4">
+
+                <div className="px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold border border-blue-100">
+                  Campus Emprende
+                </div>
+
+                <div className="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">
+                  Perfil estudiantil
+                </div>
+
+              </div>
+
+              {avatarError && (
+                <p className="text-xs text-red-500 mt-3">
+                  {avatarError}
+                </p>
+              )}
+
             </div>
+
           </div>
+
         </CardHeader>
+
         <Separator />
-        <CardContent className="pt-6">
-          <form onSubmit={handleSave} className="space-y-4">
+
+        <CardContent className="pt-8 pb-8">
+
+          <form onSubmit={handleSave} className="space-y-6">
+
+            {/* Alert */}
             {message && (
-              <Alert variant={message.type === 'error' ? 'destructive' : 'default'}>
-                <AlertDescription>{message.text}</AlertDescription>
+
+              <Alert
+                variant={message.type === 'error' ? 'destructive' : 'default'}
+                className={`rounded-2xl border ${
+                  message.type === 'error'
+                    ? 'border-red-200 bg-red-50'
+                    : 'border-blue-200 bg-blue-50'
+                }`}
+              >
+
+                <AlertDescription className="font-medium">
+                  {message.text}
+                </AlertDescription>
+
               </Alert>
+
             )}
-            <div className="space-y-1.5">
-              <Label>Biografía</Label>
+
+            {/* Biografía */}
+            <div className="space-y-2">
+
+              <Label className="text-sm font-bold text-slate-700">
+                Biografía
+              </Label>
+
               <Textarea
-                placeholder="Cuéntales a los demás sobre ti, tus habilidades y tu experiencia…"
-                rows={4}
+                placeholder="Cuéntales a los demás sobre ti, tus habilidades y tu experiencia..."
+                rows={5}
                 value={form.bio}
                 onChange={(e) => setForm({ ...form, bio: e.target.value })}
+                className="rounded-2xl border-slate-200 bg-white/80 shadow-sm focus-visible:ring-4 focus-visible:ring-blue-100 focus-visible:border-blue-400 transition-all duration-300"
               />
+
             </div>
-            <div className="space-y-1.5">
-              <Label>Carrera / Especialidad</Label>
+
+            {/* Carrera */}
+            <div className="space-y-2">
+
+              <Label className="text-sm font-bold text-slate-700">
+                Carrera / Especialidad
+              </Label>
+
               <Input
                 placeholder="e.g. Computer Science"
                 value={form.career}
                 onChange={(e) => setForm({ ...form, career: e.target.value })}
+                className="h-14 rounded-2xl border-slate-200 bg-white/80 shadow-sm focus-visible:ring-4 focus-visible:ring-blue-100 focus-visible:border-blue-400 transition-all duration-300"
               />
+
             </div>
-            <div className="space-y-1.5">
-              <Label>LinkedIn URL (opcional)</Label>
+
+            {/* Linkedin */}
+            <div className="space-y-2">
+
+              <Label className="text-sm font-bold text-slate-700">
+                LinkedIn URL (opcional)
+              </Label>
+
               <Input
                 placeholder="https://linkedin.com/in/..."
                 value={form.linkedinUrl}
                 onChange={(e) => setForm({ ...form, linkedinUrl: e.target.value })}
+                className="h-14 rounded-2xl border-slate-200 bg-white/80 shadow-sm focus-visible:ring-4 focus-visible:ring-blue-100 focus-visible:border-blue-400 transition-all duration-300"
               />
+
             </div>
-            <Button type="submit" disabled={saving || avatarUploading}>
-              {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+
+            {/* Botón */}
+            <Button
+              type="submit"
+              disabled={saving || avatarUploading}
+              className="h-14 px-8 rounded-2xl bg-[#2084F3] hover:bg-[#1877e6] text-white font-semibold shadow-xl shadow-blue-300/40 transition-all duration-300 hover:scale-[1.02]"
+            >
+
+              {saving
+                ? <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                : <Save className="mr-2 h-4 w-4" />
+              }
+
               Guardar perfil
+
             </Button>
+
           </form>
+
         </CardContent>
+
       </Card>
+
     </div>
-  );
+
+  </div>
+
+);
 }

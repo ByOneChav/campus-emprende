@@ -52,7 +52,7 @@ El archivo `application.yaml` tiene valores por defecto razonables — lo único
 | `DB_PORT` | `5432` |
 | `DB_NAME` | `campus_emprende` |
 | `DB_USERNAME` | `postgres` |
-| `DB_PASSWORD` | `$7090Ashok` |
+| `DB_PASSWORD` | `$tu_password` |
  
 Configúralas en tu terminal si es necesario:
  
@@ -110,8 +110,8 @@ El frontend corre en **http://localhost:5173**
 | Servicio | URL |
 |----------|-----|
 | Frontend | http://localhost:5173 |
-| API del backend | http://localhost:5000 |
-| Health check de la API | http://localhost:5000/api/... |
+| API del backend | http://localhost:8080 |
+| Health check de la API | http://localhost:8080/api/... |
  
 ---
  
@@ -138,7 +138,7 @@ El frontend corre en **http://localhost:5173**
  
 ## Solución de problemas
  
-**`Connection refused` en el puerto 5000**
+**`Connection refused` en el puerto 8080**
 → El backend no está corriendo. Revisa la terminal en busca de errores. Lo más probable es un problema de conexión a la base de datos — verifica que PostgreSQL esté activo y que las credenciales sean correctas.
  
 **`psql: error: connection to server failed`**
@@ -151,4 +151,4 @@ El frontend corre en **http://localhost:5173**
 → La contraseña de aplicación de Gmail en `application.yaml` puede haber expirado. Genera una nueva en [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords) y actualiza el campo `spring.mail.password`.
  
 **Google OAuth no funciona**
-→ Asegúrate de que `http://localhost:5000/login/oauth2/code/google` esté listado como URI de redirección autorizada en la [Google Cloud Console](https://console.cloud.google.com/).
+→ Asegúrate de que `http://localhost:8080/login/oauth2/code/google` esté listado como URI de redirección autorizada en la [Google Cloud Console](https://console.cloud.google.com/).

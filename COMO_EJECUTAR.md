@@ -77,7 +77,7 @@ Espera esta línea — significa que el backend está listo:
 Started CampusEmprendeApplication in X.XXX seconds
 ```
  
-El backend corre en **http://localhost:5000**
+El backend corre en **http://localhost:8080**
  
 ---
  

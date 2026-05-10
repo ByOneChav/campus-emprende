@@ -1,83 +1,113 @@
 package com.zosh.exception;
 
-// Importa clase de respuesta personalizada para la API
-import com.zosh.payload.response.ApiResponse;
-// Importaciones de Spring para manejo de respuestas HTTP
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-// Importaciones para manejo de validaciones
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-// Importaciones para manejo global de excepciones
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.HashMap;
+import java.time.OffsetDateTime;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
-// Clase que maneja globalmente las excepciones en los controladores REST
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // Maneja excepciones personalizadas del tipo UserException
     @ExceptionHandler(UserException.class)
-    public ResponseEntity<ApiResponse> handleUserException(UserException ex) {
-        // Retorna error 400 con mensaje personalizado
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new ApiResponse(ex.getMessage(), false));
+    public ResponseEntity<ApiErrorResponse> handleUserException(UserException ex, HttpServletRequest request) {
+        return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), request, null);
     }
 
-    // Maneja errores de validación provenientes de anotaciones @Valid
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ValidationErrorResponse> handleValidationErrors(MethodArgumentNotValidException ex) {
-        // Mapa para almacenar errores por campo
-        Map<String, String> errors = new HashMap<>();
-
-        // Itera sobre los errores de validación y los agrega al mapa
+    public ResponseEntity<ApiErrorResponse> handleValidationErrors(
+            MethodArgumentNotValidException ex,
+            HttpServletRequest request
+    ) {
+        Map<String, String> errors = new LinkedHashMap<>();
         ex.getBindingResult().getAllErrors().forEach(error -> {
-            // Obtiene el nombre del campo con error
             String fieldName = ((FieldError) error).getField();
-            // Obtiene el mensaje de error
             String errorMessage = error.getDefaultMessage();
-            // Guarda el error en el mapa
             errors.put(fieldName, errorMessage);
         });
 
-        // Crea respuesta con mensaje general y detalles de errores
-        ValidationErrorResponse response = new ValidationErrorResponse("La validación falló", errors);
-        // Retorna error 400 con detalles de validación
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        return buildResponse(HttpStatus.BAD_REQUEST, "La validacion de la solicitud fallo", request, errors);
     }
 
-    // Maneja excepciones de tipo IllegalArgumentException
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ApiErrorResponse> handleConstraintViolation(
+            ConstraintViolationException ex,
+            HttpServletRequest request
+    ) {
+        Map<String, String> errors = new LinkedHashMap<>();
+        ex.getConstraintViolations().forEach(violation ->
+                errors.put(violation.getPropertyPath().toString(), violation.getMessage())
+        );
+        return buildResponse(HttpStatus.BAD_REQUEST, "La validacion de la solicitud fallo", request, errors);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ApiErrorResponse> handleBadCredentials(
+            BadCredentialsException ex,
+            HttpServletRequest request
+    ) {
+        return buildResponse(HttpStatus.UNAUTHORIZED, ex.getMessage(), request, null);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiErrorResponse> handleAccessDenied(
+            AccessDeniedException ex,
+            HttpServletRequest request
+    ) {
+        return buildResponse(HttpStatus.FORBIDDEN, "No cuenta con permisos para acceder a este recurso", request, null);
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ApiResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
-        // Retorna error 400 con mensaje de la excepción
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new ApiResponse(ex.getMessage(), false));
+    public ResponseEntity<ApiErrorResponse> handleIllegalArgumentException(
+            IllegalArgumentException ex,
+            HttpServletRequest request
+    ) {
+        return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), request, null);
     }
 
-    // Maneja cualquier otra excepción no controlada
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiResponse> handleGeneralException(Exception ex) {
-        // Retorna error 500 con mensaje general del sistema
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ApiResponse("Se produjo un error. XD: " + ex.getMessage(), false));
+    public ResponseEntity<ApiErrorResponse> handleGeneralException(Exception ex, HttpServletRequest request) {
+        return buildResponse(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                "Se produjo un error interno al procesar la solicitud",
+                request,
+                null
+        );
     }
 
-    // Clase interna para estructurar errores de validación
-    public static class ValidationErrorResponse {
-        // Mensaje general del error
-        public String message;
-        // Mapa de errores por campo
-        public Map<String, String> errors;
+    private ResponseEntity<ApiErrorResponse> buildResponse(
+            HttpStatus status,
+            String message,
+            HttpServletRequest request,
+            Map<String, String> validationErrors
+    ) {
+        ApiErrorResponse response = new ApiErrorResponse(
+                OffsetDateTime.now().toString(),
+                status.value(),
+                status.getReasonPhrase(),
+                message,
+                request.getRequestURI(),
+                validationErrors
+        );
+        return ResponseEntity.status(status).body(response);
+    }
 
-        // Constructor de la respuesta de error de validación
-        public ValidationErrorResponse(String message, Map<String, String> errors) {
-            // Inicializa mensaje
-            this.message = message;
-            // Inicializa mapa de errores
-            this.errors = errors;
-        }
+    public record ApiErrorResponse(
+            String timestamp,
+            int status,
+            String error,
+            String message,
+            String path,
+            Map<String, String> validationErrors
+    ) {
     }
 }

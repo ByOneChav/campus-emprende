@@ -1,14 +1,13 @@
 package com.zosh.payload.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-// 📥 DTO de entrada para crear un comentario
-// Representa los datos que envía el cliente
 @Data
 public class CommentRequest {
 
-    // 💬 Contenido del comentario (obligatorio)
     @NotBlank(message = "Comment content is required")
+    @Size(max = 1000, message = "Comment content must not exceed 1000 characters")
     private String content;
 }

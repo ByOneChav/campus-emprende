@@ -3,6 +3,7 @@ package com.zosh.configurations;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
@@ -16,59 +17,53 @@ import java.util.Set;
 @Service
 public class JwtProvider {
 
-    // 🔐 Clave secreta usada para firmar y validar el JWT
-    // Se genera a partir de JwtConstant.SECRET_KEY
-	static SecretKey key = Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
+    private final SecretKey key;
+    private final long expirationMs;
 
-    // 🎟️ Genera un token JWT a partir de la autenticación del usuario
-	public String generateToken(Authentication auth){
+    public JwtProvider(
+            @Value("${app.jwt.secret}") String secret,
+            @Value("${app.jwt.expiration-ms}") long expirationMs
+    ) {
+        this.key = Keys.hmacShaKeyFor(secret.getBytes());
+        this.expirationMs = expirationMs;
+    }
 
-        // Obtiene roles del usuario
-		Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
+    public String generateToken(Authentication auth) {
+        String roles = populateAuthorities(auth.getAuthorities());
 
-        // Convierte roles a String (ej: ROLE_USER,ROLE_ADMIN)
-		String roles = populateAuthorities(authorities);
+        return Jwts.builder()
+                .issuedAt(new Date())
+                .expiration(new Date(new Date().getTime() + expirationMs))
+                .claim("email", auth.getName())
+                .claim("authorities", roles)
+                .signWith(key)
+                .compact();
+    }
 
-        // Construye el JWT con:
-        // - fecha de creación
-        // - fecha de expiración (24h)
-        // - email
-        // - roles
-        // - firma con clave secreta
-        return Jwts.builder().issuedAt(new Date())
-				.expiration(new Date(new Date().getTime() + 86400000))
-				.claim("email",auth.getName())
-				.claim("authorities",roles)
-				.signWith(key)
-				.compact();
-	}
+    public String getEmailFromJwtToken(String jwt) {
+        return String.valueOf(parseClaims(jwt).get("email"));
+    }
 
-    // 📥 Extrae el email desde el token JWT
-	public String getEmailFromJwtToken(String jwt){
+    public Claims parseClaims(String jwt) {
+        return Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(extractToken(jwt))
+                .getPayload();
+    }
 
-        // Elimina "Bearer " del header
-		jwt = jwt.substring(7);
+    private String extractToken(String jwt) {
+        if (jwt != null && jwt.startsWith("Bearer ")) {
+            return jwt.substring(7);
+        }
+        return jwt;
+    }
 
-        // Parsea el token y obtiene los claims
-		Claims claims = Jwts.parser().verifyWith(key).build().parseSignedClaims(jwt).getPayload();
-
-        // Extrae el email
-		String email = String.valueOf(claims.get("email"));
-		return email;
-	}
-
-    // 🔄 Convierte lista de roles a String separado por comas
-	private String populateAuthorities(Collection<? extends GrantedAuthority> authorities) {
-
-        // Set para evitar duplicados
-		Set<String> auths = new HashSet<>();
-
-        // Recorre roles y los agrega al set
-		for(GrantedAuthority authority : authorities){
-			auths.add(authority.getAuthority());
-		}
-
-        // Une roles en formato: ROLE_USER,ROLE_ADMIN
-		return String.join(",",auths);
-	}
+    private String populateAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        Set<String> auths = new HashSet<>();
+        for (GrantedAuthority authority : authorities) {
+            auths.add(authority.getAuthority());
+        }
+        return String.join(",", auths);
+    }
 }

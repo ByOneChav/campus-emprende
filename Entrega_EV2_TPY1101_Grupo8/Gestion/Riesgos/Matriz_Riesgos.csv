@@ -1,6 +1,7 @@
 ID,Riesgo,Probabilidad,Impacto,Nivel,Mitigacion,Responsable,Estado
-R1,Capturas reales no tomadas a tiempo,Alta,Alta,Alto,Checklist y responsables por captura,Equipo,Abierto
-R2,Modulos parciales se presenten como completos,Media,Alta,Alto,Declarar estado real en informe y PPT,Elias,Mitigado
-R3,Secretos expuestos en repo,Media,Alta,Alto,Variables de entorno y gitignore,Elias,Cerrado
-R4,Deuda frontend genere ruido en evaluacion,Alta,Media,Alto,Documentar warnings heredados y plan de cierre,Equipo,Abierto
-R5,OAuth2 no alcanzado para EV2,Alta,Media,Alto,Declararlo en desarrollo y fuera del cierre EV2,Equipo,Mitigado
+R1,Falta de capturas web antes de la entrega final,Alta,Alta,Alto,Asignar responsable por modulo y cerrar la matriz visual antes de exportar,Equipo Campus Emprende,Requiere captura
+R2,Los modulos ServiceRequest Report y Admin siguen en estado parcial,Alta,Alta,Alto,Defender el estado real del MVP y limitar la demo a lo disponible,Equipo Campus Emprende,Parcial
+R3,OAuth2 Google y GitHub permanece en desarrollo,Media,Media,Medio,Presentarlo fuera del alcance funcional EV2 y mantenerlo en roadmap,Equipo Campus Emprende,Parcial
+R4,Existen 28 warnings heredados de lint en frontend,Alta,Media,Alto,Documentar los warnings y evitar presentarlos como fallas de build o test,Equipo Campus Emprende,Documentado
+R5,La ejecucion local depende de configuracion correcta de PostgreSQL y SMTP,Media,Alta,Alto,Mantener instructivos por ambiente y usar datos de prueba controlados,Equipo Campus Emprende,Documentado
+R6,Credenciales antiguas o historicas del proyecto deben mantenerse rotadas y fuera del repositorio,Media,Alta,Alto,Sostener variables de entorno y revision previa a cualquier publicacion adicional,Elias Delgado,Documentado

@@ -1,23 +1,23 @@
-ID,Captura,Modulo,Descripcion,Estado,Ruta_Evidencia,Responsable
-1,Registro,Auth,Formulario de registro funcional,Requerida,,Equipo
-2,Login,Auth,Formulario de inicio de sesion,Requerida,,Equipo
-3,Correo recibido,Email Verification,Correo de verificacion recibido,Requerida,,Equipo
-4,Verificacion exitosa,Email Verification,Resultado exitoso de verificacion,Requerida,,Equipo
-5,JWT generado o evidencia de login,Auth,Respuesta de autenticacion o storage controlado,Requerida,,Equipo
-6,Dashboard,Frontend,Dashboard principal de usuario,Requerida,,Equipo
-7,Perfil,Profile,Perfil propio visible,Requerida,,Equipo
-8,Listado de servicios,ServiceListing,Servicios aprobados visibles,Requerida,,Equipo
-9,Creacion de servicio,ServiceListing,Formulario y resultado de creacion,Requerida,,Equipo
-10,Detalle de servicio,ServiceListing,Detalle individual de servicio,Requerida,,Equipo
-11,Solicitud de servicio,ServiceRequest,Envio de solicitud,Requerida,,Equipo
-12,Estado de solicitud,ServiceRequest,Seguimiento de estado,Requerida,,Equipo
-13,Review,Review,Creacion o visualizacion de resena,Requerida,,Equipo
-14,Comentario,Comment,Comentario publicado,Requerida,,Equipo
-15,Reporte,Report,Flujo de reporte visible,Requerida,,Equipo
-16,Admin dashboard,Admin,Panel administrativo,Requerida,,Equipo
-17,Moderacion o gestion de reportes,Admin,Moderacion basica,Requerida,,Equipo
-18,Swagger,Backend,Evidencia de endpoints documentados,Reemplazada por evidencia de codigo,,Equipo
-19,PostgreSQL tablas,Backend,Estructura de tablas visibles,Requerida,,Equipo
-20,Arquitectura del proyecto,Arquitectura,Estructura de carpetas y capas,Reemplazada por evidencia de codigo,,Equipo
-21,Error de validacion,Seguridad,Respuesta 400 consistente,Requerida,,Equipo
-22,Vista responsive si existe,Frontend,Comportamiento en vista reducida,Requerida,,Equipo
+ID,Modulo,Evidencia,Objetivo,Estado,Ruta_Archivo,Responsable,Observacion
+1,Auth,Registro de usuario,Respaldar el alta inicial de cuenta,Requiere captura,,Equipo Campus Emprende,Formulario y respuesta visible desde la app
+2,Auth,Inicio de sesion,Respaldar autenticacion correcta del usuario,Requiere captura,,Equipo Campus Emprende,Puede complementarse con respuesta de login visible
+3,Email Verification,Correo recibido,Respaldar recepcion del correo de verificacion,Requiere captura,,Equipo Campus Emprende,Enmascarar cualquier dato personal real
+4,Email Verification,Verificacion exitosa,Respaldar confirmacion de cuenta verificada,Requiere captura,,Equipo Campus Emprende,Mostrar resultado final del flujo
+5,Auth,JWT o evidencia de login,Respaldar generacion de sesion autenticada,Requiere captura,,Equipo Campus Emprende,Evitar exponer tokens completos
+6,Frontend,Dashboard,Respaldar acceso a la vista principal del usuario,Requiere captura,,Equipo Campus Emprende,Usar cuenta de prueba consistente
+7,Profile,Perfil de usuario,Respaldar visualizacion del perfil propio,Requiere captura,,Equipo Campus Emprende,Mostrar datos dummy
+8,ServiceListing,Listado de servicios,Respaldar visualizacion de servicios publicados,Requiere captura,,Equipo Campus Emprende,Preferir datos de prueba seguros
+9,ServiceListing,Creacion de servicio,Respaldar alta de un nuevo servicio,Requiere captura,,Equipo Campus Emprende,Mostrar formulario y resultado
+10,ServiceListing,Detalle de servicio,Respaldar consulta individual de servicio,Requiere captura,,Equipo Campus Emprende,Usar un servicio de prueba vigente
+11,ServiceRequest,Solicitud de servicio,Respaldar el flujo parcial de solicitud,Requiere captura,,Equipo Campus Emprende,Declarar el estado parcial del modulo
+12,ServiceRequest,Estado de solicitud,Respaldar seguimiento del estado de una solicitud,Requiere captura,,Equipo Campus Emprende,Declarar el estado parcial del modulo
+13,Review,Review de servicio,Respaldar publicacion o visualizacion de resena,Requiere captura,,Equipo Campus Emprende,Mostrar relacion con servicio completado
+14,Comment,Comentario,Respaldar publicacion de comentario,Requiere captura,,Equipo Campus Emprende,Mostrar comentario en contexto
+15,Report,Reporte de contenido,Respaldar el flujo parcial de reportes,Requiere captura,,Equipo Campus Emprende,Declarar el estado parcial del modulo
+16,Admin,Panel administrativo,Respaldar acceso al panel admin disponible,Requiere captura,,Equipo Campus Emprende,Usar cuenta con rol admin
+17,Admin,Moderacion o gestion de reportes,Respaldar acciones administrativas visibles,Requiere captura,,Equipo Campus Emprende,Declarar el estado parcial del modulo
+18,Backend,Swagger,Respaldar la documentacion expuesta de endpoints,Evidencia tecnica documental,,Elias Delgado,Se documenta con referencias tecnicas del repositorio
+19,Backend,Tablas PostgreSQL,Respaldar la estructura persistida del sistema,Requiere captura,,Equipo Campus Emprende,Captura desde entorno local del equipo
+20,Arquitectura,Estructura del proyecto,Respaldar la separacion por capas y carpetas,Evidencia tecnica documental,,Elias Delgado,Se sustenta con documentacion de arquitectura y auditoria
+21,Seguridad,Error de validacion,Respaldar respuesta 400 consistente,Requiere captura,,Equipo Campus Emprende,Puede obtenerse desde Swagger o interfaz
+22,Frontend,Vista responsive,Respaldar comportamiento en vista reducida si la pantalla esta disponible,Requiere captura,,Equipo Campus Emprende,No declararla si la vista no se prepara antes de exportar

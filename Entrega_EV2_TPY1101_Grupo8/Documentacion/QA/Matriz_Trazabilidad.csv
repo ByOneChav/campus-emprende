@@ -1,10 +1,12 @@
 Requisito,Modulo,Caso_Prueba,Evidencia,Estado
-R-Auth-01,Auth,CP-01;CP-03,Tests y demo,Funcional
-R-Auth-02,Email Verification,CP-05,Captura requerida,Funcional
-R-Serv-01,ServiceListing,CP-08;CP-09;CP-10,Codigo,Funcional
-R-Req-01,ServiceRequest,CP-14;CP-15,Codigo,Parcial
-R-Rev-01,Review,CP-16,Codigo,Funcional
-R-Com-01,Comment,CP-17,Codigo,Funcional
-R-Rep-01,Report,CP-18,Codigo,Parcial
-R-Adm-01,Admin,CP-12;CP-13;CP-19,Codigo,Parcial
-R-BD-01,BD,CP-20;CP-21,Documento,Disenado
+R-Auth-01,Auth,CP-01; CP-03,Controladores de autenticacion y prueba JWT,Documentado
+R-Auth-02,Auth,CP-02; CP-04,Validaciones HTTP automatizadas,Automatizado OK
+R-Mail-01,Email Verification,CP-05,Control de captura y flujo documentado,Requiere captura
+R-Auth-03,Auth,CP-06; CP-07,Flujo de recuperacion y errores consistentes,Documentado
+R-Serv-01,ServiceListing,CP-08; CP-09; CP-10; CP-11,Controlador y request DTOs,Documentado
+R-Req-01,ServiceRequest,CP-14; CP-15,Controlador y checklist funcional,Parcial
+R-Rev-01,Review,CP-16,Controlador y estado funcional EV2,Documentado
+R-Com-01,Comment,CP-17,Controlador y estado funcional EV2,Documentado
+R-Rep-01,Report,CP-18,Controlador y checklist funcional,Parcial
+R-Adm-01,Admin,CP-12; CP-13; CP-19,Seguridad y moderacion administrativa,Parcial
+R-BD-01,BD,CP-20; CP-21,Procedimientos de respaldo y restauracion,Documentado

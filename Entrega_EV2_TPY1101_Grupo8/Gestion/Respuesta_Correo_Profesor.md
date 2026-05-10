@@ -6,7 +6,7 @@ https://github.com/ByOneChav/campus-emprende
 
 Ademas, dejamos considerada la estructura de entrega solicitada, separando los archivos en las carpetas Documentacion, Producto y Gestion.
 
-Tambien se corregiran las observaciones realizadas en la Evaluacion 1, eliminando la carga academica como restriccion del proyecto e incorporando caminos alternativos en los flujos funcionales del sistema.
+Tambien quedan incorporadas las correcciones derivadas de la Evaluacion 1, reemplazando una restriccion no valida del proyecto por una formulacion de alcance y control por entregables, e incorporando caminos alternativos en los flujos funcionales del sistema.
 
 Saludos cordiales,
 Equipo Campus Emprende

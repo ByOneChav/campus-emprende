@@ -1,9 +1,31 @@
-Semana,Actividad,Responsable,Estado
-1,Auditoria tecnica inicial,Elias,Implementado pendiente de validacion
-1,Correccion feedback EV1,Equipo,Implementado pendiente de validacion
-2,Hardening backend,Elias,Funcional
-2,Refactor cliente API,Elias,Funcional
-2,Base de pruebas y CI,Elias,Funcional
-3,Documentacion EV2,Equipo,Funcional
-3,Captura de evidencia web,Equipo,Requerida
-3,Preparacion de defensa,Equipo,Funcional
+ID,Fase,Actividad,Responsable,Inicio,Termino,Duracion_Dias,Dependencia,Entregable,Estado,Evidencia
+G01,Levantamiento y correccion EV1,Revisar observaciones de EV1 y alcance de la rubrica,Elias Delgado,2026-05-02,2026-05-02,1,,Resumen de observaciones,Completado,Entrega_EV2_TPY1101_Grupo8/Documentacion/Informe_EV2_Campus_Emprende.md
+G02,Levantamiento y correccion EV1,Retirar restricciones no validas del discurso del proyecto,Elias Delgado,2026-05-02,2026-05-03,2,G01,Criterios de alcance corregidos,Completado,README.md
+G03,Levantamiento y correccion EV1,Definir estructura de entrega Documentacion Producto Gestion,Equipo Campus Emprende,2026-05-03,2026-05-03,1,G01,Estructura EV2,Completado,Entrega_EV2_TPY1101_Grupo8/README_EXPORTACION.md
+G04,Auditoria tecnica del repositorio,Inspeccionar configuracion backend y riesgos de seguridad,Elias Delgado,2026-05-03,2026-05-04,2,G02,Auditoria backend,Completado,docs/TECHNICAL_AUDIT.md
+G05,Auditoria tecnica del repositorio,Inspeccionar configuracion frontend y puntos de integracion,Elias Delgado,2026-05-03,2026-05-04,2,G02,Auditoria frontend,Completado,docs/TECHNICAL_AUDIT.md
+G06,Auditoria tecnica del repositorio,Levantar estado funcional real con base en el repositorio y revision del equipo,Alcindo/Alcido,2026-05-04,2026-05-05,2,G03,Estado funcional EV2,Completado,Entrega_EV2_TPY1101_Grupo8/Gestion/Minuta_Reunion_Alcindo.md
+G07,Auditoria tecnica del repositorio,Consolidar hallazgos y riesgos corregibles para EV2,Elias Delgado,2026-05-05,2026-05-05,1,G04,Informe de auditoria,Completado,docs/TECHNICAL_AUDIT.md
+G08,Hardening backend,Parametrizar credenciales y secretos por variables de entorno,Elias Delgado,2026-05-05,2026-05-06,2,G07,Configuracion endurecida,Completado,docs/TECHNICAL_AUDIT.md
+G09,Hardening backend,Ajustar seguridad JWT y CORS sin romper endpoints publicos,Elias Delgado,2026-05-05,2026-05-06,2,G07,Seguridad base revisada,Completado,docs/TECHNICAL_AUDIT.md
+G10,Hardening backend,Separar DTOs de autenticacion y reforzar validaciones,Elias Delgado,2026-05-06,2026-05-07,2,G08,Validacion de requests,Completado,docs/TECHNICAL_AUDIT.md
+G11,Hardening backend,Uniformar manejo de errores sin exponer detalles internos,Elias Delgado,2026-05-06,2026-05-07,2,G09,Errores consistentes,Completado,docs/TECHNICAL_AUDIT.md
+G12,Refactor frontend,Centralizar cliente API por entorno y token JWT,Elias Delgado,2026-05-07,2026-05-07,1,G05,Cliente API actualizado,Completado,docs/TECHNICAL_AUDIT.md
+G13,Refactor frontend,Agregar referencia de entorno para frontend local,Elias Delgado,2026-05-07,2026-05-07,1,G12,Variables frontend documentadas,Completado,Entrega_EV2_TPY1101_Grupo8/Producto/Configuracion/variables_entorno.md
+G14,QA y pruebas,Crear base de pruebas backend para mapper JWT y validaciones,Elias Delgado,2026-05-07,2026-05-08,2,G10,Pruebas backend,Completado,Entrega_EV2_TPY1101_Grupo8/Documentacion/QA/Evidencia_Pruebas.md
+G15,QA y pruebas,Crear base de pruebas frontend para cliente API y rutas protegidas,Elias Delgado,2026-05-08,2026-05-08,1,G12,Pruebas frontend,Completado,Entrega_EV2_TPY1101_Grupo8/Documentacion/QA/Evidencia_Pruebas.md
+G16,QA y pruebas,Ejecutar validacion integrada backend frontend y lint,Elias Delgado,2026-05-08,2026-05-08,1,G14,Registro de validacion,Completado,Entrega_EV2_TPY1101_Grupo8/Documentacion/QA/Evidencia_Pruebas.md
+G17,QA y pruebas,Documentar warnings heredados de lint sin ocultarlos,Elias Delgado,2026-05-08,2026-05-09,2,G16,Auditoria de warnings,Completado,docs/TECHNICAL_AUDIT.md
+G18,Documentacion EV2,Redactar informe tecnico EV2 con estado funcional real,Elias Delgado,2026-05-08,2026-05-09,2,G07,Informe EV2,Completado,Entrega_EV2_TPY1101_Grupo8/Documentacion/Informe_EV2_Campus_Emprende.md
+G19,Documentacion EV2,Documentar caminos alternativos y arquitectura para defensa,Elias Delgado,2026-05-08,2026-05-09,2,G18,UML y diseno,Completado,Entrega_EV2_TPY1101_Grupo8/Documentacion/UML/Diagrama_Actividad_Caminos_Alternativos.md
+G20,Documentacion EV2,Consolidar configuracion de ambientes backup restore y librerias,Elias Delgado,2026-05-09,2026-05-09,1,G18,Producto documentado,Completado,Entrega_EV2_TPY1101_Grupo8/Producto/Configuracion/ambiente_pruebas.md
+G21,Documentacion EV2,Registrar control de avance KPI riesgos y actas,Equipo Campus Emprende,2026-05-09,2026-05-10,2,G18,Documentos de gestion,Completado,Entrega_EV2_TPY1101_Grupo8/Gestion/Control_Avance/KPI_Avance.csv
+G22,Evidencia web,Levantar matriz de capturas para la demo funcional,Elias Delgado,2026-05-09,2026-05-09,1,G18,Control de evidencia visual,Completado,Entrega_EV2_TPY1101_Grupo8/Documentacion/Evidencias_Web/lista_capturas_requeridas.csv
+G23,Evidencia web,Registrar capturas faltantes por modulo y responsable,Equipo Campus Emprende,2026-05-10,2026-05-11,2,G22,Checklist de capturas,Requiere evidencia,Entrega_EV2_TPY1101_Grupo8/Documentacion/Evidencias_Web/README_CAPTURAS.md
+G24,Evidencia web,Preparar evidencia tecnica documental para Swagger y arquitectura,Elias Delgado,2026-05-10,2026-05-10,1,G22,Respaldo tecnico sin imagen,Completado,Entrega_EV2_TPY1101_Grupo8/Producto/Evidencia_Software/checklist_funcionalidades.csv
+G25,Preparacion de defensa,Ordenar presentacion EV2 con mensajes clave y notas orales,Equipo Campus Emprende,2026-05-10,2026-05-11,2,G19,Presentacion base,Completado,Entrega_EV2_TPY1101_Grupo8/Documentacion/Presentacion_EV2_Campus_Emprende.md
+G26,Preparacion de defensa,Consolidar guion de exposicion y respuestas tecnicas,Elias Delgado,2026-05-10,2026-05-11,2,G25,Guion de defensa,Completado,Entrega_EV2_TPY1101_Grupo8/Documentacion/Guion_Defensa_EV2.md
+G27,Preparacion de defensa,Repasar demo funcional y secuencia de exposicion,Alcindo/Alcido,2026-05-11,2026-05-12,2,G25,Secuencia de demo,Parcial,Entrega_EV2_TPY1101_Grupo8/Gestion/Minuta_Reunion_Alcindo.md
+G28,Revision final y entrega,Depurar tono documental y estados de evidencia,Elias Delgado,2026-05-10,2026-05-10,1,G21,Version final de documentos,Completado,docs/TECHNICAL_AUDIT.md
+G29,Revision final y entrega,Verificar diferencias contra main y consistencia de entrega,Elias Delgado,2026-05-10,2026-05-10,1,G28,Control final de cambios,Completado,CHANGELOG.md
+G30,Revision final y entrega,Incorporar capturas reales antes de exportar y comprimir,Equipo Campus Emprende,2026-05-11,2026-05-12,2,G23,Entrega exportable con anexos,Requiere evidencia,Entrega_EV2_TPY1101_Grupo8/README_EXPORTACION.md

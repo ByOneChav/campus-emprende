@@ -107,7 +107,7 @@ Existe workflow en `.github/workflows/ci.yml` con validacion backend y frontend 
 - Acceso sin token, con token expirado o con rol insuficiente.
 
 ## Evidencia web requerida
-La lista base y el estado de cada captura estan en `Entrega_EV2_TPY1101_Grupo8/Documentacion/Evidencias_Web/`.
+La lista base y el estado de cada captura estan en `Entrega_EV2_TPY1101_Grupo8/Documentacion/Evidencias_Web/`. Las imagenes faltantes permanecen en control como `Requiere captura` hasta que existan archivos reales.
 
 ## Estructura de entrega EV2
 La carpeta `Entrega_EV2_TPY1101_Grupo8/` contiene las secciones `Documentacion`, `Producto` y `Gestion` con fuentes exportables en Markdown y CSV.

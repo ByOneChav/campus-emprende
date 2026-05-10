@@ -1,22 +1,22 @@
 ID,Modulo,Tipo,Precondicion,Pasos,Resultado_Esperado,Estado,Evidencia
-CP-01,Auth,Funcional,Backend arriba,Registrar usuario valido,Registro exitoso,Implementado pendiente de validacion,Codigo
-CP-02,Auth,Validacion,Ninguna,Registrar correo invalido,Respuesta 400,Implementado pendiente de validacion,Test backend
-CP-03,Auth,Funcional,Usuario existente,Login valido,JWT emitido,Implementado pendiente de validacion,Codigo
-CP-04,Auth,Validacion,Ninguna,Login invalido,Respuesta de error,Implementado pendiente de validacion,Test backend
-CP-05,Email Verification,Funcional,Usuario registrado,Verificar correo,Cuenta verificada,Requerida,Captura real
-CP-06,Auth,Funcional,Usuario existente,Solicitar recuperacion,Correo de reset enviado,Requerida,Captura real
-CP-07,Auth,Validacion,Token vencido,Reset con token expirado,Error controlado,Implementado pendiente de validacion,Codigo
-CP-08,ServiceListing,Funcional,Usuario autenticado,Crear servicio valido,Servicio creado,Implementado pendiente de validacion,Codigo
-CP-09,ServiceListing,Validacion,Usuario autenticado,Crear servicio invalido,Respuesta 400,Implementado pendiente de validacion,Codigo
-CP-10,ServiceListing,Funcional,Servicio existente,Editar servicio,Servicio actualizado,Implementado pendiente de validacion,Codigo
-CP-11,ServiceListing,Funcional,Servicio existente,Eliminar o desactivar servicio,Servicio oculto,Implementado pendiente de validacion,Codigo
-CP-12,Admin,Parcial,Admin autenticado,Aprobar servicio,Cambio de estado,Parcial,Codigo
-CP-13,Admin,Parcial,Admin autenticado,Rechazar servicio,Cambio de estado con motivo,Parcial,Codigo
-CP-14,ServiceRequest,Parcial,Servicio disponible,Solicitar servicio,Solicitud creada,Parcial,Codigo
-CP-15,ServiceRequest,Parcial,Solicitud pendiente,Aceptar/Rechazar solicitud,Estado actualizado,Parcial,Codigo
-CP-16,Review,Funcional,Solicitud completada,Crear resena,Resena publicada,Implementado pendiente de validacion,Codigo
-CP-17,Comment,Funcional,Servicio visible,Crear comentario,Comentario publicado,Implementado pendiente de validacion,Codigo
-CP-18,Report,Parcial,Usuario autenticado,Reportar contenido,Reporte creado,Parcial,Codigo
-CP-19,Admin,Seguridad,Usuario student,Acceder a admin sin rol,403 o redireccion,Implementado pendiente de validacion,Codigo
-CP-20,BD,Operacional,PostgreSQL disponible,Backup DB,Archivo generado,Disenado,Documento
-CP-21,BD,Operacional,Backup disponible,Restore DB test,Tablas restauradas,Disenado,Documento
+CP-01,Auth,Funcional,Backend disponible y correo institucional valido,Registrar usuario con datos validos,Cuenta creada con respuesta consistente,Documentado,Campus-Emprende/src/main/java/com/zosh/controller/AuthController.java
+CP-02,Auth,Validacion,Ninguna,Enviar registro con correo invalido,Respuesta 400 con mensaje claro,Automatizado OK,Campus-Emprende/src/test/java/com/zosh/controller/AuthControllerValidationTest.java
+CP-03,Auth,Funcional,Usuario verificado existente,Iniciar sesion con credenciales correctas,JWT emitido y sesion iniciada,Documentado,Campus-Emprende/src/test/java/com/zosh/configurations/JwtProviderTest.java
+CP-04,Auth,Validacion,Ninguna,Iniciar sesion con correo invalido,Respuesta 400 sin exponer detalles internos,Automatizado OK,Campus-Emprende/src/test/java/com/zosh/controller/AuthControllerValidationTest.java
+CP-05,Email Verification,Funcional,Usuario registrado y correo enviado,Verificar cuenta con token valido,Cuenta activada,Requiere captura,Entrega_EV2_TPY1101_Grupo8/Documentacion/Evidencias_Web/lista_capturas_requeridas.csv
+CP-06,Auth,Funcional,Usuario existente,Solicitar recuperacion de contrasena,Correo de recuperacion emitido,Requiere captura,Entrega_EV2_TPY1101_Grupo8/Documentacion/Evidencias_Web/lista_capturas_requeridas.csv
+CP-07,Auth,Validacion,Token de recuperacion expirado,Intentar reset con token vencido,Respuesta controlada de error,Documentado,Campus-Emprende/src/main/java/com/zosh/exception/GlobalExceptionHandler.java
+CP-08,ServiceListing,Funcional,Usuario autenticado,Crear servicio con datos validos,Servicio persistido y visible segun flujo del sistema,Documentado,Campus-Emprende/src/main/java/com/zosh/controller/ServiceController.java
+CP-09,ServiceListing,Validacion,Usuario autenticado,Enviar alta de servicio con datos incompletos,Respuesta 400 o mensaje de validacion,Documentado,Campus-Emprende/src/main/java/com/zosh/payload/request/ServiceListingRequest.java
+CP-10,ServiceListing,Funcional,Servicio existente del usuario,Editar servicio publicado,Cambios guardados,Documentado,Campus-Emprende/src/main/java/com/zosh/controller/ServiceController.java
+CP-11,ServiceListing,Funcional,Servicio existente del usuario,Eliminar o desactivar servicio,Servicio deja de estar disponible segun flujo,Documentado,Campus-Emprende/src/main/java/com/zosh/controller/ServiceController.java
+CP-12,Admin,Moderacion,Cuenta admin disponible,Aprobar servicio pendiente,Estado del servicio actualizado,Parcial,Campus-Emprende/src/main/java/com/zosh/controller/AdminController.java
+CP-13,Admin,Moderacion,Cuenta admin disponible,Rechazar servicio pendiente,Estado del servicio actualizado con criterio administrativo,Parcial,Campus-Emprende/src/main/java/com/zosh/controller/AdminController.java
+CP-14,ServiceRequest,Funcionalidad parcial,Servicio disponible y segundo usuario autenticado,Crear solicitud de servicio,Solicitud registrada en estado inicial,Parcial,Campus-Emprende/src/main/java/com/zosh/controller/ServiceRequestController.java
+CP-15,ServiceRequest,Funcionalidad parcial,Solicitud existente,Poner solicitud en aceptada o rechazada,Estado actualizado segun accion del proveedor,Parcial,Campus-Emprende/src/main/java/com/zosh/controller/ServiceRequestController.java
+CP-16,Review,Funcional,Solicitud completada o flujo equivalente disponible,Crear resena valida,Resena publicada y visible,Documentado,Campus-Emprende/src/main/java/com/zosh/controller/ReviewController.java
+CP-17,Comment,Funcional,Servicio visible,Publicar comentario,Comentario persistido y visible,Documentado,Campus-Emprende/src/main/java/com/zosh/controller/CommentController.java
+CP-18,Report,Funcionalidad parcial,Usuario autenticado,Reportar contenido o usuario,Reporte registrado,Parcial,Campus-Emprende/src/main/java/com/zosh/controller/ReportController.java
+CP-19,Admin,Seguridad,Usuario sin rol admin,Acceder a rutas administrativas,Acceso denegado por seguridad,Documentado,Campus-Emprende/src/main/java/com/zosh/configurations/SecurityConfig.java
+CP-20,BD,Operacional,PostgreSQL disponible,Ejecutar backup con pg_dump,Archivo de respaldo generado,Documentado,Entrega_EV2_TPY1101_Grupo8/Producto/Scripts_BD/backup_postgresql.md
+CP-21,BD,Operacional,Backup disponible y base de pruebas creada,Restaurar datos en entorno de prueba,Tablas visibles y consistentes,Documentado,Entrega_EV2_TPY1101_Grupo8/Producto/Scripts_BD/restore_testing.md

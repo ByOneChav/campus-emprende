@@ -30,7 +30,7 @@ La auditoria tecnica EV2 detecto exposicion de secretos, configuracion fija de s
 ## Archivos modificados
 - Backend: configuracion, auth, excepciones, DTOs, tests.
 - Frontend: cliente API, config Vitest, package.json, tests.
-- Docs: README, guia de ejecucion, auditoria y estructura EV2.
+- Docs: README, documentacion de ejecucion, auditoria y estructura EV2.
 
 ## Pruebas ejecutadas
 - Backend: `.\mvnw.cmd test` con `JAVA_HOME` Java 21 y cache local.

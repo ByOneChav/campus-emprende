@@ -5,7 +5,7 @@
 - `feature/<owner>-<scope>`: trabajo incremental por entregable.
 
 ## Commits
-- Usar mensajes claros por area, por ejemplo `docs: ...`, `refactor(backend): ...`, `test: ...`, `ci: ...`.
+- Usar mensajes claros por area como `docs: ...`, `refactor(backend): ...`, `test: ...` o `ci: ...`.
 - Evitar commits mezclando cambios no relacionados.
 
 ## Pruebas antes de PR
@@ -21,5 +21,5 @@
 - La rama compila o se documenta el bloqueo real.
 - No se exponen secretos.
 - Los cambios estan documentados si alteran ejecucion o arquitectura.
-- Se actualiza la evidencia o se marca como requerida.
+- La evidencia visual se actualiza o se mantiene en control como `Requiere captura`.
 - No se hace merge automatico sin revision del equipo.

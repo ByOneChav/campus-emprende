@@ -1,11 +1,13 @@
 ID,KPI,Meta,Avance,Estado,Evidencia
-1,funcionalidades MVP implementadas,80%,70%,Parcial,Checklist funcionalidades
-2,endpoints principales conectados,100%,80%,Parcial,Swagger y codigo
-3,pantallas principales disponibles,100%,75%,Parcial,Frontend
-4,pruebas documentadas,100%,100%,Funcional,QA
-5,documentacion completada,100%,100%,Funcional,Estructura EV2
-6,estructura de entrega creada,100%,100%,Funcional,Carpeta EV2
-7,secretos eliminados,100%,100%,Funcional,Audit tecnico
-8,ambiente de pruebas configurado,100%,100%,Funcional,application-test y Vitest
-9,caminos alternativos documentados,100%,100%,Funcional,UML EV2
-10,evidencia web pendiente/capturada,100%,35%,Parcial,Lista de capturas
+1,Modulos MVP funcionales sobre el alcance EV2,80%,70%,Parcial,Entrega_EV2_TPY1101_Grupo8/Producto/Evidencia_Software/checklist_funcionalidades.csv
+2,Endpoints principales conectados a la experiencia de usuario,100%,80%,Parcial,README.md
+3,Pantallas principales disponibles para demo,100%,75%,Parcial,Entrega_EV2_TPY1101_Grupo8/Documentacion/Evidencias_Web/lista_capturas_requeridas.csv
+4,Base automatizada de pruebas backend,100%,100%,Automatizado OK,Entrega_EV2_TPY1101_Grupo8/Documentacion/QA/Evidencia_Pruebas.md
+5,Base automatizada de pruebas frontend,100%,100%,Automatizado OK,Entrega_EV2_TPY1101_Grupo8/Documentacion/QA/Evidencia_Pruebas.md
+6,Documentacion EV2 consolidada para exportacion,100%,100%,Documentado,Entrega_EV2_TPY1101_Grupo8/Documentacion/Informe_EV2_Campus_Emprende.md
+7,Estructura de entrega separada en Documentacion Producto y Gestion,100%,100%,Documentado,Entrega_EV2_TPY1101_Grupo8/README_EXPORTACION.md
+8,Secretos retirados de configuracion versionada,100%,100%,Documentado,docs/TECHNICAL_AUDIT.md
+9,Ambiente de pruebas configurado y ejecutado,100%,100%,Automatizado OK,COMO_EJECUTAR.md
+10,Caminos alternativos documentados para defensa EV2,100%,100%,Documentado,Entrega_EV2_TPY1101_Grupo8/Documentacion/UML/Diagrama_Actividad_Caminos_Alternativos.md
+11,Evidencia visual incorporada a la entrega final,100%,35%,Requiere captura,Entrega_EV2_TPY1101_Grupo8/Documentacion/Evidencias_Web/lista_capturas_requeridas.csv
+12,Warnings heredados de lint identificados y documentados,100%,100%,Documentado,docs/TECHNICAL_AUDIT.md

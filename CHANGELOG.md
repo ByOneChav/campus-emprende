@@ -8,3 +8,4 @@
 - Base de pruebas backend y frontend agregada.
 - Workflow de CI fullstack agregado.
 - Estructura `Entrega_EV2_TPY1101_Grupo8` creada con documentacion, producto y gestion.
+- Limpieza documental final para dejar la entrega EV2 con tono profesional, estados honestos y control explicito de evidencia visual.

@@ -45,8 +45,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+          cache: "pnpm"
+          cache-dependency-path: "campus-emprende-frontend/pnpm-lock.yaml"
       - name: Enable Corepack
-        run: corepack enable
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.22.0 --activate
       - name: Install frontend dependencies
         working-directory: campus-emprende-frontend
         run: pnpm install --frozen-lockfile

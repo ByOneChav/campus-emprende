@@ -1,0 +1,11 @@
+ID,KPI,Meta,Avance,Estado,Evidencia
+1,funcionalidades MVP implementadas,80%,70%,Parcial,Checklist funcionalidades
+2,endpoints principales conectados,100%,80%,Parcial,Swagger y codigo
+3,pantallas principales disponibles,100%,75%,Parcial,Frontend
+4,pruebas documentadas,100%,100%,Funcional,QA
+5,documentacion completada,100%,100%,Funcional,Estructura EV2
+6,estructura de entrega creada,100%,100%,Funcional,Carpeta EV2
+7,secretos eliminados,100%,100%,Funcional,Audit tecnico
+8,ambiente de pruebas configurado,100%,100%,Funcional,application-test y Vitest
+9,caminos alternativos documentados,100%,100%,Funcional,UML EV2
+10,evidencia web pendiente/capturada,100%,35%,Parcial,Lista de capturas

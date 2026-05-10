@@ -1,0 +1,22 @@
+ID,Modulo,Tipo,Precondicion,Pasos,Resultado_Esperado,Estado,Evidencia
+CP-01,Auth,Funcional,Backend arriba,Registrar usuario valido,Registro exitoso,Implementado pendiente de validacion,Codigo
+CP-02,Auth,Validacion,Ninguna,Registrar correo invalido,Respuesta 400,Implementado pendiente de validacion,Test backend
+CP-03,Auth,Funcional,Usuario existente,Login valido,JWT emitido,Implementado pendiente de validacion,Codigo
+CP-04,Auth,Validacion,Ninguna,Login invalido,Respuesta de error,Implementado pendiente de validacion,Test backend
+CP-05,Email Verification,Funcional,Usuario registrado,Verificar correo,Cuenta verificada,Requerida,Captura real
+CP-06,Auth,Funcional,Usuario existente,Solicitar recuperacion,Correo de reset enviado,Requerida,Captura real
+CP-07,Auth,Validacion,Token vencido,Reset con token expirado,Error controlado,Implementado pendiente de validacion,Codigo
+CP-08,ServiceListing,Funcional,Usuario autenticado,Crear servicio valido,Servicio creado,Implementado pendiente de validacion,Codigo
+CP-09,ServiceListing,Validacion,Usuario autenticado,Crear servicio invalido,Respuesta 400,Implementado pendiente de validacion,Codigo
+CP-10,ServiceListing,Funcional,Servicio existente,Editar servicio,Servicio actualizado,Implementado pendiente de validacion,Codigo
+CP-11,ServiceListing,Funcional,Servicio existente,Eliminar o desactivar servicio,Servicio oculto,Implementado pendiente de validacion,Codigo
+CP-12,Admin,Parcial,Admin autenticado,Aprobar servicio,Cambio de estado,Parcial,Codigo
+CP-13,Admin,Parcial,Admin autenticado,Rechazar servicio,Cambio de estado con motivo,Parcial,Codigo
+CP-14,ServiceRequest,Parcial,Servicio disponible,Solicitar servicio,Solicitud creada,Parcial,Codigo
+CP-15,ServiceRequest,Parcial,Solicitud pendiente,Aceptar/Rechazar solicitud,Estado actualizado,Parcial,Codigo
+CP-16,Review,Funcional,Solicitud completada,Crear resena,Resena publicada,Implementado pendiente de validacion,Codigo
+CP-17,Comment,Funcional,Servicio visible,Crear comentario,Comentario publicado,Implementado pendiente de validacion,Codigo
+CP-18,Report,Parcial,Usuario autenticado,Reportar contenido,Reporte creado,Parcial,Codigo
+CP-19,Admin,Seguridad,Usuario student,Acceder a admin sin rol,403 o redireccion,Implementado pendiente de validacion,Codigo
+CP-20,BD,Operacional,PostgreSQL disponible,Backup DB,Archivo generado,Disenado,Documento
+CP-21,BD,Operacional,Backup disponible,Restore DB test,Tablas restauradas,Disenado,Documento

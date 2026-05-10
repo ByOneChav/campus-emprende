@@ -1,0 +1,13 @@
+# Frontend Dependencias
+- react
+- react-dom
+- react-router-dom
+- @reduxjs/toolkit
+- react-redux
+- axios
+- tailwindcss
+- shadcn
+- radix-ui
+- sonner
+- vitest
+- testing-library

@@ -1,0 +1,6 @@
+ID,Riesgo,Probabilidad,Impacto,Nivel,Mitigacion,Responsable,Estado
+R1,Capturas reales no tomadas a tiempo,Alta,Alta,Alto,Checklist y responsables por captura,Equipo,Abierto
+R2,Modulos parciales se presenten como completos,Media,Alta,Alto,Declarar estado real en informe y PPT,Elias,Mitigado
+R3,Secretos expuestos en repo,Media,Alta,Alto,Variables de entorno y gitignore,Elias,Cerrado
+R4,Deuda frontend genere ruido en evaluacion,Alta,Media,Alto,Documentar warnings heredados y plan de cierre,Equipo,Abierto
+R5,OAuth2 no alcanzado para EV2,Alta,Media,Alto,Declararlo en desarrollo y fuera del cierre EV2,Equipo,Mitigado

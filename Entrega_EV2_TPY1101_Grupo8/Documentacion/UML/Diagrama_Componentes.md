@@ -1,0 +1,12 @@
+# Diagrama de Componentes
+- React Frontend
+- Axios API Client
+- AuthContext / Redux Store
+- Spring Controllers
+- Services
+- Repositories
+- PostgreSQL
+- Mail Service
+- JWT / Spring Security
+- Swagger
+- PDF Service

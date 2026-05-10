@@ -1,179 +1,123 @@
-# 📘 Campus Emprende — Descripción del Proyecto
+# Campus Emprende
 
-## 1. Introducción
-Campus Emprende es una plataforma institucional basada en la nube creada como parte de un proyecto de curso de programación.
+## Descripcion
+Campus Emprende es una plataforma web orientada a la comunidad estudiantil para formalizar servicios entre estudiantes y convertir actividad real en evidencia profesional verificable. No es un marketplace abierto, no procesa pagos y no crea relacion laboral.
 
-Su objetivo principal es **transformar los servicios informales de los estudiantes en experiencia profesional verificable**.
+## Objetivo
+Registrar, moderar y dar trazabilidad a servicios estudiantiles para que el trabajo realizado pueda presentarse como experiencia verificable dentro del contexto academico.
 
-### ❗ Puntos Clave
-- NO es un marketplace
-- NO maneja pagos
-- NO crea relaciones laborales
+## Reglas del producto
+- No se manejan pagos dentro del MVP.
+- El alcance se limita a comunidad estudiantil.
+- La seguridad base usa JWT y Spring Security.
+- La validacion de cuenta se apoya en correo electronico.
+- La aprobacion y moderacion administrativa forman parte del flujo.
 
-👉 Ayuda a los estudiantes a **registrar, seguir y demostrar su experiencia laboral**
+## Estado funcional real
+El MVP cuenta con modulos funcionales de autenticacion, verificacion de correo, perfil, servicios, reviews y comentarios. Los modulos de solicitudes, reportes y administracion se encuentran parcialmente implementados y documentados como estado de avance EV2. OAuth2 permanece en desarrollo.
 
----
+| Modulo | Estado |
+|---|---|
+| Auth | Funcional |
+| Email Verification | Funcional |
+| Profile | Funcional |
+| ServiceListing | Funcional |
+| ServiceRequest | Parcial |
+| Review | Funcional |
+| Comment | Funcional |
+| Report | Parcial |
+| Admin | Parcial |
+| OAuth2 Google/GitHub | En desarrollo |
 
-## 2. Planteamiento del Problema
+## Stack tecnico
+- Backend: Java 21, Spring Boot 3.3.5, Spring Security, JPA, Swagger, Java Mail Sender, JWT, PostgreSQL.
+- Frontend: React 19, Vite, Redux Toolkit, React Router DOM, Axios, Tailwind, shadcn/ui, Radix, Sonner.
+- CI: GitHub Actions.
 
-### Situación Actual
-Los estudiantes ya ofrecen servicios como:
-- Desarrollo web
-- Diseño gráfico
-- Soporte técnico
-- Tutorías
-- Fotografía
+## Arquitectura
+- Estilo: monolito modular con frontend SPA separado.
+- Backend: Controller -> Service -> Repository -> PostgreSQL.
+- Frontend: rutas React, store Redux, cliente Axios centralizado por entorno.
 
-Pero los ofrecen de manera informal a través de:
-- WhatsApp
-- Instagram
-- Recomendaciones (boca a boca)
+## Estructura del repo
+- `Campus-Emprende/`: backend Spring Boot.
+- `campus-emprende-frontend/`: frontend React.
+- `docs/`: lineamientos tecnicos y colaboracion.
+- `Entrega_EV2_TPY1101_Grupo8/`: estructura exportable de entrega EV2.
 
-### Problema Central
-Estas actividades:
-- NO se registran
-- NO son verificables
-- No pueden utilizarse como evidencia profesional
+## Instalacion backend
+1. Configurar `JAVA_HOME` a Java 21.
+2. Revisar `Campus-Emprende/src/main/resources/application-example.yaml`.
+3. Exportar variables de entorno requeridas.
+4. Ejecutar `cd Campus-Emprende` y luego `./mvnw spring-boot:run` en Linux/macOS o `.\mvnw.cmd spring-boot:run` en Windows.
 
-👉 Los estudiantes adquieren experiencia pero **no pueden demostrarla**
+## Instalacion frontend
+1. Revisar `campus-emprende-frontend/.env.example`.
+2. Ejecutar `cd campus-emprende-frontend`.
+3. Ejecutar `pnpm install`.
+4. Ejecutar `pnpm dev`.
 
----
+## Variables de entorno
+Backend:
+- `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USERNAME`, `DB_PASSWORD`
+- `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`
+- `JWT_SECRET`, `JWT_EXPIRATION_MS`
+- `OAUTH_GITHUB_CLIENT_ID`, `OAUTH_GITHUB_CLIENT_SECRET`
+- `FRONTEND_BASE_URL`, `APP_CORS_ALLOWED_ORIGINS`
 
-## 3. Solución
+Frontend:
+- `VITE_API_BASE_URL`
 
-Campus Emprende crea una **plataforma controlada** donde los servicios son:
+## Ejecucion local
+- Backend: `http://localhost:8080`
+- Frontend: `http://localhost:5173`
+- Swagger: `http://localhost:8080/swagger-ui.html`
 
-1. Verificados (identidad del estudiante comprobada)
-2. Moderados (aprobados antes de publicarse)
-3. Registrados (seguimiento completo del ciclo de vida)
-4. Evaluados (con retroalimentación)
-5. Almacenados (agregados al perfil profesional)
+## Ambiente de pruebas
+- Backend: perfil `test` con `application-test.yaml` y H2 en memoria.
+- Frontend: Vitest con `jsdom`.
 
-👉 Resultado: **Evidencia Profesional Verificable**
+## Testing
+- Backend: `.\mvnw.cmd test` con `JAVA_HOME` apuntando a Java 21.
+- Frontend: `pnpm lint`, `pnpm build`, `pnpm test`.
 
----
+## CI
+Existe workflow en `.github/workflows/ci.yml` con validacion backend y frontend en `push` y `pull_request` hacia `main`.
 
-## 4. Flujo del Proceso
+## Seguridad
+- Secretos retirados de configuracion versionada.
+- JWT parametrizado por entorno.
+- CORS configurable sin `*` con credenciales.
+- DTO de respuesta de usuario sin password.
+- Errores globales consistentes sin stacktrace expuesto.
 
-1. El estudiante se registra con correo institucional
-2. Crea su perfil profesional
-3. Publica un servicio
-4. El administrador aprueba/rechaza
-5. Otro estudiante solicita el servicio
-6. El servicio se completa
-7. El cliente confirma la finalización
-8. El cliente deja una calificación/reseña
-9. El sistema lo almacena como experiencia verificada
+## Flujos principales
+1. Registro de usuario.
+2. Verificacion por correo.
+3. Inicio de sesion con JWT.
+4. Creacion y visualizacion de servicios.
+5. Solicitud, review, comentario y reporte.
+6. Visualizacion administrativa basica.
 
----
+## Caminos alternativos
+- Registro con correo ya usado, password invalida o token vencido.
+- Login con credenciales incorrectas, cuenta no verificada o backend no disponible.
+- Servicio con datos incompletos, rechazo administrativo o no disponibilidad.
+- Solicitudes duplicadas, canceladas o sin respuesta.
+- Acceso sin token, con token expirado o con rol insuficiente.
 
-## 5. Funcionalidades
+## Evidencia web requerida
+La lista base y el estado de cada captura estan en `Entrega_EV2_TPY1101_Grupo8/Documentacion/Evidencias_Web/`.
 
-### ✅ Funcionalidades Principales
-- Cuentas verificadas
-- Perfil profesional
-- Publicación de servicios
-- Moderación por administrador
-- Solicitudes de servicio
-- Calificaciones y reseñas
-- Exportación a PDF (portafolio)
+## Estructura de entrega EV2
+La carpeta `Entrega_EV2_TPY1101_Grupo8/` contiene las secciones `Documentacion`, `Producto` y `Gestion` con fuentes exportables en Markdown y CSV.
 
-### ❌ No Incluido (MVP)
-- Pagos
-- Productos físicos
-- Aplicación móvil
-- Recomendaciones con IA
-- Usuarios externos
+## Aportes por integrante
+- Elias Delgado: hardening tecnico, retiro de secretos, configuracion por entorno, refactor cliente API, validaciones, errores globales, pruebas base, CI, documentacion EV2, caminos alternativos, evidencia y estructura de entrega.
+- Alcido/Alcindo: base inicial, estructura funcional principal, desarrollo inicial del producto y explicacion tecnica del avance para preparar evidencias.
 
----
-
-## 6. Propuesta de Valor
-
-Campus Emprende ofrece:
-- Verificación de identidad
-- Moderación
-- Seguimiento de actividad
-- Historial profesional
-- Portafolio exportable
-
-👉 Convierte el trabajo real en **prueba profesional**
-
----
-
-## 7. Usuarios Objetivo
-
-### 👨‍💻 Estudiantes (Proveedores)
-- Quieren formalizar su trabajo
-- Construir un portafolio
-
-### 🙋 Estudiantes (Clientes)
-- Buscan servicios confiables dentro del campus
-
-### 🏫 Institución (Administradores)
-- Monitorear actividad
-- Medir participación
-
----
-
-## 8. Tecnologías
-
-- **Frontend:** React
-- **Backend:** Spring Boot
-- **Base de datos:** PostgreSQL
-
-### ☁️ Nube
-- Vercel (Frontend)
-- Railway (Backend)
-- Neon (Base de datos)
-
-👉 Arquitectura: **Monolito Modular**
-
----
-
-## 9. Seguridad y Moderación
-
-- Verificación mediante correo institucional
-- Acceso basado en roles (Estudiante/Administrador)
-- Moderación de contenido antes de publicación
-- Revisión automática + manual
-- Sistema de reportes
-
----
-
-## 10. Objetivos
-
-### 🎯 Objetivo Principal
-Convertir el trabajo informal de los estudiantes en **experiencia profesional verificable**
-
-### 📊 Indicadores (KPIs)
-- 100% de usuarios verificados
-- Más de 20 servicios publicados
-- Más de 10 servicios completados con reseñas
-
----
-
-## 11. Reglas
-
-- No se manejan pagos
-- No se garantiza la calidad del servicio
-- Los estudiantes gestionan sus acuerdos
-- La plataforma solo registra la actividad
-
----
-
-## 12. Conclusión
-
-Campus Emprende resuelve un problema real:
-
-👉 Los estudiantes trabajan pero no pueden demostrarlo
-
-### ✅ Lo que aporta
-- Estructura
-- Verificación
-- Trazabilidad
-- Visibilidad profesional
-
-### 🚀 Resumen
-**Campus Emprende = LinkedIn + Fiverr dentro de una universidad**
-
----
+## Proximos pasos
+- Capturar evidencia web real desde la aplicacion corriendo.
+- Cerrar brechas parciales de solicitudes, reportes y administracion.
+- Definir estrategia final de despliegue y observabilidad.
+- Completar OAuth2 y endurecimiento adicional para produccion.

@@ -1,0 +1,9 @@
+Semana,Actividad,Responsable,Estado
+1,Auditoria tecnica inicial,Elias,Implementado pendiente de validacion
+1,Correccion feedback EV1,Equipo,Implementado pendiente de validacion
+2,Hardening backend,Elias,Funcional
+2,Refactor cliente API,Elias,Funcional
+2,Base de pruebas y CI,Elias,Funcional
+3,Documentacion EV2,Equipo,Funcional
+3,Captura de evidencia web,Equipo,Requerida
+3,Preparacion de defensa,Equipo,Funcional

@@ -1,0 +1,12 @@
+ID,Modulo,Funcionalidad,Estado,Evidencia_Codigo,Evidencia_Web,Observacion
+1,Auth,Registro de usuarios,Funcional,AuthController y AuthServiceImpl,Requerida,Validacion agregada
+2,Auth,Inicio de sesion,Funcional,JwtProvider y LoginRequest,Requerida,JWT configurable
+3,Email Verification,Verificacion de correo,Funcional,Codigo backend,Requerida,Flujo depende de correo real
+4,Profile,Visualizacion y actualizacion de perfil,Funcional,ProfileController,Requerida,
+5,ServiceListing,CRUD de servicios,Funcional,ServiceController,Requerida,
+6,ServiceRequest,Crear y gestionar solicitud,Parcial,ServiceRequestController,Requerida,Estado EV2 parcial
+7,Review,Crear y listar resenas,Funcional,ReviewController,Requerida,
+8,Comment,Crear y listar comentarios,Funcional,CommentController,Requerida,
+9,Report,Reportar contenido,Parcial,ReportController,Requerida,Estado EV2 parcial
+10,Admin,Gestion basica y moderacion,Parcial,AdminController,Requerida,Estado EV2 parcial
+11,OAuth2,Google/GitHub,En desarrollo,Codigo OAuth2,No disponible,No se declara como completo

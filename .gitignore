@@ -1,0 +1,17 @@
+.env
+*.env
+application-local.yaml
+application-dev-local.yaml
+application-prod.yaml
+target/
+logs/
+*.log
+node_modules/
+dist/
+coverage/
+.m2/
+.npm-cache/
+.pnpm-store/
+.idea/
+.vscode/
+.DS_Store

@@ -1,0 +1,12 @@
+# Backend Dependencias
+- spring-boot-starter-web
+- spring-boot-starter-data-jpa
+- spring-boot-starter-security
+- spring-boot-starter-oauth2-client
+- spring-boot-starter-validation
+- spring-boot-starter-mail
+- postgresql
+- jjwt
+- pdfbox
+- springdoc-openapi
+- h2 en test

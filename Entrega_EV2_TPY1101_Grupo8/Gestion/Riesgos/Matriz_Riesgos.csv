@@ -1,0 +1,7 @@
+ID,Riesgo,Probabilidad,Impacto,Nivel,Mitigacion,Responsable,Estado
+R1,Falta de capturas web antes de la entrega final,Alta,Alta,Alto,Asignar responsable por modulo y cerrar la matriz visual antes de exportar,Equipo Campus Emprende,Requiere captura
+R2,Los modulos ServiceRequest Report y Admin siguen en estado parcial,Alta,Alta,Alto,Defender el estado real del MVP y limitar la demo a lo disponible,Equipo Campus Emprende,Parcial
+R3,OAuth2 Google y GitHub permanece en desarrollo,Media,Media,Medio,Presentarlo fuera del alcance funcional EV2 y mantenerlo en roadmap,Equipo Campus Emprende,Parcial
+R4,Existen 28 warnings heredados de lint en frontend,Alta,Media,Alto,Documentar los warnings y evitar presentarlos como fallas de build o test,Equipo Campus Emprende,Documentado
+R5,La ejecucion local depende de configuracion correcta de PostgreSQL y SMTP,Media,Alta,Alto,Mantener instructivos por ambiente y usar datos de prueba controlados,Equipo Campus Emprende,Documentado
+R6,Credenciales antiguas o historicas del proyecto deben mantenerse rotadas y fuera del repositorio,Media,Alta,Alto,Sostener variables de entorno y revision previa a cualquier publicacion adicional,Elias Delgado,Documentado

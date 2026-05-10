@@ -1,15 +1,18 @@
 package com.zosh.payload.request;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-// 📥 DTO para login
-// Representa los datos que envía el cliente al iniciar sesión
 @Data
 public class LoginRequest {
 
-    // 📧 Email del usuario (usado como username)
+    @NotBlank(message = "El correo es obligatorio")
+    @Email(message = "El correo debe tener un formato valido")
     private String email;
 
-    // 🔐 Contraseña en texto plano (luego se valida y compara en el backend)
+    @NotBlank(message = "La contrasena es obligatoria")
+    @Size(min = 8, message = "La contrasena debe tener al menos 8 caracteres")
     private String password;
 }

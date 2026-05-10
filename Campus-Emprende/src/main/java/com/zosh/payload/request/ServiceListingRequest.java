@@ -3,25 +3,23 @@ package com.zosh.payload.request;
 import com.zosh.domain.ServiceCategory;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-// 📥 DTO de entrada para crear o actualizar servicios
-// Representa los datos que envía el cliente
 @Data
 public class ServiceListingRequest {
 
-    // 📝 Título del servicio (obligatorio)
     @NotBlank(message = "Title is required")
+    @Size(max = 150, message = "Title must not exceed 150 characters")
     private String title;
 
-    // 📄 Descripción del servicio (obligatorio)
     @NotBlank(message = "Description is required")
+    @Size(max = 2000, message = "Description must not exceed 2000 characters")
     private String description;
 
-    // 🏷️ Categoría del servicio (obligatoria)
     @NotNull(message = "Category is required")
     private ServiceCategory category;
 
-    // 🖼️ Imagen del servicio (opcional)
+    @Size(max = 255, message = "Image URL must not exceed 255 characters")
     private String imageUrl;
 }

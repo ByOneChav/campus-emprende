@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:campus_emprende_test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+  mail:
+    host: localhost
+    port: 2525
+    username: test@example.com
+    password: test
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: test
+            client-secret: test
+            scope:
+              - read:user
+              - user:email
+            redirect-uri: "{baseUrl}/login/oauth2/code/github"
+
+app:
+  jwt:
+    secret: test-secret-key-for-campus-emprende-1234567890
+    expiration-ms: 86400000
+  frontend:
+    base-url: http://localhost:5173
+    reset-url: http://localhost:5173/auth/reset-password?token=
+    verify-url: http://localhost:5173/auth/verify-email?token=
+  cors:
+    allowed-origins: http://localhost:5173
+  bootstrap:
+    admin:
+      enabled: false

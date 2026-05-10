@@ -2,10 +2,11 @@ package com.zosh.configurations;
 
 import com.zosh.oauth2.CustomOAuth2UserService;
 import com.zosh.oauth2.OAuth2LoginSuccessHandler;
-// import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -16,107 +17,78 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Stream;
 
-@Configuration // Clase de configuración de seguridad
-@org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity // Permite usar @PreAuthorize, etc.
+@Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
 
-	@Autowired
-	private CustomAuthenticationEntryPoint customAuthenticationEntryPoint; // Manejo de errores de autenticación
+    @Autowired
+    private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
-	@Autowired
-	private CustomOAuth2UserService customOAuth2UserService; // Servicio para login con OAuth2
+    @Autowired
+    private CustomOAuth2UserService customOAuth2UserService;
 
-	@Autowired
-	private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler; // Acción al hacer login con OAuth2
+    @Autowired
+    private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    @Autowired
+    private JwtValidator jwtValidator;
 
-		return http
+    @Value("${app.cors.allowed-origins}")
+    private String allowedOrigins;
 
-            // 🚫 No usa sesiones (API REST con JWT)
-			.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html",
+                                "/auth/**",
+                                "/profiles/**",
+                                "/services/**"
+                        ).permitAll()
+                        .requestMatchers("/api/admin/**", "/api/super-admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/**").authenticated()
+                        .anyRequest().permitAll()
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))
+                        .successHandler(oAuth2LoginSuccessHandler))
+                .addFilterBefore(jwtValidator, BasicAuthenticationFilter.class)
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .exceptionHandling(exceptionHandler ->
+                        exceptionHandler.authenticationEntryPoint(customAuthenticationEntryPoint))
+                .build();
+    }
 
-            // 🔐 Configuración de rutas y permisos
-			.authorizeHttpRequests(Authorize -> Authorize
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-				// 🔓 Permite acceso libre a Swagger
-				.requestMatchers(
-						"/swagger-ui/**",
-						"/v3/api-docs/**",
-						"/swagger-ui.html"
-				).permitAll()
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        return request -> {
+            CorsConfiguration cfg = new CorsConfiguration();
+            List<String> origins = Stream.of(allowedOrigins.split(","))
+                    .map(String::trim)
+                    .filter(origin -> !origin.isBlank())
+                    .toList();
 
-				// 🔒 Rutas protegidas (requieren autenticación)
-				.requestMatchers("/api/**").authenticated()
-
-				// 👑 Solo ADMIN puede acceder
-				.requestMatchers("/api/super-admin/**").hasRole("ADMIN")
-
-				// 🌍 Todo lo demás es público
-				.anyRequest().permitAll()
-			)
-
-            // 🌐 Configuración OAuth2 (Google login, etc.)
-			.oauth2Login(oauth2 -> oauth2
-					.userInfoEndpoint(userInfo -> userInfo
-							.userService(customOAuth2UserService))
-					.successHandler(oAuth2LoginSuccessHandler))
-
-            // 🔐 Agrega filtro JWT antes del filtro de autenticación básica
-			.addFilterBefore(new JwtValidator(), BasicAuthenticationFilter.class)
-
-            // ❌ Desactiva CSRF (porque es API REST)
-			.csrf(AbstractHttpConfigurer::disable)
-
-            // 🌐 Configuración CORS
-			.cors(cors -> cors.configurationSource(corsConfigurationSource()))
-
-            // ⚠️ Manejo de errores de autenticación
-			.exceptionHandling(
-					exceptionHandler -> exceptionHandler
-							.authenticationEntryPoint(customAuthenticationEntryPoint))
-
-			.build();
-	}
-
-    // 🔑 Encoder para encriptar contraseñas
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-
-    // 🌐 Configuración CORS (frontend permitido)
-	private CorsConfigurationSource corsConfigurationSource() {
-		return request -> {
-			CorsConfiguration cfg = new CorsConfiguration();
-
-            // Orígenes permitidos (frontend)
-			cfg.setAllowedOrigins(Arrays.asList(
-					"http://localhost:3000",
-					"http://localhost:5173",
-					"http://localhost:5174"
-			));
-
-            // Métodos permitidos (GET, POST, etc.)
-			cfg.setAllowedMethods(Collections.singletonList("*"));
-
-            // Permite enviar cookies/token
-			cfg.setAllowCredentials(true);
-
-            // Headers permitidos
-			cfg.setAllowedHeaders(Collections.singletonList("*"));
-
-            // Headers expuestos (ej: Authorization)
-			cfg.setExposedHeaders(Arrays.asList("Authorization"));
-
-            // Tiempo de caché CORS
-			cfg.setMaxAge(3600L);
-
-			return cfg;
-		};
-	}
+            cfg.setAllowedOrigins(origins);
+            cfg.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+            cfg.setAllowCredentials(true);
+            cfg.setAllowedHeaders(Collections.singletonList("*"));
+            cfg.setExposedHeaders(List.of("Authorization"));
+            cfg.setMaxAge(3600L);
+            return cfg;
+        };
+    }
 }

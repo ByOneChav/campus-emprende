@@ -1,0 +1,12 @@
+Entidad,Campo,Tipo,Descripcion
+users,id,BIGINT,Identificador de usuario
+users,email,VARCHAR,Correo unico del usuario
+users,password,VARCHAR,Hash de contrasena
+users,role,ENUM,Rol ROLE_ADMIN o ROLE_STUDENT
+profiles,user_id,BIGINT,Relacion con usuario
+service_listings,title,VARCHAR,Titulo del servicio
+service_listings,status,ENUM,Estado de aprobacion
+service_requests,status,ENUM,Estado de la solicitud
+reviews,rating,SMALLINT,Calificacion de 1 a 5
+comments,content,TEXT,Comentario asociado al servicio
+reports,reason,TEXT,Motivo del reporte

@@ -1,0 +1,11 @@
+ID,Modulo,Funcionalidad,Estado,Evidencia_Codigo,Evidencia_Prueba,Evidencia_Web,Observacion
+1,Auth,Registro e inicio de sesion con JWT,Funcional,Campus-Emprende/src/main/java/com/zosh/controller/AuthController.java,Automatizado OK,Requiere captura,Base tecnica validada con pruebas backend y cliente API
+2,Email Verification,Verificacion de correo y activacion de cuenta,Funcional,Campus-Emprende/src/main/java/com/zosh/services/impl/AuthServiceImpl.java,Documentado,Requiere captura,La evidencia visual depende del correo de prueba del equipo
+3,Profile,Visualizacion y actualizacion de perfil,Funcional,Campus-Emprende/src/main/java/com/zosh/controller/ProfileController.java,Documentado,Requiere captura,Flujo documentado en informe y demo
+4,ServiceListing,Creacion listado edicion detalle y baja de servicios,Funcional,Campus-Emprende/src/main/java/com/zosh/controller/ServiceController.java,Documentado,Requiere captura,CRUD disponible para el MVP
+5,ServiceRequest,Creacion y gestion de solicitudes entre estudiantes,Parcial,Campus-Emprende/src/main/java/com/zosh/controller/ServiceRequestController.java,Parcial,Requiere captura,Se presenta como avance EV2 y no como cierre funcional
+6,Review,Creacion y consulta de resenas,Funcional,Campus-Emprende/src/main/java/com/zosh/controller/ReviewController.java,Documentado,Requiere captura,Modulo considerado funcional para EV2
+7,Comment,Creacion y consulta de comentarios,Funcional,Campus-Emprende/src/main/java/com/zosh/controller/CommentController.java,Documentado,Requiere captura,Modulo considerado funcional para EV2
+8,Report,Reporte de usuarios o publicaciones,Parcial,Campus-Emprende/src/main/java/com/zosh/controller/ReportController.java,Parcial,Requiere captura,Se mantiene como avance parcial
+9,Admin,Moderacion y gestion basica de usuarios y reportes,Parcial,Campus-Emprende/src/main/java/com/zosh/controller/AdminController.java,Parcial,Requiere captura,Se presenta con alcance actual del repositorio
+10,OAuth2 Google/GitHub,Inicio de sesion social,En desarrollo,Campus-Emprende/src/main/java/com/zosh/oauth2/OAuth2LoginSuccessHandler.java,No disponible,No disponible,No se declara como funcional en EV2

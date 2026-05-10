@@ -1,21 +1,20 @@
 package com.zosh.payload.request;
 
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-// 📥 DTO de entrada para Profile
-// Representa los datos que el cliente envía para crear o actualizar el perfil
 @Data
 public class ProfileRequest {
 
-    // 📝 Biografía del usuario
+    @Size(max = 500, message = "La biografia no puede superar los 500 caracteres")
     private String bio;
 
-    // 🎓 Carrera del usuario
+    @Size(max = 120, message = "La carrera no puede superar los 120 caracteres")
     private String career;
 
-    // 🖼️ URL de imagen de perfil
+    @Size(max = 255, message = "La URL del avatar no puede superar los 255 caracteres")
     private String avatarUrl;
 
-    // 🔗 URL de LinkedIn
+    @Size(max = 255, message = "La URL de LinkedIn no puede superar los 255 caracteres")
     private String linkedinUrl;
 }

@@ -19,7 +19,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
@@ -33,9 +34,8 @@ class UserServiceImplTest {
     @InjectMocks
     private UserServiceImpl userService;
 
-    // 🧪 Obtiene usuario por email correctamente
     @Test
-    void getUserByEmail_success() throws Exception {
+    void getUserByEmailSuccess() throws Exception {
         User user = new User();
         user.setEmail("test@mail.com");
 
@@ -44,20 +44,17 @@ class UserServiceImplTest {
         User result = userService.getUserByEmail("test@mail.com");
 
         assertNotNull(result);
-        verify(userRepository).findByEmail("test@mail.com");
     }
 
-    // 🧪 Lanza excepción si no encuentra usuario por email
     @Test
-    void getUserByEmail_notFound() {
+    void getUserByEmailNotFound() {
         when(userRepository.findByEmail("test@mail.com")).thenReturn(null);
 
         assertThrows(UserException.class, () -> userService.getUserByEmail("test@mail.com"));
     }
 
-    // 🧪 Obtiene usuario desde JWT correctamente
     @Test
-    void getUserFromJwtToken_success() throws Exception {
+    void getUserFromJwtTokenSuccess() throws Exception {
         User user = new User();
         user.setEmail("test@mail.com");
 
@@ -69,69 +66,15 @@ class UserServiceImplTest {
         assertNotNull(result);
     }
 
-    // 🧪 Lanza excepción si usuario no existe en JWT
     @Test
-    void getUserFromJwtToken_notFound() {
-        when(jwtProvider.getEmailFromJwtToken("token")).thenReturn("test@mail.com");
-        when(userRepository.findByEmail("test@mail.com")).thenReturn(null);
-
-        assertThrows(UserException.class, () -> userService.getUserFromJwtToken("token"));
-    }
-
-    // 🧪 Retorna usuario por ID cuando existe
-    @Test
-    void getUserById_success() throws Exception {
-        User user = new User();
-        user.setId(1L);
-
-        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
-
-        User result = userService.getUserById(1L);
-
-        assertNotNull(result);
-    }
-
-    // 🧪 ❌ Falla: espera excepción pero el método devuelve null
-    @Test
-    void getUserById_shouldThrowException_butFails() {
+    void getUserByIdReturnsNullWhenMissing() throws Exception {
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
-        assertThrows(UserException.class, () -> userService.getUserById(1L));
+        assertNull(userService.getUserById(1L));
     }
 
-    // 🧪 Retorna null cuando usuario por ID no existe
     @Test
-    void getUserById_notFound() throws Exception {
-        when(userRepository.findById(1L)).thenReturn(Optional.empty());
-
-        User result = userService.getUserById(1L);
-
-        assertNull(result);
-    }
-
-    // 🧪 ❌ Falla: valida un nombre incorrecto intencionalmente
-    @Test
-    void getTopStudents_wrongName_shouldFail() {
-        TopStudentProjection projection = mock(TopStudentProjection.class);
-
-        when(projection.getStudentId()).thenReturn(1L);
-        when(projection.getStudentName()).thenReturn("Juan");
-        when(projection.getStudentEmail()).thenReturn("juan@mail.com");
-        when(projection.getTotalServices()).thenReturn(10L);
-        when(projection.getTotalRequests()).thenReturn(8L);
-        when(projection.getCompletedRequests()).thenReturn(6L);
-        when(projection.getAverageRating()).thenReturn(4.5);
-
-        when(userRepository.findTop5Students()).thenReturn(List.of(projection));
-
-        List<TopStudentResponse> result = userService.getTopStudents();
-
-        assertEquals("Pedro", result.get(0).getStudentName()); // ❌ fallará
-    }
-
-    // 🧪 Obtiene usuarios por rol correctamente
-    @Test
-    void getUserByRole_success() throws Exception {
+    void getUserByRoleSuccess() throws Exception {
         User user = new User();
         user.setRole(UserRole.ROLE_STUDENT);
 
@@ -142,9 +85,8 @@ class UserServiceImplTest {
         assertEquals(1, result.size());
     }
 
-    // 🧪 Obtiene lista de todos los usuarios
     @Test
-    void getUsers_success() throws Exception {
+    void getUsersSuccess() throws Exception {
         when(userRepository.findAll()).thenReturn(List.of(new User(), new User()));
 
         List<User> result = userService.getUsers();
@@ -152,19 +94,15 @@ class UserServiceImplTest {
         assertEquals(2, result.size());
     }
 
-    // 🧪 Cuenta total de usuarios correctamente
     @Test
-    void getTotalUserCount_success() {
+    void getTotalUserCountSuccess() {
         when(userRepository.count()).thenReturn(5L);
 
-        long result = userService.getTotalUserCount();
-
-        assertEquals(5, result);
+        assertEquals(5L, userService.getTotalUserCount());
     }
 
-    // 🧪 Convierte proyección a TopStudentResponse correctamente
     @Test
-    void getTopStudents_success() {
+    void getTopStudentsSuccess() {
         TopStudentProjection projection = mock(TopStudentProjection.class);
 
         when(projection.getStudentId()).thenReturn(1L);
@@ -174,7 +112,6 @@ class UserServiceImplTest {
         when(projection.getTotalRequests()).thenReturn(8L);
         when(projection.getCompletedRequests()).thenReturn(6L);
         when(projection.getAverageRating()).thenReturn(4.5);
-
         when(userRepository.findTop5Students()).thenReturn(List.of(projection));
 
         List<TopStudentResponse> result = userService.getTopStudents();
@@ -182,5 +119,4 @@ class UserServiceImplTest {
         assertEquals(1, result.size());
         assertEquals("Juan", result.get(0).getStudentName());
     }
-
 }

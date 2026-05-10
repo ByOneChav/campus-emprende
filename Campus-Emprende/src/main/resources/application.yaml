@@ -1,72 +1,70 @@
 spring:
   application:
-    name: Campus-Emprende  # Nombre de la aplicación
+    name: Campus-Emprende
 
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:campus_emprende}  # Conexión a PostgreSQL
-    driver-class-name: org.postgresql.Driver  # Driver de la BD
-    username: ${DB_USERNAME:postgres}  # Usuario (variable o valor por defecto)
-    password: ${DB_PASSWORD:Redimi2one2025*}  # Contraseña de la BD
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:campus_emprende}
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:change-me}
 
   jpa:
     hibernate:
-      ddl-auto: update  # Actualiza tablas automáticamente
-    show-sql: true  # Muestra consultas SQL en consola
+      ddl-auto: update
+    show-sql: true
 
   mail:
-    host: smtp.gmail.com  # Servidor SMTP de Gmail
-    port: 587  # Puerto TLS
-    username: onechavito1615@gmail.com  # Correo emisor
-    password: grbh hhcg iyot gsut  # Contraseña o app password
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:no-reply@example.com}
+    password: ${MAIL_PASSWORD:change-me}
     properties:
       mail:
         smtp:
-          auth: true  # Requiere autenticación
+          auth: true
           starttls:
-            enable: true  # Habilita TLS
-          connectiontimeout: 8080  # Tiempo de conexión
-          timeout: 8080  # Tiempo de espera
-          writetimeout: 8080  # Tiempo de escritura
+            enable: true
+          connectiontimeout: 8080
+          timeout: 8080
+          writetimeout: 8080
 
   devtools:
     livereload:
-      enabled: true  # Recarga automática en desarrollo
+      enabled: true
 
   task:
     scheduling:
       pool:
-        size: 5  # Cantidad de hilos para tareas programadas
+        size: 5
 
   security:
     oauth2:
       client:
         registration:
-          # GOOGLE
-          # google:
-            # client-id: ${GOOGLE_CLIENT_ID:}
-            # client-secret: ${GOOGLE_CLIENT_SECRET:}
-            # redirect-uri: http://localhost:8080/login/oauth2/code/google  # URL de redirección
-
-          # GITHUB
           github:
-            client-id: ${OAUTH_GITHUB_CLIENT_ID}
-            client-secret: ${OAUTH_GITHUB_CLIENT_SECRET}
+            client-id: ${OAUTH_GITHUB_CLIENT_ID:test-github-client-id}
+            client-secret: ${OAUTH_GITHUB_CLIENT_SECRET:test-github-client-secret}
             scope:
               - read:user
               - user:email
-            redirect-uri: http://localhost:8080/login/oauth2/code/github
-
-        # provider:
-        #   google:
-        #     authorization-uri: https://accounts.google.com/o/oauth2/v2/auth  # Autenticación Google
-        #     token-uri: https://oauth2.googleapis.com/token  # Obtención de token
-        #     user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo  # Info del usuario
-        #     user-name-attribute: sub  # Identificador único del usuario
+            redirect-uri: "{baseUrl}/login/oauth2/code/github"
 
 server:
-  port: 8080  # Puerto del backend
+  port: 8080
 
 app:
+  jwt:
+    secret: ${JWT_SECRET:change-me-with-at-least-32-characters}
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000}
   frontend:
-    reset-url: http://localhost:5173/auth/reset-password?token=  # URL para resetear contraseña
-    verify-url: http://localhost:5173/auth/verify-email?token=  # URL para verificar correo
+    base-url: ${FRONTEND_BASE_URL:http://localhost:5173}
+    reset-url: ${FRONTEND_BASE_URL:http://localhost:5173}/auth/reset-password?token=
+    verify-url: ${FRONTEND_BASE_URL:http://localhost:5173}/auth/verify-email?token=
+  cors:
+    allowed-origins: ${APP_CORS_ALLOWED_ORIGINS:http://localhost:5173,http://localhost:5174}
+  bootstrap:
+    admin:
+      enabled: ${APP_BOOTSTRAP_ADMIN_ENABLED:false}
+      email: ${APP_BOOTSTRAP_ADMIN_EMAIL:admin@campusemprende.local}
+      password: ${APP_BOOTSTRAP_ADMIN_PASSWORD:ChangeMe123!}
+      full-name: ${APP_BOOTSTRAP_ADMIN_FULL_NAME:Campus Emprende Admin}

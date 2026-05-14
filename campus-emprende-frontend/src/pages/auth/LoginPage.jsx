@@ -13,7 +13,7 @@ import {
   Sparkles
 } from 'lucide-react'; // Iconos
 
-import backgroundLog from '@/assets/logo5.jpeg'; // Imagen de fondo
+import backgroundLog from '@/assets/logo4.png'; // Imagen de fondo
 
 
 export default function LoginPage() {

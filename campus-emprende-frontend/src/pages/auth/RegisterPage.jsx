@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label'; // Label para formularios
 import { Alert, AlertDescription } from '@/components/ui/alert'; // Componente para mostrar errores
 import { GraduationCap, Loader2 } from 'lucide-react'; // Iconos
 import logoCampus from '@/assets/logoCampus.png'; // Importa imagen local
-import logo2 from '@/assets/logo5.jpeg'; // Importa imagen local
+import logo2 from '@/assets/logo4.png'; // Importa imagen local
 
 // const LogoCampus = logoCampus; // Imagen usada en el componente
 const Logo2 = logo2; 

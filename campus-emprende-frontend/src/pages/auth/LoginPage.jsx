@@ -13,10 +13,8 @@ import {
   Sparkles
 } from 'lucide-react'; // Iconos
 
-import backgroundCampus from '@/assets/background-campus.png'; // Imagen de fondo
-import logoCampus from '@/assets/logoCampus.png'; // Logo local
+import backgroundLog from '@/assets/logo5.jpeg'; // Imagen de fondo
 
-const LogoCampus = logoCampus; // Imagen usada en el componente
 
 export default function LoginPage() {
 
@@ -82,7 +80,7 @@ export default function LoginPage() {
 
         {/* Imagen fondo */}
         <img
-          src={backgroundCampus}
+          src={backgroundLog}
           alt="Campus Emprende Background"
 
           // object-cover hace que la imagen ocupe TODO el espacio
@@ -91,10 +89,10 @@ export default function LoginPage() {
         />
 
         {/* Overlay oscuro/transparente */}
-        <div className="absolute inset-0 bg-[#001B44]/75" />
+        {/* <div className="absolute inset-0 bg-[#001B44]/75" /> */}
 
         {/* Degradado elegante */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#001B44]/70 via-[#0A84FF]/20 to-[#001B44]/80" />
+        {/* <div className="absolute inset-0 bg-gradient-to-br from-[#001B44]/70 via-[#0A84FF]/20 to-[#001B44]/80" /> */}
 
         {/* Glow central */}
         <div className="absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/10 blur-3xl" />

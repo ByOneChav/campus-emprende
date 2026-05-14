@@ -7,8 +7,10 @@ import { Label } from '@/components/ui/label'; // Label para formularios
 import { Alert, AlertDescription } from '@/components/ui/alert'; // Componente para mostrar errores
 import { GraduationCap, Loader2 } from 'lucide-react'; // Iconos
 import logoCampus from '@/assets/logoCampus.png'; // Importa imagen local
+import logo2 from '@/assets/logo5.jpeg'; // Importa imagen local
 
-const LogoCampus = logoCampus; // Imagen usada en el componente
+// const LogoCampus = logoCampus; // Imagen usada en el componente
+const Logo2 = logo2; 
 
 export default function RegisterPage() {
   const { signup } = useAuth(); // Función de registro conectada a Redux + backend
@@ -53,13 +55,13 @@ export default function RegisterPage() {
         {/* Imagen solo en desktop */}
 
         <img
-          src={LogoCampus}
+          src={Logo2}
           alt="Campus Emprende"
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
 
         {/* Overlay elegante */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A84FF]/40 via-[#0A84FF]/50 to-[#001B44]/80" />
+        {/* <div className="absolute inset-0 bg-gradient-to-b from-[#0A84FF]/40 via-[#0A84FF]/50 to-[#001B44]/80" /> */}
 
         {/* Texto sobre imagen */}
         <div className="relative z-10 flex flex-col justify-end p-12 text-white">

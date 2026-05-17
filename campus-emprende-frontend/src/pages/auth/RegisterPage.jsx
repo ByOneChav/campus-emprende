@@ -10,7 +10,7 @@ import logoCampus from '@/assets/logoCampus.png'; // Importa imagen local
 import logo2 from '@/assets/logo4.png'; // Importa imagen local
 
 // const LogoCampus = logoCampus; // Imagen usada en el componente
-const Logo2 = logo2; 
+const Logo2 = logo2;
 
 export default function RegisterPage() {
   const { signup } = useAuth(); // Función de registro conectada a Redux + backend
@@ -173,7 +173,7 @@ export default function RegisterPage() {
                   <Input
                     id="email"
                     type="email"
-                    placeholder="eliasbombom@gmail.com"
+                    placeholder="elia.delgado@duocuc.cl"
                     value={form.email}
                     onChange={(e) =>
                       setForm({ ...form, email: e.target.value })
@@ -195,7 +195,7 @@ export default function RegisterPage() {
                   <Input
                     id="phone"
                     type="tel"
-                    placeholder="+56 9 111 2222"
+                    placeholder="+56 9 2031 5701"
                     value={form.phone}
                     onChange={(e) =>
                       setForm({ ...form, phone: e.target.value })
@@ -221,6 +221,25 @@ export default function RegisterPage() {
                     onChange={(e) =>
                       setForm({ ...form, password: e.target.value })
                     }
+                    required
+                    minLength={6}
+                    className="h-14 rounded-2xl border-slate-200 bg-slate-50/70 text-[15px] shadow-sm transition-all duration-200 focus:border-[#0A84FF] focus:ring-4 focus:ring-blue-100"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label
+                    htmlFor="password"
+                    className="text-[15px] font-semibold text-slate-800"
+                  >
+                    Confirme Contraseña
+                  </Label>
+
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="*************"
+                    
                     required
                     minLength={6}
                     className="h-14 rounded-2xl border-slate-200 bg-slate-50/70 text-[15px] shadow-sm transition-all duration-200 focus:border-[#0A84FF] focus:ring-4 focus:ring-blue-100"

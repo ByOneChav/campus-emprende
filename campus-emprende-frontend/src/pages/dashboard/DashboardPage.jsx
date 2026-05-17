@@ -77,7 +77,7 @@ export default function DashboardPage() {
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
 
           {/* Welcome */}
-          <div className="space-y-4">
+          <div className="space-y-3">
 
             {/* Badge */}
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 text-sm font-medium text-[#0A84FF] shadow-sm">
@@ -91,7 +91,14 @@ export default function DashboardPage() {
             {/* Título */}
             <div>
 
-              <h1 className="text-5xl font-black tracking-tight text-slate-900">
+              <h1 className="
+                text-3xl
+                sm:text-4xl
+                lg:text-5xl
+                font-black
+                tracking-tight
+                text-slate-900
+              ">
                 Dashboard
               </h1>
 
@@ -112,7 +119,7 @@ export default function DashboardPage() {
                     Bienvenido de nuevo 👋
                   </p>
 
-                  <h2 className="bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-2xl font-bold text-transparent">
+                  <h2 className="bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-xl sm:text-2xl text-transparent">
 
                     {user?.fullName?.split(' ')[0]}
 
@@ -299,7 +306,7 @@ export default function DashboardPage() {
           ) : (
 
             /* Lista servicios */
-            <div className="space-y-4">
+            <div className="space-y-3">
 
               {services.map((s) => (
 
@@ -420,7 +427,7 @@ export default function DashboardPage() {
             </div>
 
             {/* Lista */}
-            <div className="space-y-4">
+            <div className="space-y-3">
 
               {received.slice(0, 3).map((r) => (
 

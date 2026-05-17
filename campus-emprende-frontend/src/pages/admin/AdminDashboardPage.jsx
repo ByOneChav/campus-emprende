@@ -158,7 +158,7 @@ export default function AdminDashboardPage() {
     <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
 
       {/* HERO */}
-      <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+      <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-5 md:p-8 shadow-sm">
 
         {/* EFECTOS */}
         <div className="absolute -top-10 -right-10 h-44 w-44 rounded-full bg-blue-100 blur-3xl opacity-70"></div>
@@ -181,7 +181,7 @@ export default function AdminDashboardPage() {
               </div>
 
               <div>
-                <h1 className="text-4xl font-black tracking-tight text-slate-900">
+                <h1 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900">
                   Panel de administración
                 </h1>
 

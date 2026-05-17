@@ -202,7 +202,7 @@ export default function LoginPage() {
                   <Input
                     id="email"
                     type="email"
-                    placeholder="eliasbombom@gmail.com"
+                    placeholder="elia.delgado@duocuc.cl"
                     value={form.email}
 
                     onChange={(e) =>

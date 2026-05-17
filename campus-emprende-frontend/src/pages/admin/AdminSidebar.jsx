@@ -81,8 +81,9 @@ export default function AdminSidebar() {
         relative
         flex
         flex-col
-        w-72
-        min-h-screen
+        w-[290px]
+        md:w-72
+        h-screen
         shrink-0
         border-r
         border-slate-200

@@ -91,13 +91,6 @@ class UserServiceImplTest {
         assertNotNull(result);
     }
 
-    // 🧪 ❌ Falla: espera excepción pero el método devuelve null
-    @Test
-    void getUserById_shouldThrowException_butFails() {
-        when(userRepository.findById(1L)).thenReturn(Optional.empty());
-
-        assertThrows(UserException.class, () -> userService.getUserById(1L));
-    }
 
     // 🧪 Retorna null cuando usuario por ID no existe
     @Test
@@ -109,25 +102,6 @@ class UserServiceImplTest {
         assertNull(result);
     }
 
-    // 🧪 ❌ Falla: valida un nombre incorrecto intencionalmente
-    @Test
-    void getTopStudents_wrongName_shouldFail() {
-        TopStudentProjection projection = mock(TopStudentProjection.class);
-
-        when(projection.getStudentId()).thenReturn(1L);
-        when(projection.getStudentName()).thenReturn("Juan");
-        when(projection.getStudentEmail()).thenReturn("juan@mail.com");
-        when(projection.getTotalServices()).thenReturn(10L);
-        when(projection.getTotalRequests()).thenReturn(8L);
-        when(projection.getCompletedRequests()).thenReturn(6L);
-        when(projection.getAverageRating()).thenReturn(4.5);
-
-        when(userRepository.findTop5Students()).thenReturn(List.of(projection));
-
-        List<TopStudentResponse> result = userService.getTopStudents();
-
-        assertEquals("Pedro", result.get(0).getStudentName()); // ❌ fallará
-    }
 
     // 🧪 Obtiene usuarios por rol correctamente
     @Test

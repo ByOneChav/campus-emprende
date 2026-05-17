@@ -28,7 +28,7 @@ public class DataInitializationComponent implements CommandLineRunner {
 
     // Inicializa un usuario administrador si no existe
     private void initializeAdminUser() {
-        String adminUsername = "eliasbombom@gmail.com";
+        String adminUsername = "elia.delgado@duocuc.cl";
 
         // Verifica si el usuario admin ya existe
         if (userRepository.findByEmail(adminUsername)==null) {

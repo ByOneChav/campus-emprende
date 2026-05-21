@@ -14,6 +14,12 @@ Su objetivo principal es **transformar los servicios informales de los estudiant
 
 ---
 
+<h2>📸 Captura Principal</h2>
+
+<p align="center">
+  <img src="images/home.png" width="900"/>
+</p>
+
 ## 2. Planteamiento del Problema
 
 ### Situación Actual

@@ -1,9 +1,16 @@
 # 📘 Campus Emprende — Descripción del Proyecto
 
-## 1. Introducción
+## Introducción
 Campus Emprende es una plataforma institucional basada en la nube creada como parte de un proyecto de curso de programación.
 
 Su objetivo principal es **transformar los servicios informales de los estudiantes en experiencia profesional verificable**.
+
+---
+#### Logo
+<p align="center">
+  <img src="images/campusEmprende.png" width="900"/>
+</p>
+
 
 ### ❗ Puntos Clave
 - NO es un marketplace
@@ -13,53 +20,14 @@ Su objetivo principal es **transformar los servicios informales de los estudiant
 👉 Ayuda a los estudiantes a **registrar, seguir y demostrar su experiencia laboral**
 
 ---
+## Caputuras de pantallas
 
-<h2>📸 Captura Principal</h2>
-
+#### Pagina principal
 <p align="center">
   <img src="images/home.png" width="900"/>
 </p>
 
-## 2. Planteamiento del Problema
-
-### Situación Actual
-Los estudiantes ya ofrecen servicios como:
-- Desarrollo web
-- Diseño gráfico
-- Soporte técnico
-- Tutorías
-- Fotografía
-
-Pero los ofrecen de manera informal a través de:
-- WhatsApp
-- Instagram
-- Recomendaciones (boca a boca)
-
-### Problema Central
-Estas actividades:
-- NO se registran
-- NO son verificables
-- No pueden utilizarse como evidencia profesional
-
-👉 Los estudiantes adquieren experiencia pero **no pueden demostrarla**
-
----
-
-## 3. Solución
-
-Campus Emprende crea una **plataforma controlada** donde los servicios son:
-
-1. Verificados (identidad del estudiante comprobada)
-2. Moderados (aprobados antes de publicarse)
-3. Registrados (seguimiento completo del ciclo de vida)
-4. Evaluados (con retroalimentación)
-5. Almacenados (agregados al perfil profesional)
-
-👉 Resultado: **Evidencia Profesional Verificable**
-
----
-
-## 4. Flujo del Proceso
+## Flujo del Proceso
 
 1. El estudiante se registra con correo institucional
 2. Crea su perfil profesional
@@ -70,116 +38,89 @@ Campus Emprende crea una **plataforma controlada** donde los servicios son:
 7. El cliente confirma la finalización
 8. El cliente deja una calificación/reseña
 9. El sistema lo almacena como experiencia verificada
+---
+#### Registro
+<p align="center">
+  <img src="images/registro.png" width="900"/>
+</p>
 
 ---
-
-## 5. Funcionalidades
-
-### ✅ Funcionalidades Principales
-- Cuentas verificadas
-- Perfil profesional
-- Publicación de servicios
-- Moderación por administrador
-- Solicitudes de servicio
-- Calificaciones y reseñas
-- Exportación a PDF (portafolio)
-
-### ❌ No Incluido (MVP)
-- Pagos
-- Productos físicos
-- Aplicación móvil
-- Recomendaciones con IA
-- Usuarios externos
+#### Perfil
+<p align="center">
+  <img src="images/perfil.png" width="900"/>
+</p>
 
 ---
-
-## 6. Propuesta de Valor
-
-Campus Emprende ofrece:
-- Verificación de identidad
-- Moderación
-- Seguimiento de actividad
-- Historial profesional
-- Portafolio exportable
-
-👉 Convierte el trabajo real en **prueba profesional**
+#### Publicar Servicio
+<p align="center">
+  <img src="images/publicarServicio.png" width="900"/>
+</p>
 
 ---
-
-## 7. Usuarios Objetivo
-
-### 👨‍💻 Estudiantes (Proveedores)
-- Quieren formalizar su trabajo
-- Construir un portafolio
-
-### 🙋 Estudiantes (Clientes)
-- Buscan servicios confiables dentro del campus
-
-### 🏫 Institución (Administradores)
-- Monitorear actividad
-- Medir participación
+#### Dashboard Admin
+<p align="center">
+  <img src="images/panelAdmin.png" width="900"/>
+</p>
 
 ---
-
-## 8. Tecnologías
-
-- **Frontend:** React
-- **Backend:** Spring Boot
-- **Base de datos:** PostgreSQL
-
-### ☁️ Nube
-- Vercel (Frontend)
-- Railway (Backend)
-- Neon (Base de datos)
-
-👉 Arquitectura: **Monolito Modular**
+#### Rechazar o Aprobar servicio
+<p align="center">
+  <img src="images/apruebaOrechaza.png" width="900"/>
+</p>
 
 ---
-
-## 9. Seguridad y Moderación
-
-- Verificación mediante correo institucional
-- Acceso basado en roles (Estudiante/Administrador)
-- Moderación de contenido antes de publicación
-- Revisión automática + manual
-- Sistema de reportes
+#### Solicitar servicio
+<p align="center">
+  <img src="images/solicitarServicio.png" width="900"/>
+</p>
 
 ---
-
-## 10. Objetivos
-
-### 🎯 Objetivo Principal
-Convertir el trabajo informal de los estudiantes en **experiencia profesional verificable**
-
-### 📊 Indicadores (KPIs)
-- 100% de usuarios verificados
-- Más de 20 servicios publicados
-- Más de 10 servicios completados con reseñas
+#### Servicio completado
+<p align="center">
+  <img src="images/servicioCompletado.png" width="900"/>
+</p>
 
 ---
-
-## 11. Reglas
-
-- No se manejan pagos
-- No se garantiza la calidad del servicio
-- Los estudiantes gestionan sus acuerdos
-- La plataforma solo registra la actividad
+#### Calificacion de reseña
+<p align="center">
+  <img src="images/resena.png" width="900"/>
+</p>
 
 ---
+#### Panel de Administrador
+<p align="center">
+  <img src="images/panelAdmin2.png" width="900"/>
+</p>
 
-## 12. Conclusión
+---
+#### Todos los usuarios
+<p align="center">
+  <img src="images/todosLosUsuarios.png" width="900"/>
+</p>
 
-Campus Emprende resuelve un problema real:
+---
+#### Restablecer contraseña
+<p align="center">
+  <img src="images/restablecerContrasena.png" width="900"/>
+</p>
 
-👉 Los estudiantes trabajan pero no pueden demostrarlo
+---
+#### Solicitud Enviada al correo
+<p align="center">
+  <img src="images/correo.png" width="900"/>
+</p>
 
-### ✅ Lo que aporta
-- Estructura
-- Verificación
-- Trazabilidad
-- Visibilidad profesional
+---
+#### Contraseña restablecida exitosamente
+<p align="center">
+  <img src="images/contrasenaRestablecida.png" width="900"/>
+</p>
 
-### 🚀 Resumen
-**Campus Emprende = LinkedIn + Fiverr dentro de una universidad**
+---
+#### Pagina principal
+<p align="center">
+  <img src="images/home.png" width="900"/>
+</p>
+
 
 ---

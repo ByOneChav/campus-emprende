@@ -239,11 +239,33 @@ export default function RegisterPage() {
                     id="password"
                     type="password"
                     placeholder="*************"
-                    
+
                     required
                     minLength={6}
                     className="h-14 rounded-2xl border-slate-200 bg-slate-50/70 text-[15px] shadow-sm transition-all duration-200 focus:border-[#0A84FF] focus:ring-4 focus:ring-blue-100"
                   />
+                </div>
+
+                <div className="mt-4 text-sm text-slate-600">
+                  <label className="flex items-start gap-2">
+                    <input
+                      type="checkbox"
+                      required
+                      className="mt-1"
+                    />
+
+                    <span>
+                      He leído y acepto los{" "}
+                      <a
+                        href="/legal/terms"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium text-blue-600 hover:underline"
+                      >
+                        Términos y Condiciones
+                      </a>
+                    </span>
+                  </label>
                 </div>
 
                 {/* Botón submit */}

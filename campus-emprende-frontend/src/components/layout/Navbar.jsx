@@ -44,6 +44,9 @@ export default function Navbar() {
             Explorar servicios
           </Link>
 
+          <Link to="/quienes-somos" className="navbar-link">
+            ¿Quiénes somos caraj*?
+          </Link>
           {isAuthenticated && (
             <>
               <Link to="/dashboard" className="navbar-link">

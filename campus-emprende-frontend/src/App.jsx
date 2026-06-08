@@ -42,6 +42,8 @@ import AdminReviewsPage from '@/pages/admin/AdminReviewsPage'; // Reseñas
 import AdminGoodReviewsPage from '@/pages/admin/AdminGoodReviewsPage'; // Reseñas positivas
 import AdminBadReviewsPage from '@/pages/admin/AdminBadReviewsPage'; // Reseñas negativas
 import { initialize } from './store/auth/authSlice'; // Acción para inicializar auth desde localStorage
+import TermsPage from '@/pages/legal/TermsPage'; // ← AGREGAR
+import QuienesSomos from "./pages/home/QuienesSomos";
 
 // Componente que inicializa el estado de autenticación al cargar la app
 function AppInitializer() {
@@ -76,10 +78,12 @@ export default function App() {
         <Route path="/auth/verify-email" element={<VerifyEmailPage />} /> {/* Verificar email */}
         <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} /> {/* Recuperar contraseña */}
         <Route path="/auth/reset-password" element={<ResetPasswordPage />} /> {/* Resetear contraseña */}
+        <Route path="/legal/terms" element={<TermsPage />} />
 
         <Route element={<Layout />}> {/* Rutas con layout (navbar + footer) */}
           <Route path="/" element={<HomePage />} /> {/* Home */}
           <Route path="/services" element={<ServicesPage />} /> {/* Lista de servicios */}
+          <Route path="/quienes-somos" element={<QuienesSomos />} />
           <Route path="/services/:id" element={<ServiceDetailPage />} /> {/* Detalle */}
           <Route path="/profiles/:userId" element={<PublicProfilePage />} /> {/* Perfil público */}
 

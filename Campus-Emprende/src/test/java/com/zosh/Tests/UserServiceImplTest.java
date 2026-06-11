@@ -1,4 +1,4 @@
-package com.zosh.TestUser;
+package com.zosh.Tests;
 
 import com.zosh.configurations.JwtProvider;
 import com.zosh.domain.UserRole;

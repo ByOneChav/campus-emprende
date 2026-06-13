@@ -28,22 +28,31 @@ export default function RegisterPage() {
   const [error, setError] = useState(''); // Manejo de errores
   const [loading, setLoading] = useState(false); // Estado de carga (spinner)
 
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false);
+
   // Función que se ejecuta al enviar el formulario
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Evita recargar la página
-    setError(''); // Limpia errores previos
-    setLoading(true); // Activa loading
+    e.preventDefault();
+
+    if (!termsAccepted) {
+      setShowTermsModal(true);
+      return;
+    }
+
+    setError('');
+    setLoading(true);
 
     try {
-      await signup(form); // Llama al thunk → API → backend
-      navigate('/dashboard'); // Redirige al dashboard si todo sale bien
+      await signup(form);
+      navigate('/dashboard');
     } catch (err) {
       setError(
         err.response?.data?.message ||
         'El registro ha fallado. Por favor, inténtelo de nuevo.'
-      ); // Muestra error
+      );
     } finally {
-      setLoading(false); // Desactiva loading
+      setLoading(false);
     }
   };
 
@@ -250,8 +259,9 @@ export default function RegisterPage() {
                   <label className="flex items-start gap-2">
                     <input
                       type="checkbox"
-                      required
-                      className="mt-1"
+                      checked={termsAccepted}
+                      onChange={(e) => setTermsAccepted(e.target.checked)}
+                      className="mt-1 h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
                     />
 
                     <span>
@@ -294,6 +304,62 @@ export default function RegisterPage() {
                   Iniciar sesión
                 </Link>
               </p>
+
+              {showTermsModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+
+                  <div className="w-full max-w-md mx-4 overflow-hidden rounded-3xl bg-white shadow-2xl">
+
+                    <div className="bg-gradient-to-r from-[#0A84FF] to-[#339CFF] p-6 text-white">
+                      <h3 className="text-2xl font-bold">
+                        Términos y Condiciones
+                      </h3>
+
+                      <p className="mt-1 text-blue-100">
+                        Aceptación requerida
+                      </p>
+                    </div>
+
+                    <div className="p-6">
+
+                      <div className="flex justify-center mb-4">
+                        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-amber-100">
+                          <span className="text-3xl">⚠️</span>
+                        </div>
+                      </div>
+
+                      <p className="text-center text-slate-600 leading-relaxed">
+                        Debes aceptar los Términos y Condiciones antes de crear una cuenta
+                        en <strong>Campus Emprende.</strong>
+                      </p>
+
+                      <div className="mt-6 flex gap-3">
+
+                        <Button
+                          variant="outline"
+                          className="flex-1"
+                          onClick={() => setShowTermsModal(false)}
+                        >
+                          Entendido
+                        </Button>
+
+                        <Button
+                          className="flex-1 bg-[#0A84FF] hover:bg-[#006BE6]"
+                          onClick={() => {
+                            window.open('/legal/terms', '_blank');
+                          }}
+                        >
+                          Ver términos
+                        </Button>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+              )}
 
             </div>
           </div>

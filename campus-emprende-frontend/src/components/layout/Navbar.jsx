@@ -45,7 +45,7 @@ export default function Navbar() {
           </Link>
 
           <Link to="/quienes-somos" className="navbar-link">
-            ¿Quiénes somos caraj*?
+            ¿Quiénes somos?
           </Link>
           {isAuthenticated && (
             <>

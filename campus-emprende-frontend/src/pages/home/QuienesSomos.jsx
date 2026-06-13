@@ -1,18 +1,21 @@
-// QuienesSomos.jsx
-// Página "¿Quiénes somos?" para Campus Emprende
-// Integra: descripción de la app + cards de los tres desarrolladores
-// Uso: <QuienesSomos /> — no requiere props
-// Dependencias: solo React (sin librerías externas)
-
 import { useState, useEffect, useRef } from "react";
+import "./QuienesSomos.css";
 
-/* ─── Datos ──────────────────────────────────────────── */
+/* ─── Fotos del equipo ────────────────────────────────
+   Ajusta estas rutas si tu carpeta "photo" no está en
+   src/photo (según tu estructura sería ../../photo/...
+   desde src/pages/home/QuienesSomos.jsx) */
+import fotoElias from "../../photo/EliasDelgado.jpeg";
+import fotoAlcindo from "../../photo/AlcindoChavarria.jpeg";
+import fotoDiego from "../../photo/DiegoSepulveda.jpeg";
+import fotoDaniel from "../../photo/DanielRiquelme.jpeg";
+
 const DEVELOPERS = [
   {
-    name: "Elías Bombom Mi Corazon ❤️🤣",
+    name: "Elias Delgado Manriquez",
     role: "Desarrollador Fullstack",
     tag: "Fullstack",
-    avatar: "EDM",
+    foto: fotoElias,
     color: "#2E1A6E",
     accent: "#7B68D4",
     description:
@@ -26,7 +29,7 @@ const DEVELOPERS = [
     name: "Alcindo Chavarría Vera",
     role: "Arquitecto de Backend",
     tag: "Backend",
-    avatar: "ACV",
+    foto: fotoAlcindo,
     color: "#1A2D5A",
     accent: "#4A3F9F",
     description:
@@ -40,7 +43,7 @@ const DEVELOPERS = [
     name: "Diego Sepúlveda Pérez",
     role: "Desarrollador Frontend",
     tag: "Frontend",
-    avatar: "DSP",
+    foto: fotoDiego,
     color: "#12355B",
     accent: "#3A8FC9",
     description:
@@ -51,6 +54,23 @@ const DEVELOPERS = [
     skills: ["React 19", "Vite", "Redux Toolkit", "Axios", "UX/UI"],
   },
 ];
+
+/* ─── Docente guía del proyecto ───────────────────────── */
+const MENTOR = {
+  name: "Daniel Riquelme Rigot",
+  role: "Docente Guía del Proyecto",
+  tag: "Docente",
+  foto: fotoDaniel,
+  color: "#1A2D5A",
+  accent: "#A78BFA",
+  description:
+    "Acompañó al equipo durante todo el ciclo de desarrollo de Campus Emprende, " +
+    "orientando las decisiones de arquitectura, la planificación de hitos y la " +
+    "revisión de buenas prácticas de ingeniería de software. Su retroalimentación " +
+    "constante permitió alinear el proyecto con los objetivos académicos del curso " +
+    "y con estándares profesionales de calidad, documentación y trazabilidad.",
+  skills: ["Mentoría académica", "Arquitectura de software", "Buenas prácticas", "Evaluación de proyectos"],
+};
 
 const FEATURES = [
   {
@@ -135,93 +155,40 @@ function SkillPill({ text, accent }) {
   );
 }
 
-function Avatar({ initials, color, accent, size = 72 }) {
-  return (
-    <div style={{
-      width: size, height: size,
-      borderRadius: "50%",
-      background: `linear-gradient(135deg, ${color} 0%, ${accent} 100%)`,
-      display: "flex", alignItems: "center", justifyContent: "center",
-      flexShrink: 0,
-      boxShadow: `0 4px 20px ${accent}44`,
-      fontSize: size * 0.28,
-      fontWeight: 700,
-      color: "white",
-      fontFamily: "'Georgia', serif",
-      letterSpacing: "0.02em",
-    }}>{initials}</div>
-  );
-}
-
-/* ─── Card de desarrollador ──────────────────────────── */
-function DevCard({ dev, delay = 0 }) {
+/* ─── Card de integrante (foto + descripción, estilo testimonio) ───
+   Layout horizontal en escritorio (foto a la izquierda, contenido a
+   la derecha) y apilado en móvil. La animación de entrada va en el
+   contenedor exterior y el hover en ".team-card" (ver QuienesSomos.css) */
+function TeamCard({ person, delay = 0 }) {
   const [ref, visible] = useInView();
-  const [hovered, setHovered] = useState(false);
-
   return (
     <div
       ref={ref}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       style={{
-        background: "white",
-        borderRadius: 20,
-        padding: "32px 28px",
-        boxShadow: hovered
-          ? `0 20px 60px ${dev.accent}28, 0 2px 8px rgba(0,0,0,0.06)`
-          : "0 4px 24px rgba(0,0,0,0.07)",
-        border: `1.5px solid ${hovered ? dev.accent + "44" : "#EEF0F8"}`,
-        transition: "all 0.35s cubic-bezier(.22,.68,0,1.2)",
-        transform: visible
-          ? hovered ? "translateY(-6px)" : "translateY(0)"
-          : "translateY(28px)",
         opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(28px)",
+        transition: "opacity 0.6s ease, transform 0.6s ease",
         transitionDelay: visible ? `${delay}ms` : "0ms",
-        cursor: "default",
-        position: "relative",
-        overflow: "hidden",
       }}
     >
-      {/* Decorador de fondo */}
-      <div style={{
-        position: "absolute", top: -30, right: -30,
-        width: 120, height: 120, borderRadius: "50%",
-        background: `radial-gradient(circle, ${dev.accent}12, transparent 70%)`,
-        pointerEvents: "none",
-      }} />
-
-      {/* Header */}
-      <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20 }}>
-        <Avatar initials={dev.avatar} color={dev.color} accent={dev.accent} size={68} />
-        <div>
-          <Badge text={dev.tag} accent={dev.accent} />
-          <div style={{
-            fontFamily: "'Georgia', 'Times New Roman', serif",
-            fontSize: 17, fontWeight: 700,
-            color: dev.color, marginTop: 6, lineHeight: 1.2,
-          }}>{dev.name}</div>
-          <div style={{
-            fontSize: 13, color: "#888", fontStyle: "italic",
-            marginTop: 3, fontFamily: "inherit",
-          }}>{dev.role}</div>
+      <div className="team-card" style={{ borderTopColor: person.accent }}>
+        <div className="team-card__photo">
+          <img src={person.foto} alt={`Foto de ${person.name}`} />
         </div>
-      </div>
-
-      {/* Separador */}
-      <div style={{
-        height: 1, background: `linear-gradient(to right, ${dev.accent}33, transparent)`,
-        marginBottom: 16,
-      }} />
-
-      {/* Descripción */}
-      <p style={{
-        fontSize: 13.5, lineHeight: 1.7, color: "#555",
-        margin: "0 0 18px 0", fontFamily: "inherit",
-      }}>{dev.description}</p>
-
-      {/* Skills */}
-      <div>
-        {dev.skills.map(s => <SkillPill key={s} text={s} accent={dev.accent} />)}
+        <div className="team-card__content">
+          <span className="team-card__quote-mark" style={{ color: person.accent }}>"</span>
+          <Badge text={person.tag} accent={person.accent} />
+          <h3 className="team-card__name" style={{ color: person.color }}>
+            {person.name}
+          </h3>
+          <p className="team-card__role">{person.role}</p>
+          <p className="team-card__desc">{person.description}</p>
+          <div className="team-card__skills">
+            {person.skills.map(s => (
+              <SkillPill key={s} text={s} accent={person.accent} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -262,6 +229,7 @@ function FeatureCard({ icon, title, desc, delay = 0 }) {
 export default function QuienesSomos() {
   const [heroRef, heroVisible] = useInView(0.05);
   const [teamRef, teamVisible] = useInView(0.05);
+  const [mentorRef, mentorVisible] = useInView(0.05);
   const [featRef, featVisible] = useInView(0.05);
   const isMobile = window.innerWidth < 768;
 
@@ -355,6 +323,11 @@ export default function QuienesSomos() {
       fontSize: 15.5, color: "#666", lineHeight: 1.7,
       maxWidth: 680, marginBottom: 56,
     },
+    subTitle: {
+      fontFamily: "'Georgia', serif",
+      fontSize: "clamp(20px, 2.6vw, 28px)", fontWeight: 700,
+      color: "#1A2D5A", marginBottom: 14, lineHeight: 1.25,
+    },
 
     /* ── Misión ── */
     missionWrap: {
@@ -386,13 +359,6 @@ export default function QuienesSomos() {
     },
 
     /* ── Cards grid ── */
-    devGrid: {
-      display: "grid",
-      gridTemplateColumns: isMobile
-        ? "1fr"
-        : "repeat(auto-fit, minmax(340px, 1fr))",
-      gap: 24,
-    },
     featGrid: {
       display: "grid",
       gridTemplateColumns: isMobile
@@ -568,10 +534,35 @@ export default function QuienesSomos() {
             visión académica para construir una plataforma técnicamente sólida y con propósito real.
           </p>
         </div>
-        <div style={styles.devGrid}>
+
+        <div className="team-list">
           {DEVELOPERS.map((dev, i) => (
-            <DevCard key={dev.name} dev={dev} delay={i * 120} />
+            <TeamCard key={dev.name} person={dev} delay={i * 120} />
           ))}
+        </div>
+
+        {/* ── DOCENTE GUÍA ── */}
+        <div ref={mentorRef} style={{ marginTop: 64 }}>
+          <span style={styles.sectionLabel}>Acompañamiento académico</span>
+          <h3 style={{
+            ...styles.subTitle,
+            opacity: mentorVisible ? 1 : 0,
+            transform: mentorVisible ? "translateY(0)" : "translateY(16px)",
+            transition: "opacity 0.6s ease, transform 0.6s ease",
+          }}>Con la guía de nuestro docente</h3>
+          <p style={{
+            ...styles.sectionSub,
+            marginBottom: 32,
+            opacity: mentorVisible ? 1 : 0,
+            transition: "opacity 0.6s ease 0.1s",
+          }}>
+            Este proyecto fue desarrollado en el marco académico del curso, bajo la
+            supervisión y retroalimentación constante de nuestro docente guía.
+          </p>
+        </div>
+
+        <div className="team-list">
+          <TeamCard person={MENTOR} delay={0} />
         </div>
       </div>
 

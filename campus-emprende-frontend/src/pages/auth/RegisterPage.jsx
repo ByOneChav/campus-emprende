@@ -5,12 +5,8 @@ import { Button } from '@/components/ui/button'; // Botón reutilizable
 import { Input } from '@/components/ui/input'; // Input reutilizable
 import { Label } from '@/components/ui/label'; // Label para formularios
 import { Alert, AlertDescription } from '@/components/ui/alert'; // Componente para mostrar errores
-import { GraduationCap, Loader2 } from 'lucide-react'; // Iconos
-import logoCampus from '@/assets/logoCampus.png'; // Importa imagen local
-import logo2 from '@/assets/logo4.png'; // Importa imagen local
-
-// const LogoCampus = logoCampus; // Imagen usada en el componente
-const Logo2 = logo2;
+import { GraduationCap, Loader2, Users, ShieldCheck, BookOpen } from 'lucide-react'; // Iconos
+import logoCampus from '@/assets/logoCampus.png'; // Logo de marca (fondo transparente, usado como watermark)
 
 export default function RegisterPage() {
   const { signup } = useAuth(); // Función de registro conectada a Redux + backend
@@ -57,311 +53,308 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex bg-[#f5f7fb]"> {/* Fondo general */}
+    <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#071A35] via-[#0A84FF] to-[#5B3DF5] px-4 py-10 sm:py-14">
 
-      {/* Left — hero image */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-[#0A84FF]">
-        {/* Imagen solo en desktop */}
+      {/* ───────────── Fondo decorativo: logo, texto institucional e iconos ───────────── */}
+      <div aria-hidden="true" className="fixed inset-0 z-0 overflow-hidden pointer-events-none select-none">
 
+        {/* Logos de marca con fondo transparente, como watermark */}
         <img
-          src={Logo2}
-          alt="Campus Emprende"
-          className="absolute inset-0 w-full h-full object-cover object-center"
+          src={logoCampus}
+          alt=""
+          className="absolute -top-24 -right-20 w-[340px] sm:w-[520px] opacity-10 rotate-6"
+        />
+        <img
+          src={logoCampus}
+          alt=""
+          className="absolute -bottom-28 -left-24 w-[240px] sm:w-[380px] opacity-10 -rotate-12"
         />
 
-        {/* Overlay elegante */}
-        {/* <div className="absolute inset-0 bg-gradient-to-b from-[#0A84FF]/40 via-[#0A84FF]/50 to-[#001B44]/80" /> */}
-
-        {/* Texto sobre imagen */}
-        <div className="relative z-10 flex flex-col justify-end p-12 text-white">
-
-          {/* Icono con efecto glass */}
-          <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 shadow-lg">
-            <GraduationCap className="h-8 w-8" />
-          </div>
-
-          <h2 className="text-5xl font-bold leading-tight mb-4">
-            Campus Emprende
-          </h2>
-
-          <p className="text-white/85 text-xl max-w-md leading-relaxed">
-            El mercado moderno de servicios estudiantiles para conectar talento universitario.
-          </p>
+        {/* Texto grande de marca, detrás de la tarjeta */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="whitespace-nowrap text-[20vw] sm:text-[10vw] font-extrabold leading-none tracking-tight text-white/[0.07]">
+            CAMPUS EMPRENDE
+          </span>
         </div>
+
+        {/* Lema institucional */}
+        <div className="absolute bottom-6 left-0 right-0 px-4 text-center">
+          <span className="text-xs sm:text-base md:text-xl font-semibold uppercase tracking-[0.35em] text-white/25">
+            Conecta • Aprende • Emprende
+          </span>
+        </div>
+
+        {/* Iconos que hacen referencia a la plataforma */}
+        <GraduationCap className="absolute left-6 top-10 h-14 w-14 text-white/10 sm:left-16 sm:h-24 sm:w-24" strokeWidth={1.5} />
+        <Users className="absolute right-8 bottom-28 h-12 w-12 text-white/10 sm:right-20 sm:h-20 sm:w-20" strokeWidth={1.5} />
+        <BookOpen className="absolute right-6 top-1/3 h-10 w-10 text-white/10 sm:right-24 sm:h-16 sm:w-16" strokeWidth={1.5} />
+        <ShieldCheck className="absolute left-6 bottom-1/3 h-10 w-10 text-white/10 sm:left-20 sm:h-16 sm:w-16" strokeWidth={1.5} />
       </div>
 
-      {/* Right — form */}
-      <div className="flex flex-1 items-center justify-center px-6 py-12">
+      {/* ───────────── Tarjeta central del formulario ───────────── */}
+      <div className="relative z-10 w-full max-w-md">
 
-        {/* Card central */}
-        <div className="w-full max-w-md space-y-6">
+        <div className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-2xl shadow-slate-900/20">
 
-          {/* Branding en móvil */}
-          <div className="flex flex-col items-center text-center lg:hidden">
+          {/* Barra superior elegante */}
+          <div className="h-1.5 w-full bg-gradient-to-r from-[#0A84FF] via-[#5AA9FF] to-[#B7D8FF]" />
 
-            {/* Logo mobile */}
-            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#0A84FF] shadow-lg shadow-blue-500/30">
-              <GraduationCap className="h-8 w-8 text-white" />
-            </div>
+          {/* Glow decorativo */}
+          <div className="absolute -top-24 right-[-50px] h-52 w-52 rounded-full bg-blue-100 blur-3xl opacity-60" />
 
-            <h1 className="text-3xl font-bold text-slate-900">
-              Campus Emprende
-            </h1>
+          {/* Contenido */}
+          <div className="relative px-6 sm:px-8 py-8 space-y-7">
 
-            <p className="text-slate-500 text-sm mt-1">
-              Mercado de servicios para estudiantes
-            </p>
-          </div>
-
-          {/* Decorated card */}
-          <div className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-2xl shadow-slate-300/30 backdrop-blur-sm">
-
-            {/* Barra superior elegante */}
-            <div className="h-1.5 w-full bg-gradient-to-r from-[#0A84FF] via-[#5AA9FF] to-[#B7D8FF]" />
-
-            {/* Glow decorativo */}
-            <div className="absolute -top-24 right-[-50px] h-52 w-52 rounded-full bg-blue-100 blur-3xl opacity-60" />
-
-            {/* Contenido */}
-            <div className="relative px-8 py-8 space-y-7">
-
-              {/* Header */}
-              <div>
-                <h1 className="text-4xl font-extrabold tracking-tight text-slate-900">
-                  Crea una cuenta
-                </h1>
-
-                <p className="mt-2 text-[17px] text-slate-500 leading-relaxed">
-                  Únete hoy mismo al mercado del campus.
-                </p>
+            {/* Header: icono + badge de acceso seguro (igual estilo que login) */}
+            <div className="flex items-center justify-between">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0A84FF] shadow-lg shadow-blue-500/30">
+                <GraduationCap className="h-6 w-6 text-white" />
               </div>
 
-              {/* Formulario */}
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-semibold text-[#0A84FF]">
+                <ShieldCheck className="h-3.5 w-3.5" />
+                Acceso seguro
+              </span>
+            </div>
 
-                {/* Mostrar error si existe */}
-                {error && (
-                  <Alert
-                    variant="destructive"
-                    className="rounded-2xl border-red-200"
-                  >
-                    <AlertDescription>{error}</AlertDescription>
-                  </Alert>
+            {/* Título */}
+            <div>
+              <h1 className="text-4xl font-extrabold tracking-tight text-slate-900">
+                Crea una cuenta
+              </h1>
+
+              <p className="mt-2 text-[17px] text-slate-500 leading-relaxed">
+                Únete hoy mismo al mercado del campus.
+              </p>
+            </div>
+
+            {/* Formulario */}
+            <form onSubmit={handleSubmit} className="space-y-5">
+
+              {/* Mostrar error si existe */}
+              {error && (
+                <Alert
+                  variant="destructive"
+                  className="rounded-2xl border-red-200"
+                >
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
+              )}
+
+              {/* Campo nombre */}
+              <div className="space-y-2">
+                <Label
+                  htmlFor="fullName"
+                  className="text-[15px] font-semibold text-slate-800"
+                >
+                  Nombre completo
+                </Label>
+
+                <Input
+                  id="fullName"
+                  placeholder="Elias Bombom"
+                  value={form.fullName}
+                  onChange={(e) =>
+                    setForm({ ...form, fullName: e.target.value })
+                  }
+                  required
+                  className="h-14 rounded-2xl border-slate-200 bg-slate-50/70 text-[15px] shadow-sm transition-all duration-200 focus:border-[#0A84FF] focus:ring-4 focus:ring-blue-100"
+                />
+              </div>
+
+              {/* Campo email */}
+              <div className="space-y-2">
+                <Label
+                  htmlFor="email"
+                  className="text-[15px] font-semibold text-slate-800"
+                >
+                  Correo Institucional
+                </Label>
+
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="elia.delgado@duocuc.cl"
+                  value={form.email}
+                  onChange={(e) =>
+                    setForm({ ...form, email: e.target.value })
+                  }
+                  required
+                  className="h-14 rounded-2xl border-slate-200 bg-slate-50/70 text-[15px] shadow-sm transition-all duration-200 focus:border-[#0A84FF] focus:ring-4 focus:ring-blue-100"
+                />
+              </div>
+
+              {/* Campo teléfono */}
+              <div className="space-y-2">
+                <Label
+                  htmlFor="phone"
+                  className="text-[15px] font-semibold text-slate-800"
+                >
+                  Teléfono (opcional)
+                </Label>
+
+                <Input
+                  id="phone"
+                  type="tel"
+                  placeholder="+56 9 2031 5701"
+                  value={form.phone}
+                  onChange={(e) =>
+                    setForm({ ...form, phone: e.target.value })
+                  }
+                  className="h-14 rounded-2xl border-slate-200 bg-slate-50/70 text-[15px] shadow-sm transition-all duration-200 focus:border-[#0A84FF] focus:ring-4 focus:ring-blue-100"
+                />
+              </div>
+
+              {/* Campo contraseña */}
+              <div className="space-y-2">
+                <Label
+                  htmlFor="password"
+                  className="text-[15px] font-semibold text-slate-800"
+                >
+                  Contraseña
+                </Label>
+
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="*************"
+                  value={form.password}
+                  onChange={(e) =>
+                    setForm({ ...form, password: e.target.value })
+                  }
+                  required
+                  minLength={6}
+                  className="h-14 rounded-2xl border-slate-200 bg-slate-50/70 text-[15px] shadow-sm transition-all duration-200 focus:border-[#0A84FF] focus:ring-4 focus:ring-blue-100"
+                />
+              </div>
+
+              {/* Campo confirmar contraseña */}
+              <div className="space-y-2">
+                <Label
+                  htmlFor="confirmPassword"
+                  className="text-[15px] font-semibold text-slate-800"
+                >
+                  Confirme Contraseña
+                </Label>
+
+                <Input
+                  id="confirmPassword"
+                  type="password"
+                  placeholder="*************"
+                  required
+                  minLength={6}
+                  className="h-14 rounded-2xl border-slate-200 bg-slate-50/70 text-[15px] shadow-sm transition-all duration-200 focus:border-[#0A84FF] focus:ring-4 focus:ring-blue-100"
+                />
+              </div>
+
+              {/* Términos y condiciones */}
+              <div className="mt-4 text-sm text-slate-600">
+                <label className="flex items-start gap-2">
+                  <input
+                    type="checkbox"
+                    checked={termsAccepted}
+                    onChange={(e) => setTermsAccepted(e.target.checked)}
+                    className="mt-1 h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                  />
+
+                  <span>
+                    He leído y acepto los{" "}
+                    <a
+                      href="/legal/terms"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium text-blue-600 hover:underline"
+                    >
+                      Términos y Condiciones
+                    </a>
+                  </span>
+                </label>
+              </div>
+
+              {/* Botón submit */}
+              <Button
+                type="submit"
+                className="w-full h-14 rounded-2xl bg-[#0A84FF] text-white text-[17px] font-semibold shadow-lg shadow-blue-500/30 transition-all duration-300 hover:bg-[#339CFF] hover:shadow-xl hover:shadow-blue-500/40 hover:-translate-y-[1px]"
+                size="lg"
+                disabled={loading}
+              >
+                {loading && (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 )}
 
-                {/* Campo nombre */}
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="fullName"
-                    className="text-[15px] font-semibold text-slate-800"
-                  >
-                    Nombre completo
-                  </Label>
+                Crear una cuenta
+              </Button>
+            </form>
 
-                  <Input
-                    id="fullName"
-                    placeholder="Elias Bombom"
-                    value={form.fullName}
-                    onChange={(e) =>
-                      setForm({ ...form, fullName: e.target.value })
-                    }
-                    required
-                    className="h-14 rounded-2xl border-slate-200 bg-slate-50/70 text-[15px] shadow-sm transition-all duration-200 focus:border-[#0A84FF] focus:ring-4 focus:ring-blue-100"
-                  />
-                </div>
+            {/* Link a login */}
+            <p className="text-center text-[15px] text-slate-500">
+              ¿Ya tienes una cuenta?{' '}
 
-                {/* Campo email */}
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="email"
-                    className="text-[15px] font-semibold text-slate-800"
-                  >
-                    Correo Institucional
-                  </Label>
+              <Link
+                to="/auth/login"
+                className="font-semibold text-[#0A84FF] transition-colors hover:text-[#006BE6] hover:underline"
+              >
+                Iniciar sesión
+              </Link>
+            </p>
 
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="elia.delgado@duocuc.cl"
-                    value={form.email}
-                    onChange={(e) =>
-                      setForm({ ...form, email: e.target.value })
-                    }
-                    required
-                    className="h-14 rounded-2xl border-slate-200 bg-slate-50/70 text-[15px] shadow-sm transition-all duration-200 focus:border-[#0A84FF] focus:ring-4 focus:ring-blue-100"
-                  />
-                </div>
+            {/* Modal de términos y condiciones */}
+            {showTermsModal && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
 
-                {/* Campo teléfono */}
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="phone"
-                    className="text-[15px] font-semibold text-slate-800"
-                  >
-                    Teléfono (opcional)
-                  </Label>
+                <div className="w-full max-w-md mx-4 overflow-hidden rounded-3xl bg-white shadow-2xl">
 
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="+56 9 2031 5701"
-                    value={form.phone}
-                    onChange={(e) =>
-                      setForm({ ...form, phone: e.target.value })
-                    }
-                    className="h-14 rounded-2xl border-slate-200 bg-slate-50/70 text-[15px] shadow-sm transition-all duration-200 focus:border-[#0A84FF] focus:ring-4 focus:ring-blue-100"
-                  />
-                </div>
+                  <div className="bg-gradient-to-r from-[#0A84FF] to-[#339CFF] p-6 text-white">
+                    <h3 className="text-2xl font-bold">
+                      Términos y Condiciones
+                    </h3>
 
-                {/* Campo contraseña */}
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="password"
-                    className="text-[15px] font-semibold text-slate-800"
-                  >
-                    Contraseña
-                  </Label>
+                    <p className="mt-1 text-blue-100">
+                      Aceptación requerida
+                    </p>
+                  </div>
 
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="*************"
-                    value={form.password}
-                    onChange={(e) =>
-                      setForm({ ...form, password: e.target.value })
-                    }
-                    required
-                    minLength={6}
-                    className="h-14 rounded-2xl border-slate-200 bg-slate-50/70 text-[15px] shadow-sm transition-all duration-200 focus:border-[#0A84FF] focus:ring-4 focus:ring-blue-100"
-                  />
-                </div>
+                  <div className="p-6">
 
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="password"
-                    className="text-[15px] font-semibold text-slate-800"
-                  >
-                    Confirme Contraseña
-                  </Label>
-
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="*************"
-
-                    required
-                    minLength={6}
-                    className="h-14 rounded-2xl border-slate-200 bg-slate-50/70 text-[15px] shadow-sm transition-all duration-200 focus:border-[#0A84FF] focus:ring-4 focus:ring-blue-100"
-                  />
-                </div>
-
-                <div className="mt-4 text-sm text-slate-600">
-                  <label className="flex items-start gap-2">
-                    <input
-                      type="checkbox"
-                      checked={termsAccepted}
-                      onChange={(e) => setTermsAccepted(e.target.checked)}
-                      className="mt-1 h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
-                    />
-
-                    <span>
-                      He leído y acepto los{" "}
-                      <a
-                        href="/legal/terms"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-medium text-blue-600 hover:underline"
-                      >
-                        Términos y Condiciones
-                      </a>
-                    </span>
-                  </label>
-                </div>
-
-                {/* Botón submit */}
-                <Button
-                  type="submit"
-                  className="w-full h-14 rounded-2xl bg-[#0A84FF] text-white text-[17px] font-semibold shadow-lg shadow-blue-500/30 transition-all duration-300 hover:bg-[#339CFF] hover:shadow-xl hover:shadow-blue-500/40 hover:-translate-y-[1px]"
-                  size="lg"
-                  disabled={loading}
-                >
-                  {loading && (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  )}
-
-                  Crear una cuenta
-                </Button>
-              </form>
-
-              {/* Link a login */}
-              <p className="text-center text-[15px] text-slate-500">
-                ¿Ya tienes una cuenta?{' '}
-
-                <Link
-                  to="/auth/login"
-                  className="font-semibold text-[#0A84FF] transition-colors hover:text-[#006BE6] hover:underline"
-                >
-                  Iniciar sesión
-                </Link>
-              </p>
-
-              {showTermsModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-
-                  <div className="w-full max-w-md mx-4 overflow-hidden rounded-3xl bg-white shadow-2xl">
-
-                    <div className="bg-gradient-to-r from-[#0A84FF] to-[#339CFF] p-6 text-white">
-                      <h3 className="text-2xl font-bold">
-                        Términos y Condiciones
-                      </h3>
-
-                      <p className="mt-1 text-blue-100">
-                        Aceptación requerida
-                      </p>
+                    <div className="flex justify-center mb-4">
+                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-amber-100">
+                        <span className="text-3xl">⚠️</span>
+                      </div>
                     </div>
 
-                    <div className="p-6">
+                    <p className="text-center text-slate-600 leading-relaxed">
+                      Debes aceptar los Términos y Condiciones antes de crear una cuenta
+                      en <strong>Campus Emprende.</strong>
+                    </p>
 
-                      <div className="flex justify-center mb-4">
-                        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-amber-100">
-                          <span className="text-3xl">⚠️</span>
-                        </div>
-                      </div>
+                    <div className="mt-6 flex gap-3">
 
-                      <p className="text-center text-slate-600 leading-relaxed">
-                        Debes aceptar los Términos y Condiciones antes de crear una cuenta
-                        en <strong>Campus Emprende.</strong>
-                      </p>
+                      <Button
+                        variant="outline"
+                        className="flex-1"
+                        onClick={() => setShowTermsModal(false)}
+                      >
+                        Entendido
+                      </Button>
 
-                      <div className="mt-6 flex gap-3">
-
-                        <Button
-                          variant="outline"
-                          className="flex-1"
-                          onClick={() => setShowTermsModal(false)}
-                        >
-                          Entendido
-                        </Button>
-
-                        <Button
-                          className="flex-1 bg-[#0A84FF] hover:bg-[#006BE6]"
-                          onClick={() => {
-                            window.open('/legal/terms', '_blank');
-                          }}
-                        >
-                          Ver términos
-                        </Button>
-
-                      </div>
+                      <Button
+                        className="flex-1 bg-[#0A84FF] hover:bg-[#006BE6]"
+                        onClick={() => {
+                          window.open('/legal/terms', '_blank');
+                        }}
+                      >
+                        Ver términos
+                      </Button>
 
                     </div>
 
                   </div>
 
                 </div>
-              )}
 
-            </div>
+              </div>
+            )}
+
           </div>
         </div>
       </div>

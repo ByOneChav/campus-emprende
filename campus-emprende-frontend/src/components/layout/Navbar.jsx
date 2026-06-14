@@ -50,7 +50,7 @@ export default function Navbar() {
           {isAuthenticated && (
             <>
               <Link to="/dashboard" className="navbar-link">
-                Dashboard
+                Mi Dashboard
               </Link>
 
               <Link to="/requests" className="navbar-link">
@@ -59,7 +59,7 @@ export default function Navbar() {
 
               {isAdmin && (
                 <Link to="/admin" className="navbar-link flex items-center gap-1">
-                  <ShieldCheck className="h-4 w-4" /> Admin
+                  <ShieldCheck className="h-4 w-4" /> Admin Dashboard
                 </Link>
               )}
             </>

@@ -6,7 +6,7 @@ spring:
     url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:campus_emprende}  # Conexión a PostgreSQL
     driver-class-name: org.postgresql.Driver  # Driver de la BD
     username: ${DB_USERNAME:postgres}  # Usuario (variable o valor por defecto)
-    password: ${DB_PASSWORD:Redimi2one2025*}  # Contraseña de la BD
+    password: ${DB_PASSWORD:kalikali}  # Contraseña de la BD
 
   jpa:
     hibernate:
@@ -64,7 +64,7 @@ spring:
         #     user-name-attribute: sub  # Identificador único del usuario
 
 server:
-  port: 8080  # Puerto del backend
+  port: 8082  # Puerto del backend
 
 app:
   frontend:

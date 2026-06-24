@@ -21,6 +21,7 @@ import ResetPasswordPage from '@/pages/auth/ResetPasswordPage'; // Resetear cont
 import MyProfilePage from '@/pages/profile/MyProfilePage'; // Perfil propio
 import PublicProfilePage from '@/pages/profile/PublicProfilePage'; // Perfil público
 
+import SocialFeedPage from '@/pages/social/SocialFeedPage'; // Feed social
 import ServicesPage from '@/pages/services/ServicesPage'; // Lista de servicios
 import ServiceDetailPage from '@/pages/services/ServiceDetailPage'; // Detalle de servicio
 import CreateServicePage from '@/pages/services/CreateServicePage'; // Crear servicio
@@ -85,6 +86,7 @@ export default function App() {
           <Route path="/services" element={<ServicesPage />} /> {/* Lista de servicios */}
           <Route path="/quienes-somos" element={<QuienesSomos />} />
           <Route path="/services/:id" element={<ServiceDetailPage />} /> {/* Detalle */}
+          <Route path="/feed" element={<SocialFeedPage />} />
           <Route path="/profiles/:userId" element={<PublicProfilePage />} /> {/* Perfil público */}
 
           {/* Protected — any authenticated user */}

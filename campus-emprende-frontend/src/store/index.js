@@ -6,6 +6,9 @@ import reviewReducer from './review/reviewSlice';
 import serviceRequestReducer from './serviceRequest/serviceRequestSlice';
 import adminReducer from './admin/adminSlice';
 import commentReducer from './comment/commentSlice';
+import postReducer from './post/postSlice';
+import followReducer from './follow/followSlice';
+import notificationReducer from './notification/notificationSlice';
 
 export const store = configureStore({
   reducer: {
@@ -16,5 +19,8 @@ export const store = configureStore({
     serviceRequest: serviceRequestReducer,
     admin: adminReducer,
     comment: commentReducer,
+    posts: postReducer,
+    follow: followReducer,
+    notifications: notificationReducer,
   },
 });

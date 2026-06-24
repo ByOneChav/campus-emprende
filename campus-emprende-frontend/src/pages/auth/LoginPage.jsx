@@ -25,7 +25,7 @@ export default function LoginPage() {
   const location = useLocation(); // Permite saber desde dónde vino el usuario
 
   // Ruta a la que se redirige después del login (o dashboard por defecto)
-  const from = location.state?.from?.pathname || '/dashboard';
+  const from = location.state?.from?.pathname || '/feed';
 
   // Estado del formulario
   const [form, setForm] = useState({

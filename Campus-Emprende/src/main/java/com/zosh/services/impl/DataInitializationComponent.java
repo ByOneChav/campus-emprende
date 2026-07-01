@@ -35,10 +35,10 @@ public class DataInitializationComponent implements CommandLineRunner {
             User adminUser = new User();
 
             // Asigna contraseña encriptada
-            adminUser.setPassword(passwordEncoder.encode("eliasbombom"));
+            adminUser.setPassword(passwordEncoder.encode("eliascodex"));
             
             // Asigna nombre completo
-            adminUser.setFullName("Elias Bombom");
+            adminUser.setFullName("Elias Delgado (Admin)");
             
             // Asigna email del administrador
             adminUser.setEmail(adminUsername);
